@@ -106,7 +106,7 @@ Hello
 <div class="col-lg-3 col-md-3 col-7">
 
 <a class="navbar-brand" href="index.html">
-<img src="assets/images/logo/logo.svg" alt="Logo">
+<img src="{{asset('/')}}website/assets/images/logo/logo.svg" alt="Logo">
 </a>
 
 </div>
@@ -168,7 +168,7 @@ Hello
 <li>
 <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="lni lni-close"></i></a>
 <div class="cart-img-head">
-<a class="cart-img" href="product-details.html"><img src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
+<a class="cart-img" href="product-details.html"><img src="{{asset('/')}}website/assets/images/header/cart-items/item1.jpg" alt="#"></a>
 </div>
 <div class="content">
 <h4><a href="product-details.html">
@@ -179,7 +179,7 @@ Apple Watch Series 6</a></h4>
 <li>
 <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="lni lni-close"></i></a>
 <div class="cart-img-head">
-<a class="cart-img" href="product-details.html"><img src="assets/images/header/cart-items/item2.jpg" alt="#"></a>
+<a class="cart-img" href="product-details.html"><img src="{{asset('/')}}website/assets/images/header/cart-items/item2.jpg" alt="#"></a>
 </div>
 <div class="content">
 <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
@@ -422,7 +422,7 @@ suffered alteration in some form.</p>
 <li><a href="product-grids.html">View All</a></li>
 </ul>
 <div class="images">
-<img src="assets/images/featured-categories/fetured-item-1.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-1.png" alt="#">
 </div>
 </div>
 
@@ -439,7 +439,7 @@ suffered alteration in some form.</p>
 <li><a href="product-grids.html">View All</a></li>
 </ul>
 <div class="images">
-<img src="assets/images/featured-categories/fetured-item-2.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-2.png" alt="#">
 </div>
 </div>
 
@@ -456,7 +456,7 @@ suffered alteration in some form.</p>
 <li><a href="product-grids.html">View All</a></li>
 </ul>
 <div class="images">
-<img src="assets/images/featured-categories/fetured-item-3.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-3.png" alt="#">
 </div>
 </div>
 
@@ -473,7 +473,7 @@ suffered alteration in some form.</p>
 <li><a href="product-grids.html">View All</a></li>
 </ul>
 <div class="images">
-<img src="assets/images/featured-categories/fetured-item-4.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-4.png" alt="#">
 </div>
 </div>
 
@@ -490,7 +490,7 @@ suffered alteration in some form.</p>
 <li><a href="product-grids.html">View All</a></li>
 </ul>
 <div class="images">
-<img src="assets/images/featured-categories/fetured-item-5.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-5.png" alt="#">
 </div>
 </div>
 
@@ -507,7 +507,7 @@ suffered alteration in some form.</p>
 <li><a href="product-grids.html">View All</a></li>
 </ul>
 <div class="images">
-<img src="assets/images/featured-categories/fetured-item-6.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-6.png" alt="#">
 </div>
 </div>
 
@@ -533,7 +533,7 @@ suffered alteration in some form.</p>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-1.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-1.jpg" alt="#">
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
 </div>
@@ -562,7 +562,7 @@ suffered alteration in some form.</p>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-2.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-2.jpg" alt="#">
 <span class="sale-tag">-25%</span>
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
@@ -593,7 +593,7 @@ suffered alteration in some form.</p>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-3.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-3.jpg" alt="#">
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
 </div>
@@ -622,7 +622,7 @@ suffered alteration in some form.</p>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-4.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-4.jpg" alt="#">
 <span class="new-tag">New</span>
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
@@ -652,7 +652,7 @@ suffered alteration in some form.</p>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-5.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-5.jpg" alt="#">
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
 </div>
@@ -681,7 +681,7 @@ suffered alteration in some form.</p>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-6.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-6.jpg" alt="#">
 <div class="button">
  <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
 </div>
@@ -710,7 +710,7 @@ suffered alteration in some form.</p>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-7.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-7.jpg" alt="#">
 <span class="sale-tag">-50%</span>
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
@@ -741,7 +741,7 @@ suffered alteration in some form.</p>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-8.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-8.jpg" alt="#">
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
 </div>
@@ -820,7 +820,7 @@ suffered alteration in some form.</p>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-3.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-3.jpg" alt="#">
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
 Cart</a>
@@ -850,7 +850,7 @@ Cart</a>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-8.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-8.jpg" alt="#">
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
 Cart</a>
@@ -880,7 +880,7 @@ Cart</a>
 
 <div class="single-product">
 <div class="product-image">
-<img src="assets/images/products/product-6.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/products/product-6.jpg" alt="#">
 <div class="button">
 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
 Cart</a>
@@ -926,7 +926,7 @@ incididunt ut labore.</p>
 <div class="col-lg-4 col-md-12 col-12">
 <div class="offer-content">
 <div class="image">
-<img src="assets/images/offer/offer-image.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/offer/offer-image.jpg" alt="#">
 <span class="sale-tag">-50%</span>
 </div>
 <div class="text">
@@ -982,7 +982,7 @@ eiusmod tempor labores.</p>
 
 <div class="single-list">
 <div class="list-image">
-<a href="product-grids.html"><img src="assets/images/home-product-list/01.jpg" alt="#"></a>
+<a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/01.jpg" alt="#"></a>
 </div>
 <div class="list-info">
 <h3>
@@ -995,7 +995,7 @@ eiusmod tempor labores.</p>
 
 <div class="single-list">
 <div class="list-image">
-<a href="product-grids.html"><img src="assets/images/home-product-list/02.jpg" alt="#"></a>
+<a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/02.jpg" alt="#"></a>
 </div>
 <div class="list-info">
 <h3>
@@ -1008,7 +1008,7 @@ eiusmod tempor labores.</p>
 
 <div class="single-list">
 <div class="list-image">
-<a href="product-grids.html"><img src="assets/images/home-product-list/03.jpg" alt="#"></a>
+<a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/03.jpg" alt="#"></a>
 </div>
 <div class="list-info">
 <h3>
@@ -1024,7 +1024,7 @@ eiusmod tempor labores.</p>
 
 <div class="single-list">
 <div class="list-image">
-<a href="product-grids.html"><img src="assets/images/home-product-list/04.jpg" alt="#"></a>
+<a href="product-grids.html"><img src="{{asset('/')}}website/assetss/images/home-product-list/04.jpg" alt="#"></a>
 </div>
 <div class="list-info">
 <h3>
@@ -1037,7 +1037,7 @@ eiusmod tempor labores.</p>
 
 <div class="single-list">
 <div class="list-image">
-<a href="product-grids.html"><img src="assets/images/home-product-list/05.jpg" alt="#"></a>
+<a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/05.jpg" alt="#"></a>
 </div>
 <div class="list-info">
 <h3>
@@ -1050,7 +1050,7 @@ eiusmod tempor labores.</p>
 
 <div class="single-list">
 <div class="list-image">
-<a href="product-grids.html"><img src="assets/images/home-product-list/06.jpg" alt="#"></a>
+<a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/06.jpg" alt="#"></a>
 </div>
 <div class="list-info">
 <h3>
@@ -1066,7 +1066,7 @@ eiusmod tempor labores.</p>
 
 <div class="single-list">
 <div class="list-image">
-<a href="product-grids.html"><img src="assets/images/home-product-list/07.jpg" alt="#"></a>
+<a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/07.jpg" alt="#"></a>
 </div>
 <div class="list-info">
 <h3>
@@ -1079,7 +1079,7 @@ eiusmod tempor labores.</p>
 
 <div class="single-list">
 <div class="list-image">
-<a href="product-grids.html"><img src="assets/images/home-product-list/08.jpg" alt="#"></a>
+<a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/08.jpg" alt="#"></a>
 </div>
 <div class="list-info">
 <h3>
@@ -1092,7 +1092,7 @@ eiusmod tempor labores.</p>
 
 <div class="single-list">
 <div class="list-image">
-<a href="product-grids.html"><img src="assets/images/home-product-list/09.jpg" alt="#"></a>
+<a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/09.jpg" alt="#"></a>
 </div>
 <div class="list-info">
 <h3>
@@ -1118,28 +1118,28 @@ eiusmod tempor labores.</p>
 <div class="brands-logo-wrapper">
 <div class="brands-logo-carousel d-flex align-items-center justify-content-between">
 <div class="brand-logo">
-<img src="assets/images/brands/01.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/brands/01.png" alt="#">
 </div>
 <div class="brand-logo">
-<img src="assets/images/brands/02.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/brands/02.png" alt="#">
 </div>
 <div class="brand-logo">
-<img src="assets/images/brands/03.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/brands/03.png" alt="#">
 </div>
 <div class="brand-logo">
-<img src="assets/images/brands/04.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/brands/04.png" alt="#">
 </div>
 <div class="brand-logo">
 <img src="assets/images/brands/05.png" alt="#">
 </div>
 <div class="brand-logo">
-<img src="assets/images/brands/06.png" alt="#">
+<img src="{{asset('/')}}website/assetss/images/brands/06.png" alt="#">
 </div>
 <div class="brand-logo">
-<img src="assets/images/brands/03.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/brands/03.png" alt="#">
 </div>
 <div class="brand-logo">
- <img src="assets/images/brands/04.png" alt="#">
+ <img src="{{asset('/')}}website/assets/images/brands/04.png" alt="#">
 </div>
 </div>
 </div>
@@ -1164,7 +1164,7 @@ Ipsum available, but the majority have suffered alteration in some form.</p>
 <div class="single-blog">
 <div class="blog-img">
 <a href="blog-single-sidebar.html">
-<img src="assets/images/blog/blog-1.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/blog/blog-1.jpg" alt="#">
 </a>
 </div>
 <div class="blog-content">
@@ -1186,7 +1186,7 @@ incididunt.</p>
 <div class="single-blog">
 <div class="blog-img">
 <a href="blog-single-sidebar.html">
-<img src="assets/images/blog/blog-2.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/blog/blog-2.jpg" alt="#">
 </a>
 </div>
 <div class="blog-content">
@@ -1208,7 +1208,7 @@ incididunt.</p>
 <div class="single-blog">
 <div class="blog-img">
 <a href="blog-single-sidebar.html">
-<img src="assets/images/blog/blog-3.jpg" alt="#">
+<img src="{{asset('/')}}website/assets/images/blog/blog-3.jpg" alt="#">
 </a>
 </div>
 <div class="blog-content">
@@ -1288,7 +1288,7 @@ incididunt.</p>
 <div class="col-lg-3 col-md-4 col-12">
 <div class="footer-logo">
 <a href="index.html">
-<img src="assets/images/logo/white-logo.svg" alt="#">
+<img src="{{asset('/')}}website/assets/images/logo/white-logo.svg" alt="#">
 </a>
 </div>
 </div>
@@ -1397,7 +1397,7 @@ Subscribe to our Newsletter
 <div class="col-lg-4 col-12">
 <div class="payment-gateway">
 <span>We Accept:</span>
-<img src="assets/images/footer/credit-cards-footer.png" alt="#">
+<img src="{{asset('/')}}website/assets/images/footer/credit-cards-footer.png" alt="#">
 </div>
 </div>
 <div class="col-lg-4 col-12">
@@ -1429,10 +1429,10 @@ Subscribe to our Newsletter
 </a>
 
 
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/tiny-slider.js"></script>
-<script src="assets/js/glightbox.min.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="{{asset('/')}}website/assets/js/bootstrap.min.js"></script>
+<script src="{{asset('/')}}website/assets/js/tiny-slider.js"></script>
+<script src="{{asset('/')}}website/assets/js/glightbox.min.js"></script>
+<script src="{{asset('/')}}website/assets/js/main.js"></script>
 <script type="text/javascript">
         //========= Hero Slider 
         tns({
