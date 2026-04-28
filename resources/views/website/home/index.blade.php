@@ -105,7 +105,7 @@ online super shop
                             <li><a href="product-grids.html">View All</a></li>
                         </ul>
                         <div class="images">
-                            <img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-1.png" alt="#">
+                            <img src="website/assets/images/featured-categories/fetured-item-1.png" alt="#">
                         </div>
                     </div>
 
@@ -458,7 +458,7 @@ online super shop
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner" style="background-image:url('assets/images/banner/banner-1-bg.jpg')">
+                    <div class="single-banner" style="background-image:url('website/assets/images/banner/banner-1-bg.jpg')">
                         <div class="content">
                             <h2>Smart Watch 2.0</h2>
                             <p>Space Gray Aluminum Case with <br>Black/Volt Real Sport Band </p>
@@ -469,7 +469,7 @@ online super shop
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner custom-responsive-margin" style="background-image:url('assets/images/banner/banner-2-bg.jpg')">
+                    <div class="single-banner custom-responsive-margin" style="background-image:url('website/assets/images/banner/banner-2-bg.jpg')">
                         <div class="content">
                             <h2>Smart Headphone</h2>
                             <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
@@ -503,7 +503,7 @@ online super shop
 
                             <div class="single-product">
                                 <div class="product-image">
-                                    <img src="{{asset('/')}}website/assets/images/products/product-3.jpg" alt="#">
+                                    <img src="website/assets/images/products/product-3.jpg" alt="#">
                                     <div class="button">
                                         <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
                                             Cart</a>
@@ -533,7 +533,7 @@ online super shop
 
                             <div class="single-product">
                                 <div class="product-image">
-                                    <img src="{{asset('/')}}website/assets/images/products/product-8.jpg" alt="#">
+                                    <img src="website/assets/images/products/product-8.jpg" alt="#">
                                     <div class="button">
                                         <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
                                             Cart</a>
@@ -563,7 +563,7 @@ online super shop
 
                             <div class="single-product">
                                 <div class="product-image">
-                                    <img src="{{asset('/')}}website/assets/images/products/product-6.jpg" alt="#">
+                                    <img src="website/assets/images/products/product-6.jpg" alt="#">
                                     <div class="button">
                                         <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
                                             Cart</a>
@@ -591,7 +591,7 @@ online super shop
                         </div>
                     </div>
 
-                    <div class="single-banner right" style="background-image:url('assets/images/banner/banner-3-bg.jpg');margin-top: 30px;">
+                    <div class="single-banner right" style="background-image:url('website/assets/images/banner/banner-3-bg.jpg');margin-top: 30px;">
                         <div class="content">
                             <h2>Samsung Notebook 9 </h2>
                             <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
@@ -609,7 +609,7 @@ online super shop
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="offer-content">
                         <div class="image">
-                            <img src="{{asset('/')}}website/assets/images/offer/offer-image.jpg" alt="#">
+                            <img src="website/assets/images/offer/offer-image.jpg" alt="#">
                             <span class="sale-tag">-50%</span>
                         </div>
                         <div class="text">
@@ -665,7 +665,7 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/01.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/01.jpg" alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -678,7 +678,7 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/02.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/02.jpg" alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -691,7 +691,7 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/03.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/03.jpg" alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -707,7 +707,7 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="{{asset('/')}}website/assetss/images/home-product-list/04.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/04.jpg" alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -720,7 +720,7 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/05.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/05.jpg" alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -733,7 +733,7 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/06.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/06.jpg" alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -749,7 +749,7 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/07.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/07.jpg" alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -762,7 +762,7 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/08.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/08.jpg" alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -775,7 +775,7 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="{{asset('/')}}website/assets/images/home-product-list/09.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/09.jpg" alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -801,28 +801,28 @@ online super shop
             <div class="brands-logo-wrapper">
                 <div class="brands-logo-carousel d-flex align-items-center justify-content-between">
                     <div class="brand-logo">
-                        <img src="{{asset('/')}}website/assets/images/brands/01.png" alt="#">
+                        <img src="website/assets/images/brands/01.png" alt="#">
                     </div>
                     <div class="brand-logo">
-                        <img src="{{asset('/')}}website/assets/images/brands/02.png" alt="#">
+                        <img src="website/assets/images/brands/02.png" alt="#">
                     </div>
                     <div class="brand-logo">
-                        <img src="{{asset('/')}}website/assets/images/brands/03.png" alt="#">
+                        <img src="website/assets/images/brands/03.png" alt="#">
                     </div>
                     <div class="brand-logo">
-                        <img src="{{asset('/')}}website/assets/images/brands/04.png" alt="#">
+                        <img src="website/assets/images/brands/04.png" alt="#">
                     </div>
                     <div class="brand-logo">
-                        <img src="assets/images/brands/05.png" alt="#">
+                        <img src="website/assets/images/brands/05.png" alt="#">
                     </div>
                     <div class="brand-logo">
-                        <img src="{{asset('/')}}website/assetss/images/brands/06.png" alt="#">
+                        <img src="website/assets/images/brands/06.png" alt="#">
                     </div>
                     <div class="brand-logo">
-                        <img src="{{asset('/')}}website/assets/images/brands/03.png" alt="#">
+                        <img src="website/assets/images/brands/03.png" alt="#">
                     </div>
                     <div class="brand-logo">
-                        <img src="{{asset('/')}}website/assets/images/brands/04.png" alt="#">
+                        <img src="website/assets/images/brands/04.png" alt="#">
                     </div>
                 </div>
             </div>
@@ -847,7 +847,7 @@ online super shop
                     <div class="single-blog">
                         <div class="blog-img">
                             <a href="blog-single-sidebar.html">
-                                <img src="{{asset('/')}}website/assets/images/blog/blog-1.jpg" alt="#">
+                                <img src="website/assets/images/blog/blog-1.jpg" alt="#">
                             </a>
                         </div>
                         <div class="blog-content">
@@ -869,7 +869,7 @@ online super shop
                     <div class="single-blog">
                         <div class="blog-img">
                             <a href="blog-single-sidebar.html">
-                                <img src="{{asset('/')}}website/assets/images/blog/blog-2.jpg" alt="#">
+                                <img src="website/assets/images/blog/blog-2.jpg" alt="#">
                             </a>
                         </div>
                         <div class="blog-content">
@@ -891,7 +891,7 @@ online super shop
                     <div class="single-blog">
                         <div class="blog-img">
                             <a href="blog-single-sidebar.html">
-                                <img src="{{asset('/')}}website/assets/images/blog/blog-3.jpg" alt="#">
+                                <img src="website/assets/images/blog/blog-3.jpg" alt="#">
                             </a>
                         </div>
                         <div class="blog-content">
