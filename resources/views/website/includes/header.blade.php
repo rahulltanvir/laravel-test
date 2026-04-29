@@ -211,7 +211,7 @@
                                         <li><a href="product-grids.html">Cables & Adapters</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="product-grids.html">accessories</a></li>
+                                <li><a href="{{route('product-category')}}">accessories</a></li>
                                 <li><a href="product-grids.html">Televisions</a></li>
                                 <li><a href="product-grids.html">best selling</a></li>
                                 <li><a href="product-grids.html">top 100 offer</a></li>

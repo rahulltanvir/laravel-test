@@ -173,7 +173,7 @@ online super shop
                             <li><a href="product-grids.html">View All</a></li>
                         </ul>
                         <div class="images">
-                            <img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-5.png" alt="#">
+                            <img src="website/assets/images/featured-categories/fetured-item-5.png" alt="#">
                         </div>
                     </div>
 
@@ -190,7 +190,7 @@ online super shop
                             <li><a href="product-grids.html">View All</a></li>
                         </ul>
                         <div class="images">
-                            <img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-6.png" alt="#">
+                            <img src="website/assets/images/featured-categories/fetured-item-6.png" alt="#">
                         </div>
                     </div>
 
@@ -216,7 +216,7 @@ online super shop
 
                     <div class="single-product">
                         <div class="product-image">
-                            <img src="{{asset('/')}}website/assets/images/products/product-1.jpg" alt="#">
+                            <img src="website/assets/images/products/product-1.jpg" alt="#">
                             <div class="button">
                                 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
@@ -245,7 +245,7 @@ online super shop
 
                     <div class="single-product">
                         <div class="product-image">
-                            <img src="{{asset('/')}}website/assets/images/products/product-2.jpg" alt="#">
+                            <img src="website/assets/images/products/product-2.jpg" alt="#">
                             <span class="sale-tag">-25%</span>
                             <div class="button">
                                 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
@@ -276,7 +276,7 @@ online super shop
 
                     <div class="single-product">
                         <div class="product-image">
-                            <img src="{{asset('/')}}website/assets/images/products/product-3.jpg" alt="#">
+                            <img src="website/assets/images/products/product-3.jpg" alt="#">
                             <div class="button">
                                 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
@@ -305,7 +305,7 @@ online super shop
 
                     <div class="single-product">
                         <div class="product-image">
-                            <img src="{{asset('/')}}website/assets/images/products/product-4.jpg" alt="#">
+                            <img src="website/assets/images/products/product-4.jpg" alt="#">
                             <span class="new-tag">New</span>
                             <div class="button">
                                 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
@@ -335,7 +335,7 @@ online super shop
 
                     <div class="single-product">
                         <div class="product-image">
-                            <img src="{{asset('/')}}website/assets/images/products/product-5.jpg" alt="#">
+                            <img src="website/assets/images/products/product-5.jpg" alt="#">
                             <div class="button">
                                 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
@@ -364,7 +364,7 @@ online super shop
 
                     <div class="single-product">
                         <div class="product-image">
-                            <img src="{{asset('/')}}website/assets/images/products/product-6.jpg" alt="#">
+                            <img src="website/assets/images/products/product-6.jpg" alt="#">
                             <div class="button">
                                 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
@@ -393,7 +393,7 @@ online super shop
 
                     <div class="single-product">
                         <div class="product-image">
-                            <img src="{{asset('/')}}website/assets/images/products/product-7.jpg" alt="#">
+                            <img src="website/assets/images/products/product-7.jpg" alt="#">
                             <span class="sale-tag">-50%</span>
                             <div class="button">
                                 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
@@ -424,7 +424,7 @@ online super shop
 
                     <div class="single-product">
                         <div class="product-image">
-                            <img src="{{asset('/')}}website/assets/images/products/product-8.jpg" alt="#">
+                            <img src="website/assets/images/products/product-8.jpg" alt="#">
                             <div class="button">
                                 <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
