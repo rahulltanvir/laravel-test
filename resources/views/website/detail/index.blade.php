@@ -104,7 +104,7 @@ ut labore et dolore magna aliqua.</p>
 <div class="row align-items-end">
 <div class="col-lg-4 col-md-4 col-12">
 <div class="button cart-button">
-<button class="btn" style="width: 100%;">Add to Cart</button>
+<a class="btn pt-3" href="{{ route('show-card') }}" style="width: 100%;">Add to Cart</a>
 </div>
 </div>
 <div class="col-lg-4 col-md-4 col-12">
@@ -242,7 +242,7 @@ tempor...</p>
 
 
 <div class="single-review">
-<img src="assets/images/blog/comment2.jpg" alt="#">
+<img src="website/assets/images/blog/comment2.jpg" alt="#">
 <div class="review-info">
 <h4>My husband love his new...
 <span>Alex Jaza
