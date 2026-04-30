@@ -189,7 +189,7 @@ Apple iPhone X 256 GB Space Gray</a></h5>
 <li class="last">You Pay<span>$2531.00</span></li>
 </ul>
 <div class="button">
-<a href="{{route('check-out') }}" class="btn">Checkout</a>
+<a href="{{route('check-out') }}" class="btn ">Checkout</a>
 <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
 </div>
 </div>
