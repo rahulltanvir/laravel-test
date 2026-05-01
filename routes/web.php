@@ -10,3 +10,13 @@ route::get('/product-category', [MyCommerceController::class, 'category'])->name
 route::get('/product-detail', [MyCommerceController::class, 'detail'])->name('product-detail');
 route::get('/show-card', [Cardcontroller::class, 'index'])->name('show-card');
 route::get('/check-out', [CheckoutController::class, 'index'])->name('check-out');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
