@@ -10,17 +10,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('admin/assets/images/favicon.png') }}">
     <title>Elite Admin Template - The Ultimate Multipurpose admin template</title>
     <!-- This page CSS -->
     <!-- chartist CSS -->
-   <link href="{{ asset('assets/node_modules/morrisjs/morris.css') }}" rel="stylesheet">
+   <link href="{{ asset('admin/assets/node_modules/morrisjs/morris.css') }}" rel="stylesheet">
     <!--Toaster Popup message CSS -->
-    <link href="{{ asset('assets/node_modules/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/assets/node_modules/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="dist/css/style.min.css" rel="stylesheet">
+    <link href="{{ asset('admin/dist/css/style.min.css') }}" rel="stylesheet">
     <!-- Dashboard 1 Page CSS -->
-    <link href="dist/css/pages/dashboard1.css" rel="stylesheet">
+    <link href="{{ asset('admin/dist/css/pages/dashboard1.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -56,16 +56,16 @@
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="{{ asset('assets/images/logo-icon.png') }}" alt="homepage" class="dark-logo" />
+                            <img src="{{ asset('admin/assets/images/logo-icon.png') }}" alt="homepage" class="dark-logo" />
                             <!-- Light Logo icon -->
-                            <img src="{{ asset('assets/images/logo-light-icon.png') }}" alt="homepage" class="light-logo" />
+                            <img src="{{ asset('admin/assets/images/logo-light-icon.png') }}" alt="homepage" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text --><span>
                          <!-- dark Logo text -->
-                         <img src="{{ asset('assets/images/logo-text.png') }}" alt="homepage" class="dark-logo" />
+                         <img src="{{ asset('admin/assets/images/logo-text.png') }}" alt="homepage" class="dark-logo" />
                          <!-- Light Logo text -->    
-                         <img src="{{ asset('assets/images/logo-light-text.png') }}" class="light-logo" alt="homepage" /></span> </a>
+                         <img src="{{ asset('admin/assets/images/logo-light-text.png') }}" class="light-logo" alt="homepage" /></span> </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -316,8 +316,11 @@
                                 <!-- text-->
                                 <div class="dropdown-divider"></div>
                                 <!-- text-->
-                                <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                                <a href="" onclick="event.preventDefault(); getElementById('logoutForm').submit();" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
                                 <!-- text-->
+                                <form action="{{route('logout') }}" id="logoutForm" method="POST">
+                                    @csrf
+                                </form>
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -818,7 +821,7 @@
                                 </div>
                                 <!-- Comment Row -->
                                 <div class="d-flex no-block comment-row border-top">
-                                    <div class="p-2"><span class="round"><img src="../assets/images/users/2.jpg" alt="user" width="50"></span></div>
+                                    <div class="p-2"><span class="round"><img src="{{ asset('admin/assets/images/users/2.jpg') }}" alt="user" width="50"></span></div>
                                     <div class="comment-text active w-100">
                                         <h5 class="font-medium">Michael Jorden</h5>
                                         <p class="m-b-10 text-muted">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry..</p>
@@ -835,7 +838,7 @@
                                 </div>
                                 <!-- Comment Row -->
                                 <div class="d-flex no-block comment-row border-top">
-                                    <div class="p-2"><span class="round"><img src="../assets/images/users/3.jpg" alt="user" width="50"></span></div>
+                                    <div class="p-2"><span class="round"><img src="{{ asset('admin/assets/images/users/3.jpg') }}" alt="user" width="50"></span></div>
                                     <div class="comment-text w-100">
                                         <h5 class="font-medium">Johnathan Doeting</h5>
                                         <p class="m-b-10 text-muted">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
@@ -852,7 +855,7 @@
                                 </div>
                                 <!-- Comment Row -->
                                 <div class="d-flex no-block comment-row border-top">
-                                    <div class="p-2"><span class="round"><img src="../assets/images/users/4.jpg" alt="user" width="50"></span></div>
+                                    <div class="p-2"><span class="round"><img src="{{ asset('admin/assets/images/users/4.jpg') }}" alt="user" width="50"></span></div>
                                     <div class="comment-text active w-100">
                                         <h5 class="font-medium">Genelia doe</h5>
                                         <p class="m-b-10 text-muted">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry..</p>
@@ -1105,10 +1108,10 @@
                                                 </label>
                                             </div>
                                             <ul class="assignedto mt-2">
-                                                <li><img src="../assets/images/users/1.jpg" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Steave"></li>
-                                                <li><img src="../assets/images/users/2.jpg" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Jessica"></li>
-                                                <li><img src="../assets/images/users/3.jpg" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
-                                                <li><img src="../assets/images/users/4.jpg" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
+                                                <li><img src="{{ asset('admin/assets/images/users/1.jpg') }}" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Steave"></li>
+                                                <li><img src="{{ asset('admin/assets/images/users/2.jpg') }}" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Jessica"></li>
+                                                <li><img src="{{ asset('admin/assets/images/users/3.jpg') }}" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
+                                                <li><img src="{{ asset('admin/assets/images/users/4.jpg') }}" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
                                             </ul>
                                         </li>
                                         <li class="list-group-item" data-role="task">
@@ -1128,8 +1131,8 @@
                                                 </label>
                                             </div>
                                             <ul class="assignedto">
-                                                <li><img src="../assets/images/users/3.jpg" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
-                                                <li><img src="../assets/images/users/4.jpg" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
+                                                <li><img src="{{ asset('admin/assets/images/users/3.jpg') }}" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
+                                                <li><img src="{{ asset('admin/assets/images/users/4.jpg') }}" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
                                             </ul>
                                         </li>
                                         <li class="list-group-item" data-role="task">
@@ -1149,8 +1152,8 @@
                                                 </label>
                                             </div>
                                             <ul class="assignedto">
-                                                <li><img src="../assets/images/users/3.jpg" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
-                                                <li><img src="../assets/images/users/4.jpg" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
+                                                <li><img src="{{ asset('admin/assets/images/users/3.jpg') }}" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
+                                                <li><img src="{{ asset('admin/assets/images/users/4.jpg') }}" alt="user" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -1166,13 +1169,13 @@
                                     <div class="message-widget message-scroll">
                                         <!-- Message -->
                                         <a href="javascript:void(0)">
-                                            <div class="user-img"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                            <div class="user-img"> <img src="{{ asset('admin/assets/images/users/1.jpg') }}" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Pavan kumar</h5> <span class="mail-desc">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been.</span> <span class="time">9:30 AM</span> </div>
                                         </a>
                                         <!-- Message -->
                                         <a href="javascript:void(0)">
-                                            <div class="user-img"> <img src="../assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
+                                            <div class="user-img"> <img src="{{ asset('admin/assets/images/users/2.jpg') }}" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span> </div>
                                         </a>
@@ -1184,19 +1187,19 @@
                                         </a>
                                         <!-- Message -->
                                         <a href="javascript:void(0)">
-                                            <div class="user-img"> <img src="../assets/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
+                                            <div class="user-img"> <img src="{{ asset('admin/assets/images/users/4.jpg') }}" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span> </div>
                                         </a>
                                         <!-- Message -->
                                         <a href="javascript:void(0)">
-                                            <div class="user-img"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                            <div class="user-img"> <img src="{{ asset('admin/assets/images/users/1.jpg') }}" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Pavan kumar</h5> <span class="mail-desc">Welcome to the Elite Admin</span> <span class="time">9:30 AM</span> </div>
                                         </a>
                                         <!-- Message -->
                                         <a href="javascript:void(0)">
-                                            <div class="user-img"> <img src="../assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
+                                            <div class="user-img"> <img src="{{ asset('admin/assets/images/users/2.jpg') }}" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span> </div>
                                         </a>
@@ -1214,7 +1217,7 @@
                                     <ul class="chat-list">
                                         <!--chat Row -->
                                         <li>
-                                            <div class="chat-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
+                                            <div class="chat-img"><img src="{{ asset('admin/assets/images/users/1.jpg') }}" alt="user"></div>
                                             <div class="chat-content">
                                                 <h5>James Anderson</h5>
                                                 <div class="box bg-light-info">Lorem Ipsum is simply dummy text of the printing &amp; type setting industry.</div>
@@ -1223,7 +1226,7 @@
                                         </li>
                                         <!--chat Row -->
                                         <li>
-                                            <div class="chat-img"><img src="../assets/images/users/2.jpg" alt="user"></div>
+                                            <div class="chat-img"><img src="{{ asset('admin/assets/images/users/2.jpg') }}" alt="user"></div>
                                             <div class="chat-content">
                                                 <h5>Bianca Doe</h5>
                                                 <div class="box bg-light-info">It’s Great opportunity to work.</div>
@@ -1248,7 +1251,7 @@
                                         </li>
                                         <!--chat Row -->
                                         <li>
-                                            <div class="chat-img"><img src="../assets/images/users/3.jpg" alt="user"></div>
+                                            <div class="chat-img"><img src="{{ asset('admin/assets/images/users/3.jpg') }}" alt="user"></div>
                                             <div class="chat-content">
                                                 <h5>Angelina Rhodes</h5>
                                                 <div class="box bg-light-info">Well we have good budget for the project</div>
@@ -1302,28 +1305,28 @@
                             <ul class="m-t-20 chatonline">
                                 <li><b>Chat option</b></li>
                                 <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
+                                    <a href="javascript:void(0)"><img src="{{ asset('admin/assets/images/users/1.jpg') }}" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
+                                    <a href="javascript:void(0)"><img src="{{ asset('admin/assets/images/users/2.jpg') }}" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/3.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
+                                    <a href="javascript:void(0)"><img src="{{ asset('admin/assets/images/users/3.jpg') }}" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/4.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
+                                    <a href="javascript:void(0)"><img src="{{ asset('admin/assets/images/users/4.jpg') }}" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/5.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
+                                    <a href="javascript:void(0)"><img src="{{ asset('admin/assets/images/users/5.jpg') }}" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/6.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
+                                    <a href="javascript:void(0)"><img src="{{ asset('admin/assets/images/users/6.jpg') }}" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/7.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
+                                    <a href="javascript:void(0)"><img src="{{ asset('admin/assets/images/users/7.jpg') }}" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/8.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
+                                    <a href="javascript:void(0)"><img src="{{ asset('admin/assets/images/users/8.jpg') }}" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
                                 </li>
                             </ul>
                         </div>
@@ -1357,29 +1360,29 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="../assets/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="{{ asset('admin/assets/node_modules/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="../assets/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('admin/assets/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="{{ asset('admin/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
     <!--Wave Effects -->
-    <script src="dist/js/waves.js"></script>
+    <script src="{{ asset('admin/dist/js/waves.js') }}"></script>
     <!--Menu sidebar -->
-    <script src="dist/js/sidebarmenu.js"></script>
+    <script src="{{ asset('admin/dist/js/sidebarmenu.js') }}"></script>
     <!--Custom JavaScript -->
-    <script src="dist/js/custom.min.js"></script>
+    <script src="{{ asset('admin/dist/js/custom.min.js') }}"></script>
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
     <!--morris JavaScript -->
-    <script src="../assets/node_modules/raphael/raphael-min.js"></script>
-    <script src="../assets/node_modules/morrisjs/morris.min.js"></script>
-    <script src="../assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="{{ asset('admin/assets/node_modules/raphael/raphael-min.js') }}"></script>
+    <script src="{{ asset('admin/assets/node_modules/morrisjs/morris.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
     <!-- Popup message jquery -->
-    <script src="../assets/node_modules/toast-master/js/jquery.toast.js"></script>
+    <script src="{{ asset('admin/assets/node_modules/toast-master/js/jquery.toast.js') }}"></script>
     <!-- Chart JS -->
-    <script src="dist/js/dashboard1.js"></script>
-    <script src="../assets/node_modules/toast-master/js/jquery.toast.js"></script>
+    <script src="{{ asset('admin/dist/js/dashboard1.js') }}"></script>
+    <script src="{{ asset('admin/assets/node_modules/toast-master/js/jquery.toast.js') }}"></script>
 </body>
 
 
