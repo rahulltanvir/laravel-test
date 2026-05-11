@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyCommerceController;
 use App\Http\Controllers\Cardcontroller;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 
@@ -15,4 +16,8 @@ route::get('/check-out', [CheckoutController::class, 'index'])->name('check-out'
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
    
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    //category
+    Route::get('/category/add', [CategoryController::class, 'index'])->name('category.add');
+    Route::get('/category/manage', [CategoryController::class, 'manage'])->name('category.manage');
 });
