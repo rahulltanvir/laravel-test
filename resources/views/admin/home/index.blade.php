@@ -35,7 +35,7 @@
                                     <p class="text-muted">NEW CLIENTS</p>
                                 </div>
                                 <div class="ms-auto">
-                                    <h2 class="counter text-primary">23</h2>
+                                    <h2 class="counter text-primary">23 </h2>
                                 </div>
                             </div>
                         </div>
