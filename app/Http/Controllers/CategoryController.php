@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view(view:'admin.category.index');
+        return view('admin.category.index');
     }
 
     /**
@@ -20,7 +20,8 @@ class CategoryController extends Controller
      */
     public function manage()
     {
-        return view(view:'admin.category.manage');
+         $categories = Category::latest()->get();
+        return view('admin.category.manage', compact('categories'));
     }
 
     /**
@@ -28,7 +29,28 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        $request->validate([
+            'cat_name'=>'required|unique:categories,name',
+            'cat_description'=>'required',
+            'cat_img'=>'required|image',
+            'cat_status'=>'required',
+            
+            ]);
+
+            $imgname=null;
+            if($request->hasFile('cat_img')){
+                $image=$request->file('cat_img');
+                $imgname=time(). '.' .$image->getClientOriginalExtension();
+                $image->move(public_path('uploads/category'), $imgname);
+            }
+            Category::create([
+                'name'=>$request->cat_name,
+                'description'=>$request->cat_description,
+                'image'=> $imgname,
+                'status'=>$request->cat_status,
+            ]);
+            return redirect()->route('category.manage')->with('success', 'Category created successfully');
     }
 
     /**

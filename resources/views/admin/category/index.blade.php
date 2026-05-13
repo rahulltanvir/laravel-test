@@ -5,15 +5,26 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
+                    @if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{ session('success') }}",
+        timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+@endif
                     <h4 class="card-title">Add Category</h4>
                     <hr />
-                    <form class="form-horizontal p-t-20">
+                    <form class="form-horizontal p-t-20" method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
                         <div class="form-group row">
                             <label for="exampleInputuname3" class="col-sm-3 control-label">Category Name<span
                                     class="required text-danger">*</span> </label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" id="exampleInputuname3"
+                                    <input type="text" class="form-control" name="cat_name" id="exampleInputuname3"
                                         placeholder="Category Name" required>
                                 </div>
                             </div>
@@ -23,7 +34,7 @@
                                     class="required text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <textarea type="text" class="form-control" id="exampleInputEmail3" placeholder="Category Description" required></textarea>
+                                    <textarea type="text" class="form-control" name="cat_description" id="exampleInputEmail3" placeholder="Category Description" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +44,7 @@
                             <div class="col-sm-9">
                                 <div class="input-group">
 
-                                    <input type="file" id="input-file-now" class="dropify control-label"required />
+                                    <input type="file" id="input-file-now" name="cat_img" class="dropify control-label"required />
                                 </div>
                             </div>
                         </div>
@@ -45,7 +56,7 @@
                             <div class="col-sm-9">
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="publish"
+                                    <input class="form-check-input" type="radio" name="cat_status" id="publish"
                                         value="1" required>
 
                                     <label class="form-check-label" for="publish">
@@ -54,7 +65,7 @@
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="unpublish"
+                                    <input class="form-check-input" type="radio" name="cat_status" id="unpublish"
                                         value="0"required>
 
                                     <label class="form-check-label" for="unpublish">

@@ -190,7 +190,8 @@
     <script src="{{ asset('admin/assets/node_modules/toast-master/js/jquery.toast.js') }}"></script>
     <!-- Chart JS -->
     {{-- <script src="{{ asset('admin/dist/js/dashboard1.js') }}"></script> --}}
-    <script src="{{ asset('admin/assets/node_modules/toast-master/js/jquery.toast.js') }}"></script>
+    {{-- <script src="{{ asset('admin/assets/node_modules/toast-master/js/jquery.toast.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('admin/assets/node_modules/dropify/dist/js/dropify.min.js') }}"></script>
     <script>
     $(document).ready(function() {
