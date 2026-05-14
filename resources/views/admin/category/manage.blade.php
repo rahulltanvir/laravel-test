@@ -6,7 +6,20 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Category Table</h4>
-
+                    
+@if(session('success'))
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{ session('success') }}",
+        timer: 2000,
+        showConfirmButton: false
+    });
+});
+</script>
+@endif
                     <div class="table-responsive m-t-40">
                         <table id="myTable" class="table table-striped border">
                             <thead>

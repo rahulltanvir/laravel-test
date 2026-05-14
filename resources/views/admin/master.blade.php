@@ -191,7 +191,7 @@
     <!-- Chart JS -->
     {{-- <script src="{{ asset('admin/dist/js/dashboard1.js') }}"></script> --}}
     {{-- <script src="{{ asset('admin/assets/node_modules/toast-master/js/jquery.toast.js') }}"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script src="{{ asset('admin/assets/node_modules/dropify/dist/js/dropify.min.js') }}"></script>
     <script>
     $(document).ready(function() {
@@ -291,6 +291,20 @@
         });
 
     </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success'))
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: @json(session('success')),
+        
+        showConfirmButton: true
+    });
+});
+</script>
+@endif
 </body>
 
 

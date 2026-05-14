@@ -5,20 +5,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    @if(session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: "{{ session('success') }}",
-        timer: 2000,
-        showConfirmButton: false
-    });
-</script>
-@endif
+
                     <h4 class="card-title">Add Category</h4>
                     <hr />
                     <form class="form-horizontal p-t-20" method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
+                       @csrf
                         <div class="form-group row">
                             <label for="exampleInputuname3" class="col-sm-3 control-label">Category Name<span
                                     class="required text-danger">*</span> </label>
