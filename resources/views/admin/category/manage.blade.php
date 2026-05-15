@@ -6,20 +6,20 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Category Table</h4>
-                    
-@if(session('success'))
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: "{{ session('success') }}",
-        timer: 2000,
-        showConfirmButton: false
-    });
-});
-</script>
-@endif
+
+                    @if (session('success'))
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: "{{ session('success') }}",
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                });
+                            });
+                        </script>
+                    @endif
                     <div class="table-responsive m-t-40">
                         <table id="myTable" class="table table-striped border">
                             <thead>
@@ -54,13 +54,15 @@ document.addEventListener("DOMContentLoaded", function () {
                                         </td>
 
                                         <td>
-                                            <a href="#"
+                                            <a href="{{ route('category.edit', $category->id) }}"
                                                 class="btn btn-success btn-sm">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
-                                            <a href=""
-                                                class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                            <a href="{{ route('category.delete', $category->id) }}"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="event.preventDefault(); deleteConfirm(this);">
+
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
@@ -73,4 +75,22 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         </div>
     </div>
+    <script>
+function deleteConfirm(element) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        position: 'center'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = element.href;
+        }
+    });
+}
+</script>
 @endsection

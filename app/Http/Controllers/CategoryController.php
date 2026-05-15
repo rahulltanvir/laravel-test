@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function manage()
     {
-         $categories = Category::latest()->get();
+        $categories = Category::latest()->get();
         return view('admin.category.manage', compact('categories'));
     }
 
@@ -29,48 +29,40 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $request->validate([
-            'cat_name'=>'required|unique:categories,name',
-            'cat_description'=>'required',
-            'cat_img'=>'required|image',
-            'cat_status'=>'required',
-            
-            ]);
+            'cat_name' => 'required|unique:categories,name',
+            'cat_description' => 'required',
+            'cat_img' => 'required|image',
+            'cat_status' => 'required',
 
-            $imgname=null;
-            if($request->hasFile('cat_img')){
-                $image=$request->file('cat_img');
-                $imgname=time(). '.' .$image->getClientOriginalExtension();
-                $image->move(public_path('uploads/category'), $imgname);
-            }
-            Category::create([
-                'name'=>$request->cat_name,
-                'description'=>$request->cat_description,
-                'image'=> $imgname,
-                'status'=>$request->cat_status,
-            ]);
-            return redirect()->route('category.manage')->with('success', 'Category created successfully');
+        ]);
+
+        $imgname = null;
+        if ($request->hasFile('cat_img')) {
+            $image = $request->file('cat_img');
+            $imgname = $imgname = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/category'), $imgname);
+        }
+        Category::create([
+            'name' => $request->cat_name,
+            'description' => $request->cat_description,
+            'image' => $imgname,
+            'status' => $request->cat_status,
+        ]);
+        return redirect()->route('category.manage')->with('success', 'Category created successfully');
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     *  edit Category.
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update category.
      */
     public function update(Request $request, Category $category)
     {
@@ -78,10 +70,18 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete Category
      */
     public function destroy(Category $category)
     {
-        //
+
+        if ($category->image) {
+            $imagepath = public_path('/uploads/category/' . $category->image);
+            if (file_exists($imagepath)) {
+                unlink($imagepath);
+            }
+        }
+        $category->delete();
+        return redirect()->route('category.manage')->with('success', 'Category deleted successfully');
     }
 }
