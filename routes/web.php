@@ -21,6 +21,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('/category/manage', [CategoryController::class, 'manage'])->name('category.manage');
-    Route::get('/category/edit/{category}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::get('/category/delete/{category}', [CategoryController::class, 'destroy'])->name('category.delete');
+    Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+
+    //sub category
+    
 });

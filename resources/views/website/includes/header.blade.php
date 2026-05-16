@@ -212,7 +212,14 @@
                                     </ul>
                                 </li>
                                 <li><a href="{{route('product-category')}}">accessories</a></li>
-                                <li><a href="product-grids.html">Televisions</a></li>
+                                 
+                                @foreach ($categories as $category )
+                                    <li><a href="{{route('product-detail')}}">{{ $category->name}}</a></li>
+                                @endforeach
+                                
+
+                                
+                                {{-- <li><a href="product-grids.html">Televisions</a></li>
                                 <li><a href="product-grids.html">best selling</a></li>
                                 <li><a href="product-grids.html">top 100 offer</a></li>
                                 <li><a href="product-grids.html">sunglass</a></li>
@@ -221,7 +228,7 @@
                                 <li><a href="product-grids.html">Home Audio & Theater</a></li>
                                 <li><a href="product-grids.html">Computers & Tablets </a></li>
                                 <li><a href="product-grids.html">Video Games </a></li>
-                                <li><a href="product-grids.html">Home Appliances </a></li>
+                                <li><a href="product-grids.html">Home Appliances </a></li> --}}
                             </ul>
                         </div>
 

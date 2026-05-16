@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class CategoryController extends Controller
 {
@@ -56,17 +57,45 @@ class CategoryController extends Controller
     /**
      *  edit Category.
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
+        $category=Category::findOrFail($id);
         return view('admin.category.edit', compact('category'));
     }
 
     /**
      * Update category.
      */
-    public function update(Request $request, Category $category)
+
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'up_cat_name'=>'required|unique:categories,name,'.$id,
+            'up_cat_description'=>'required',
+            'up_cat_img'=>'nullable|image',
+            'up_cat_status'=>'required'
+        ]);
+
+        $category=Category::findOrFail($id);
+
+        $imgName=$category->image;
+
+        if($request->hasFile('up_cat_img')){
+            $oldimgpath=public_path('uploads/category/'. $category->image);
+            if(file_exists( $oldimgpath)){
+                unlink( $oldimgpath);
+            }
+            $image= $request->file('up_cat_img');
+            $imageName=time().'_'.uniqid().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploads/category'), $imgname);
+        }
+        $category->update([
+            'name'=>$request->up_cat_name,
+            'description'=>$request->up_cat_description,
+            'image'=>$imgName,
+            'status'=>$request->up_cat_status
+        ]);
+        return redirect()->route('category.manage')->with('success', 'Category updated successfully');
     }
 
     /**
