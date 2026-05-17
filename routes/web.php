@@ -6,6 +6,7 @@ use App\Http\Controllers\Cardcontroller;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SubcategoryController;
 
 Route::get('/', [MyCommerceController::class, 'index'])->name('home');
 route::get('/product-category', [MyCommerceController::class, 'category'])->name('product-category');
@@ -26,5 +27,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 
     //sub category
-    
+    Route::get('/subcategory', [SubcategoryController::class, 'index'])->name('subcategory.index');
+    Route::post('/subcategory/store', [SubcategoryController::class, 'store'])->name('subcategory.store');
+    Route::get('/subcategory/manage', [SubcategoryController::class, 'manage'])->name('subcategory.manage');
+
 });

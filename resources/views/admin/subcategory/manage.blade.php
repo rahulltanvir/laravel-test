@@ -5,7 +5,7 @@
         <div class="col-12 ">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Category Table</h4>
+                    <h4 class="card-title">Sub Category Table</h4>
 
                     @if (session('success'))
                         <script>
@@ -26,27 +26,29 @@
                                 <tr>
                                     <th>Sl No</th>
                                     <th>Category name</th>
-                                    <th>Category Image</th>
-                                    <th>Category Description</th>
+                                    <th>Sub Category name</th>
+                                    <th>Sub Category Image</th>
+                                    <th>Sub Category Description</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $key => $category)
+                                @foreach ($subcategories as $key => $subcategory)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
 
-                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $subcategory->category->name }}</td>
+                                        <td>{{ $subcategory->name }}</td>
 
                                         <td>
-                                            <img src="{{ asset('uploads/category/' . $category->image) }}" width="60">
+                                            <img src="{{ asset('uploads/subcategory/' . $subcategory->image) }}" width="60">
                                         </td>
 
-                                        <td>{{ $category->description }}</td>
+                                        <td>{{ $subcategory->description }}</td>
 
                                         <td>
-                                            @if ($category->status == 1)
+                                            @if ($subcategory->status == 1)
                                                 <span class="badge bg-success">Publish</span>
                                             @else
                                                 <span class="badge bg-danger">Unpublish</span>
@@ -54,12 +56,12 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ route('category.edit', $category->id) }}"
+                                            <a href=""
                                                 class="btn btn-success btn-sm">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
-                                            <a href="{{ route('category.delete', $category->id) }}"
+                                            <a href=""
                                                 class="btn btn-danger btn-sm"
                                                 onclick="event.preventDefault(); deleteConfirm(this);">
 
