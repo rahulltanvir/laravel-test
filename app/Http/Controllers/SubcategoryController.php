@@ -64,24 +64,62 @@ class SubcategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Subcategory $subcategory)
-    {
-        $subcategories=Subcategory::findOrFail($subcategory)
-    }
+   public function edit($id)
+{
+    $subcategory = Subcategory::with('category')->findOrFail($id);
+    $categories = Category::all();
+
+    return view('admin.subcategory.edit', compact('subcategory', 'categories'));
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subcategory $subcategory)
-    {
-        //
+    public function update(Request $request, $id)
+{
+   
+    $request->validate([
+        'up_category_id'        => 'required',
+        'up_subcat_name'        => 'required|unique:sub_categories,name,' . $id,
+        'up_subcat_description' => 'required',
+        'up_subcat_img'         => 'nullable|image',
+        'up_subcat_status'      =>'required'
+    ]);
+    
+   $subcategory=Subcategory::findOrFail($id);
+   $imgname=$subcategory->image;
+   if($request->hasFile('up_subcat_img')){
+    
+    $oldImage = public_path('uploads/subcategory/' . $subcategory->image);
+    if(file_exists( $oldImage)){
+        unlink( $oldImage);
     }
+    $image=$request->file('up_subcat_img');
+    $imgname=time(). '_' . uniqid() . '.'. $image->getClientOriginalExtension();
+    $image->move(public_path('uploads/subcategory/'),$imgname );
+   }
+   $subcategory->update([
+    'category_id'=>$request->up_category_id,
+    'name'=>$request->up_subcat_name,
+    'description'=>$request->up_subcat_description,
+    'image'=>$imgname,
+    'status'=>$request->up_subcat_status
+   ]);
+   return redirect()->route('subcategory.manage')->with('success', 'Sub Category Updated successfully');
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Subcategory $subcategory)
     {
-        //
+        if($subcategory->image){
+            $imgpath=public_path('uploads/subcategory/'.$subcategory->image);
+            if(file_exists($imgpath)){
+                unlink($imgpath);
+            }
+        }
+        $subcategory->delete();
+        return redirect()->route('subcategory.manage')->with('success', 'Sub Category Delete successfully');
     }
 }

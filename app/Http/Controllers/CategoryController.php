@@ -86,8 +86,8 @@ class CategoryController extends Controller
                 unlink( $oldimgpath);
             }
             $image= $request->file('up_cat_img');
-            $imageName=time().'_'.uniqid().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('uploads/category'), $imgname);
+            $imgName=time().'_'.uniqid().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploads/category'), $imgName);
         }
         $category->update([
             'name'=>$request->up_cat_name,

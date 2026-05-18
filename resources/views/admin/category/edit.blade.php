@@ -10,6 +10,7 @@
                     <hr />
                     <form class="form-horizontal p-t-20" method="POST" action="{{ route('category.update', $category->id) }}" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="exampleInputuname3" class="col-sm-3 control-label">Category Update Name<span
                                     class="required text-danger">*</span> </label>

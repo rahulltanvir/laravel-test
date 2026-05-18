@@ -56,7 +56,7 @@
                                         </td>
 
                                         <td>
-                                            <a href=""
+                                            <a href="{{ route('subcategory.edit',$subcategory->id) }}"
                                                 class="btn btn-success btn-sm">
                                                 <i class="fa fa-edit"></i>
                                             </a>
