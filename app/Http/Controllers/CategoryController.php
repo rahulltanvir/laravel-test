@@ -59,7 +59,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category=Category::findOrFail($id);
+        $category = Category::findOrFail($id);
         return view('admin.category.edit', compact('category'));
     }
 
@@ -70,30 +70,30 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'up_cat_name'=>'required|unique:categories,name,'.$id,
-            'up_cat_description'=>'required',
-            'up_cat_img'=>'nullable|image',
-            'up_cat_status'=>'required'
+            'up_cat_name' => 'required|unique:categories,name,' . $id,
+            'up_cat_description' => 'required',
+            'up_cat_img' => 'nullable|image',
+            'up_cat_status' => 'required'
         ]);
 
-        $category=Category::findOrFail($id);
+        $category = Category::findOrFail($id);
 
-        $imgName=$category->image;
+        $imgName = $category->image;
 
-        if($request->hasFile('up_cat_img')){
-            $oldimgpath=public_path('uploads/category/'. $category->image);
-            if(file_exists( $oldimgpath)){
-                unlink( $oldimgpath);
+        if ($request->hasFile('up_cat_img')) {
+            $oldimgpath = public_path('uploads/category/' . $category->image);
+            if (file_exists($oldimgpath)) {
+                unlink($oldimgpath);
             }
-            $image= $request->file('up_cat_img');
-            $imgName=time().'_'.uniqid().'.'.$image->getClientOriginalExtension();
+            $image = $request->file('up_cat_img');
+            $imgName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads/category'), $imgName);
         }
         $category->update([
-            'name'=>$request->up_cat_name,
-            'description'=>$request->up_cat_description,
-            'image'=>$imgName,
-            'status'=>$request->up_cat_status
+            'name' => $request->up_cat_name,
+            'description' => $request->up_cat_description,
+            'image' => $imgName,
+            'status' => $request->up_cat_status
         ]);
         return redirect()->route('category.manage')->with('success', 'Category updated successfully');
     }
@@ -101,9 +101,9 @@ class CategoryController extends Controller
     /**
      * Delete Category
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-
+        $category = Category::findOrFail($id);
         if ($category->image) {
             $imagepath = public_path('/uploads/category/' . $category->image);
             if (file_exists($imagepath)) {

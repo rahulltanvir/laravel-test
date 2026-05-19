@@ -111,15 +111,22 @@ class SubcategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subcategory $subcategory)
-    {
-        if($subcategory->image){
-            $imgpath=public_path('uploads/subcategory/'.$subcategory->image);
-            if(file_exists($imgpath)){
-                unlink($imgpath);
-            }
+    public function destroy($id)
+{
+    $subcategory=Subcategory::findOrFail($id);
+    if ($subcategory->image) {
+
+        $imgpath = public_path('uploads/subcategory/' . $subcategory->image);
+
+        if (file_exists($imgpath)) {
+            unlink($imgpath);
         }
-        $subcategory->delete();
-        return redirect()->route('subcategory.manage')->with('success', 'Sub Category Delete successfully');
     }
+
+    $subcategory->delete();
+
+    return redirect()
+        ->route('subcategory.manage')
+        ->with('success', 'Sub Category Deleted Successfully');
+}
 }

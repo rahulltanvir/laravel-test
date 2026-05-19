@@ -42,7 +42,8 @@
                                         <td>{{ $subcategory->name }}</td>
 
                                         <td>
-                                            <img src="{{ asset('uploads/subcategory/' . $subcategory->image) }}" width="60">
+                                            <img src="{{ asset('uploads/subcategory/' . $subcategory->image) }}"
+                                                width="60">
                                         </td>
 
                                         <td>{{ $subcategory->description }}</td>
@@ -56,17 +57,24 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ route('subcategory.edit',$subcategory->id) }}"
+                                            <a href="{{ route('subcategory.edit', $subcategory->id) }}"
                                                 class="btn btn-success btn-sm">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
-                                            <a href=""
-                                                class="btn btn-danger btn-sm"
-                                                onclick="event.preventDefault(); deleteConfirm(this);">
+                                            <form id="delete-form-{{ $subcategory->id }}"
+                                                action="{{ route('subcategory.delete', $subcategory->id) }}" method="POST"
+                                                style="display:inline;">
 
-                                                <i class="fa fa-trash"></i>
-                                            </a>
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                    onclick="confirmDelete({{ $subcategory->id }})">
+
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -77,37 +85,36 @@
             </div>
         </div>
     </div>
-    <script>
-function deleteConfirm(element) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!',
-        position: 'center'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = element.href;
-        }
-    });
-}
-</script>
-@if (session('success'))
-    @if (request()->routeIs('category.manage'))
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: "{{ session('success') }}",
-                    timer: 2000,
-                    showConfirmButton: false
+    @if (session('success'))
+        @if (request()->routeIs('category.manage'))
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: "{{ session('success') }}",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
                 });
-            });
-        </script>
+            </script>
+        @endif
     @endif
-@endif
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        }
+    </script>
 @endsection
