@@ -30,7 +30,7 @@ class SubcategoryController extends Controller
 {
     $request->validate([
         'category_id'         => 'required',
-        'sub_cat_name'        => 'required',
+        'sub_cat_name'        => 'required|unique:sub_categories',
         'sub_cat_description' => 'required',
         'sub_cat_img'         => 'required|image',
         'sub_cat_status'      => 'required'

@@ -33,20 +33,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $key => $category)
+                                @foreach ($brands as $key => $brand)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
 
-                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $brand->name }}</td>
 
                                         <td>
-                                            <img src="{{ asset('uploads/category/' . $category->image) }}" width="60">
+                                            <img src="{{ asset('uploads/brands/' . $brand->image) }}" width="60">
                                         </td>
 
-                                        <td>{{ $category->description }}</td>
+                                        <td>{{ $brand->description }}</td>
 
                                         <td>
-                                            @if ($category->status == 1)
+                                            @if ($brand->status == 1)
                                                 <span class="badge bg-success">Publish</span>
                                             @else
                                                 <span class="badge bg-danger">Unpublish</span>
@@ -54,13 +54,13 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ route('category.edit', $category->id) }}"
+                                            <a href="{{ route('brand.edit', $brand->id) }}"
                                                 class="btn btn-success btn-sm">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
-                                            <form id="delete-form-{{ $category->id }}"
-                                          action="{{ route('category.delete', $category->id) }}"
+                                            <form id="delete-form-{{ $brand->id }}"
+                                          action="{{ route('brand.delete', $brand->id) }}"
                                           method="POST"
                                           style="display:inline;">
 
@@ -69,7 +69,7 @@
 
                                         <button type="button"
                                             class="btn btn-danger btn-sm"
-                                            onclick="confirmDelete({{$category->id }})">
+                                            onclick="confirmDelete({{$brand->id }})">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
 

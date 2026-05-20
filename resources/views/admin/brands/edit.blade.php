@@ -8,16 +8,16 @@
 
                     <h4 class="card-title">Update Category</h4>
                     <hr />
-                    <form class="form-horizontal p-t-20" method="POST" action="{{ route('category.update', $category->id) }}" enctype="multipart/form-data">
+                    <form class="form-horizontal p-t-20" method="POST" action="{{ route('brand.update', $brands->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
-                            <label for="exampleInputuname3" class="col-sm-3 control-label">Category Update Name<span
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Brand Update Name<span
                                     class="required text-danger">*</span> </label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="up_cat_name" id="exampleInputuname3"
-                                        value="{{ $category->name }}">
+                                    <input type="text" class="form-control" name="up_brand_name" id="exampleInputuname3"
+                                        value="{{ $brands->name }}">
                                 </div>
                             </div>
                         </div>
@@ -26,8 +26,8 @@
                                     class="required text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <textarea type="text" class="form-control" name="up_cat_description" id="exampleInputEmail3"
-                                        value="" >{{$category->description }}</textarea>
+                                    <textarea type="text" class="form-control" name="up_brand_description" id="exampleInputEmail3"
+                                        value="" >{{$brands->description }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -36,13 +36,13 @@
                                     class=" text-danger">*</span> </label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    @if ($category->image)
+                                    @if ($brands->image)
                                         <div class="mb-2">
-                                            <img src="{{ asset('uploads/category/' . $category->image) }}" width="120"
+                                            <img src="{{ asset('uploads/brands/' . $brands->image) }}" width="120"
                                                 style="border-radius: 8px;">
                                         </div>
                                     @endif
-                                    <input type="file" id="input-file-now" name="up_cat_img"
+                                    <input type="file" id="input-file-now" name="up_brand_img"
                                         class="dropify control-label" />
                                 </div>
                             </div>
@@ -55,8 +55,8 @@
                             <div class="col-sm-9">
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="up_cat_status" id="publish"
-                                        value="1" {{ $category->status==1 ? 'checked' : '' }} >
+                                    <input class="form-check-input" type="radio" name="up_brand_status" id="publish"
+                                        value="1" {{ $brands->status==1 ? 'checked' : '' }} >
 
                                     <label class="form-check-label" for="publish">
                                         Publish
@@ -64,8 +64,8 @@
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="up_cat_status" id="unpublish"
-                                        value="0" {{ $category->status==0 ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="up_brand_status" id="unpublish"
+                                        value="0" {{ $brands->status==0 ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="unpublish">
                                         Unpublish
@@ -79,7 +79,7 @@
                         <div class="form-group row m-b-0">
                             <div class="offset-sm-3 col-sm-9">
                                 <button type="submit" class="btn btn-success waves-effect waves-light text-white">
-                                    Create New Category</button>
+                                    Update Brand</button>
                             </div>
                         </div>
                     </form>

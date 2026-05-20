@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyCommerceController;
 use App\Http\Controllers\Cardcontroller;
@@ -34,4 +35,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::put('/subcategory/update/{id}', [SubcategoryController::class, 'update'])->name('subcategory.update');
     Route::delete('/subcategory/delete/{id}', [SubcategoryController::class, 'destroy'])->name('subcategory.delete');
 
+    //Brand
+    Route::get('/brand', [BrandController::class, 'index'])->name('brand.index');
+    Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
+    Route::get('/brand/manage', [BrandController::class, 'manage'])->name('brand.manage');
+    Route::get('/brand/edit/{id}', [BrandController::class, 'edit'])->name('brand.edit');
+    Route::put('/brand/update/{id}', [BrandController::class, 'update'])->name('brand.update');
+    Route::delete('/brand/delete/{id}', [BrandController::class, 'destroy'])->name('brand.delete');
 });
