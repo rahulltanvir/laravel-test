@@ -106,6 +106,6 @@ class BrandController extends Controller
             }
         }
         $brands->delete();
-        return redirect()->route('brand.manage')->with('success', 'Brand Delete successfully');
+        return redirect()->back()->with('success', 'Brand Delete successfully');
     }
 }

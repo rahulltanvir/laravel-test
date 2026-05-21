@@ -51,7 +51,7 @@ class CategoryController extends Controller
             'image' => $imgname,
             'status' => $request->cat_status,
         ]);
-        return redirect()->route('category.manage')->with('success', 'Category created successfully');
+        return redirect()->back()->with('success', 'Category created successfully');
     }
 
     /**

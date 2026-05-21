@@ -8,55 +8,49 @@
 
                     <h4 class="card-title">Update Category</h4>
                     <hr />
-                    <form class="form-horizontal p-t-20" method="POST" action="{{ route('category.update', $category->id) }}" enctype="multipart/form-data">
+                    <form class="form-horizontal p-t-20" method="POST" action="{{ route('unit.update', $units->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
-                            <label for="exampleInputuname3" class="col-sm-3 control-label">Category Update Name<span
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">Unit Update Name<span
                                     class="required text-danger">*</span> </label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="up_cat_name" id="exampleInputuname3"
-                                        value="{{ $category->name }}">
+                                    <input type="text" class="form-control" name="up_unit_name" id="exampleInputuname3"
+                                        value="{{ $units->name }}">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="exampleInputEmail3" class="col-sm-3 control-label">Category Update Description<span
+                            <label for="exampleInputuname3" class="col-sm-3 control-label">unit code Update<span
+                                    class="required text-danger">*</span> </label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="up_unit_code" id="exampleInputuname3"
+                                        value="{{ $units->code }}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputEmail3" class="col-sm-3 control-label">Unit Update Description<span
                                     class="required text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <textarea type="text" class="form-control" name="up_cat_description" id="exampleInputEmail3"
-                                        value="" >{{$category->description }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="form-label col-sm-3 control-label" for="web">Change Image <span
-                                    class=" text-danger">*</span> </label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    @if ($category->image)
-                                        <div class="mb-2">
-                                            <img src="{{ asset('uploads/category/' . $category->image) }}" width="120"
-                                                style="border-radius: 8px;">
-                                        </div>
-                                    @endif
-                                    <input type="file" id="input-file-now" name="up_cat_img"
-                                        class="dropify control-label" />
+                                    <textarea type="text" class="form-control" name="up_unit_description" id="exampleInputEmail3"
+                                        value="" >{{$units->description }}</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-3 control-label">
-                                Category Status <span class="text-danger">*</span>
+                                Unit Status <span class="text-danger">*</span>
                             </label>
 
                             <div class="col-sm-9">
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="up_cat_status" id="publish"
-                                        value="1" {{ $category->status==1 ? 'checked' : '' }} >
+                                    <input class="form-check-input" type="radio" name="up_unit_status" id="publish"
+                                        value="1" {{ $units->status==1 ? 'checked' : '' }} >
 
                                     <label class="form-check-label" for="publish">
                                         Publish
@@ -64,8 +58,8 @@
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="up_cat_status" id="unpublish"
-                                        value="0" {{ $category->status==0 ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="up_unit_status" id="unpublish"
+                                        value="0" {{ $units->status==0 ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="unpublish">
                                         Unpublish

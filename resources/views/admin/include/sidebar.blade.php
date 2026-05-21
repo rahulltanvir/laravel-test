@@ -35,8 +35,8 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="ti-layout-media-right-alt"></i><span class="hide-menu">Unit</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="form-basic.html">Add Unit</a></li>
-                                <li><a href="form-layout.html">Manage Unit</a></li>
+                                <li><a href="{{ route('unit.index') }}">Add Unit</a></li>
+                                <li><a href="{{ route('unit.manage') }}">Manage Unit</a></li>
                                 
                             </ul>
                         </li>

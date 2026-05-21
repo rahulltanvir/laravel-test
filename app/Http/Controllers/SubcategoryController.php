@@ -30,7 +30,7 @@ class SubcategoryController extends Controller
 {
     $request->validate([
         'category_id'         => 'required',
-        'sub_cat_name'        => 'required|unique:sub_categories',
+        'sub_cat_name'        => 'required|unique:sub_categories,name',
         'sub_cat_description' => 'required',
         'sub_cat_img'         => 'required|image',
         'sub_cat_status'      => 'required'
@@ -56,7 +56,7 @@ class SubcategoryController extends Controller
     ]);
 
     return redirect()
-        ->route('subcategory.manage')
+        ->back()
         ->with('success', 'Sub Category created successfully');
 }
 

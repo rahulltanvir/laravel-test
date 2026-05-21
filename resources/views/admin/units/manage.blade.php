@@ -5,7 +5,7 @@
         <div class="col-12 ">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Category Table</h4>
+                    <h4 class="card-title">Unit Table</h4>
 
                     @if (session('success'))
                         <script>
@@ -25,28 +25,26 @@
                             <thead>
                                 <tr>
                                     <th>Sl No</th>
-                                    <th>Category name</th>
-                                    <th>Category Image</th>
-                                    <th>Category Description</th>
+                                    <th>UnitUnit name</th>
+                                    <th>Unit Code</th>
+                                    <th>Unit Description</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $key => $category)
+                                @foreach ($units as $key => $unit)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
 
-                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $unit->name }}</td>
+
+                                        <td>{{$unit->code}}</td>
+
+                                        <td>{{$unit->description }}</td>
 
                                         <td>
-                                            <img src="{{ asset('uploads/category/' . $category->image) }}" width="60">
-                                        </td>
-
-                                        <td>{{ $category->description }}</td>
-
-                                        <td>
-                                            @if ($category->status == 1)
+                                            @if ($unit->status == 1)
                                                 <span class="badge bg-success">Publish</span>
                                             @else
                                                 <span class="badge bg-danger">Unpublish</span>
@@ -54,13 +52,13 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ route('category.edit', $category->id) }}"
+                                            <a href="{{ route('unit.edit', $unit->id) }}"
                                                 class="btn btn-success btn-sm">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
-                                            <form id="delete-form-{{ $category->id }}"
-                                          action="{{ route('category.delete', $category->id) }}"
+                                            <form id="delete-form-{{ $unit->id }}"
+                                          action="{{ route('unit.delete', $unit->id) }}"
                                           method="POST"
                                           style="display:inline;">
 
@@ -69,7 +67,7 @@
 
                                         <button type="button"
                                             class="btn btn-danger btn-sm"
-                                            onclick="confirmDelete({{$category->id }})">
+                                            onclick="confirmDelete({{$unit->id }})">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
 
