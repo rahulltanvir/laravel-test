@@ -16,6 +16,7 @@ class SubcategoryController extends Controller
         $categories=Category::all();
         return view('admin.subcategory.index', compact('categories'));
     }
+    
 
  public function manage()
     {

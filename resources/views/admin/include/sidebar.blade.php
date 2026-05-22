@@ -43,8 +43,8 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="ti-layout-accordion-merged"></i><span class="hide-menu">Product</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="table-basic.html">Add Product</a></li>
-                                <li><a href="table-layout.html">Manage Product</a></li>
+                                <li><a href="{{ route('product.index') }}">Add Product</a></li>
+                                <li><a href="{{ route('product.manage') }}">Manage Product</a></li>
         
                             </ul>
                         </li>

@@ -24,6 +24,7 @@
    <link href="{{ asset('admin/assets/node_modules/morrisjs/morris.css') }}" rel="stylesheet">
     <!--Toaster Popup message CSS -->
     <link href="{{ asset('admin/assets/node_modules/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/assets/node_modules/summernote/dist/summernote-bs4.css')}}">
     
     <!-- Custom CSS -->
     <link href="{{ asset('admin/dist/css/style.min.css') }}" rel="stylesheet">
@@ -194,6 +195,51 @@
     
     <script src="{{ asset('admin/assets/node_modules/dropify/dist/js/dropify.min.js') }}"></script>
     <script>
+$(document).ready(function () {
+
+    $('#categoryId').on('change', function () {
+
+        let categoryId = $(this).val();
+
+        console.log('Category Selected:', categoryId);
+
+        $('#subcategoryId').html('<option>Loading...</option>');
+
+        if (categoryId) {
+
+            $.ajax({
+                url: '/get-subcategories/' + categoryId,
+                type: 'GET',
+
+                success: function (data) {
+
+                    console.log('Response:', data);
+
+                    $('#subcategoryId').html('<option value="">-- Select Sub Category --</option>');
+
+                    $.each(data, function (key, value) {
+                        $('#subcategoryId').append(`
+                            <option value="${value.id}">${value.name}</option>
+                        `);
+                    });
+
+                },
+
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                    alert('Something went wrong!');
+                }
+            });
+
+        } else {
+            $('#subcategoryId').html('<option value="">-- Select Sub Category --</option>');
+        }
+    });
+
+});
+</script>
+
+    <script>
     $(document).ready(function() {
         // Basic
         $('.dropify').dropify();
@@ -237,8 +283,32 @@
     </script>
     <script src="{{asset('admin/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('admin/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js') }}"></script>
+    <script src=" {{ asset('admin/assets/node_modules/summernote/dist/summernote-bs4.min.js') }}"></script>
     <!-- start - This is for export functionality only -->
-    
+     <script>
+    $(function() {
+
+        $('.summernote').summernote({
+            height: 200, // set editor height
+            
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+            focus: false // set focus to editable area after initializing summernote
+        });
+
+        $('.inline-editor').summernote({
+            airMode: true
+        });
+
+    });
+
+    window.edit = function() {
+            $(".click2edit").summernote()
+        },
+        window.save = function() {
+            $(".click2edit").summernote('destroy');
+        }
+    </script>
     <!-- end - This is for export functionality only -->
     <script>
         $(function () {
@@ -304,6 +374,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+
 @endif
 </body>
 
