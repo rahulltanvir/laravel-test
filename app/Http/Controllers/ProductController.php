@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -23,12 +24,16 @@ class ProductController extends Controller
 
         return view('admin.products.index', compact('categories', 'subcategories', 'brands', 'units'));
     }
-    public function getSubcategory($id)
-{
-    $subcategories = Subcategory::where('category_id', $id)->get();
-    return response()->json($subcategories);
-}
 
+public function getSubcategory($id)
+{
+    $data = SubCategory::where('category_id', $id)->get();
+
+    return response()->json([
+        'status' => true,
+        'data' => $data
+    ]);
+}
     /**
      * Show the form for creating a new resource.
      */

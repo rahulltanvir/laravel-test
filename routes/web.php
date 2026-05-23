@@ -56,7 +56,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     //Product
 
     Route::get('/Product', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/get-subcategories/{id}', [ProductController::class, 'getSubcategory']);
+    Route::get('product/get-subcategories/{id}', [ProductController::class, 'getSubcategory'])
+    ->name('product.get-subcategories');
     Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
     Route::get('/product/manage', [ProductController::class, 'manage'])->name('product.manage');
     Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');

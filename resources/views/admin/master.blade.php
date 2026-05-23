@@ -194,50 +194,7 @@
     {{-- <script src="{{ asset('admin/assets/node_modules/toast-master/js/jquery.toast.js') }}"></script> --}}
     
     <script src="{{ asset('admin/assets/node_modules/dropify/dist/js/dropify.min.js') }}"></script>
-    <script>
-$(document).ready(function () {
 
-    $('#categoryId').on('change', function () {
-
-        let categoryId = $(this).val();
-
-        console.log('Category Selected:', categoryId);
-
-        $('#subcategoryId').html('<option>Loading...</option>');
-
-        if (categoryId) {
-
-            $.ajax({
-                url: '/get-subcategories/' + categoryId,
-                type: 'GET',
-
-                success: function (data) {
-
-                    console.log('Response:', data);
-
-                    $('#subcategoryId').html('<option value="">-- Select Sub Category --</option>');
-
-                    $.each(data, function (key, value) {
-                        $('#subcategoryId').append(`
-                            <option value="${value.id}">${value.name}</option>
-                        `);
-                    });
-
-                },
-
-                error: function (xhr) {
-                    console.log(xhr.responseText);
-                    alert('Something went wrong!');
-                }
-            });
-
-        } else {
-            $('#subcategoryId').html('<option value="">-- Select Sub Category --</option>');
-        }
-    });
-
-});
-</script>
 
     <script>
     $(document).ready(function() {
@@ -374,8 +331,61 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
 @endif
+{{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
+
+<script>
+$(document).ready(function () {
+
+    $(document).on('change', '#categoryId', function () {
+
+        let categoryId = $(this).val();
+
+        console.log("Selected Category:", categoryId);
+
+        let subCat = $('#subcategoryId');
+
+        subCat.html('<option value="">Loading...</option>');
+
+        if (!categoryId) {
+            subCat.html('<option value="">-- Select Subcategory --</option>');
+            return;
+        }
+
+        $.ajax({
+            url: "/product/get-subcategories/" + categoryId,
+            type: "GET",
+            dataType: "json",
+
+            success: function (res) {
+
+                console.log("Response:", res);
+
+                subCat.empty();
+                subCat.append('<option value="">-- Select Subcategory --</option>');
+
+                if (res.status === true && res.data.length > 0) {
+
+                    res.data.forEach(function (item) {
+                        subCat.append(
+                            `<option value="${item.id}">${item.name}</option>`
+                        );
+                    });
+
+                } else {
+                    subCat.append('<option value="">No Subcategory Found</option>');
+                }
+            },
+
+            error: function (err) {
+                console.log("AJAX ERROR:", err.responseText);
+            }
+        });
+
+    });
+
+});
+</script>
 </body>
 
 
