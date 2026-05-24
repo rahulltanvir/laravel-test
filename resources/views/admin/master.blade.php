@@ -332,60 +332,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 @endif
-{{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
 
-<script>
-$(document).ready(function () {
-
-    $(document).on('change', '#categoryId', function () {
-
-        let categoryId = $(this).val();
-
-        console.log("Selected Category:", categoryId);
-
-        let subCat = $('#subcategoryId');
-
-        subCat.html('<option value="">Loading...</option>');
-
-        if (!categoryId) {
-            subCat.html('<option value="">-- Select Subcategory --</option>');
-            return;
-        }
-
-        $.ajax({
-            url: "/product/get-subcategories/" + categoryId,
-            type: "GET",
-            dataType: "json",
-
-            success: function (res) {
-
-                console.log("Response:", res);
-
-                subCat.empty();
-                subCat.append('<option value="">-- Select Subcategory --</option>');
-
-                if (res.status === true && res.data.length > 0) {
-
-                    res.data.forEach(function (item) {
-                        subCat.append(
-                            `<option value="${item.id}">${item.name}</option>`
-                        );
-                    });
-
-                } else {
-                    subCat.append('<option value="">No Subcategory Found</option>');
-                }
-            },
-
-            error: function (err) {
-                console.log("AJAX ERROR:", err.responseText);
-            }
-        });
-
-    });
-
-});
-</script>
+@stack('scripts')
 </body>
 
 

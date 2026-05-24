@@ -17,38 +17,79 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
-        $subcategories=SubCategory::all();
-        $brands=Brand::all();
-        $units=Unit::all();
+        $categories = Category::all();
+        $brands      = Brand::all();
+        $units       = Unit::all();
 
-        return view('admin.products.index', compact('categories', 'subcategories', 'brands', 'units'));
+        return view('admin.products.index', compact(
+            'categories',
+            'brands',
+            'units'
+        ));
     }
 
-public function getSubcategory($id)
-{
-    $data = SubCategory::where('category_id', $id)->get();
-
-    return response()->json([
-        'status' => true,
-        'data' => $data
-    ]);
-}
     /**
-     * Show the form for creating a new resource.
+     * Get Subcategory by Category ID (AJAX)
      */
-    public function create()
+    public function getSubcategory($id)
     {
-        //
+        $subcategories = SubCategory::where('category_id', $id)->get();
+
+        return response()->json([
+            'status' => true,
+            'data'   => $subcategories
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store Product
      */
     public function store(Request $request)
     {
-        //
+        // validation
+        $request->validate([
+            'category_id'     => 'required',
+            'subcategory_id'  => 'required',
+            'name'            => 'required',
+            'product_code'    => 'required',
+            'stock'           => 'required',
+            'regular_price'   => 'required',
+        ]);
+
+        $imageName = null;
+
+        // image upload
+        if ($request->hasFile('image')) {
+
+            $image = $request->file('image');
+
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+
+            $image->move(public_path('uploads/products'), $imageName);
+        }
+
+        // store product
+        Product::create([
+            'category_id'       => $request->category_id,
+            'subcategory_id'    => $request->subcategory_id,
+            'brand_id'          => $request->brand_id,
+            'unit_id'           => $request->unit_id,
+            'name'              => $request->name,
+            'product_code'      => $request->product_code,
+            'stock'             => $request->stock,
+            'regular_price'     => $request->regular_price,
+            'sale_price'        => $request->sale_price,
+            'short_description' => $request->short_description,
+            'long_description'  => $request->long_description,
+            'image'             => $imageName,
+            'status'            => $request->status,
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Product Added Successfully');
     }
+
 
     /**
      * Display the specified resource.
