@@ -170,7 +170,7 @@ class ProductController extends Controller
             ->take(8)
             ->get();
 
-        return view('frontend.product.details', compact('product', 'relatedProducts'));
+        return view('admin.products.edit', compact('product', 'relatedProducts'));
     }
 
     /**
@@ -237,7 +237,10 @@ class ProductController extends Controller
 
             DB::commit();
 
-            return back()->with('success', 'Product Updated Successfully');
+            return redirect()
+            ->route('product.manage')
+            ->with('success', 'Product Updated Successfully');
+
 
         } catch (\Exception $e) {
 
