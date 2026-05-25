@@ -1,94 +1,114 @@
 @extends('admin.master')
 
 @section('body')
-    <div class="row mt-3">
-        <div class="col-12 ">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Category Table</h4>
 
-                    @if (session('success'))
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function() {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: "{{ session('success') }}",
-                                    timer: 2000,
-                                    showConfirmButton: false
-                                });
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title">Product Table</h4>
+                <hr>
+
+                @if(session('success'))
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: "{{ session('success') }}",
+                                timer: 2000,
+                                showConfirmButton: false
                             });
-                        </script>
-                    @endif
-                    <div class="table-responsive m-t-40">
-                        <table id="myTable" class="table table-striped border">
-                            <thead>
+                        });
+                    </script>
+                @endif
+
+                <div class="table-responsive mt-4">
+                    <table id="myTable" class="table table-striped border">
+
+                        <thead>
+                            <tr>
+                                <th>Sl</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Image</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($products as $key => $product)
                                 <tr>
-                                    <th>Sl No</th>
-                                    <th>Category name</th>
-                                    <th>Category Image</th>
-                                    <th>Category Description</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <td>{{ $key + 1 }}</td>
+
+                                    <td>{{ $product->name }}</td>
+
+                                    <td>{{ $product->category->name ?? 'N/A' }}</td>
+
+                                    <td>{{ $product->regular_price }}</td>
+
+                                    <td>{{ $product->stock }}</td>
+
+                                    <td>
+                                        <img src="{{ asset($product->thumbnail) }}"
+                                             width="60"
+                                             height="60"
+                                             style="object-fit:cover;">
+                                    </td>
+
+                                    <td>
+                                        @if($product->status == 1)
+                                            <span class="badge bg-success">Active</span>
+                                        @else
+                                            <span class="badge bg-danger">Inactive</span>
+                                        @endif
+                                    </td>
+
+                                    <td>
+
+                                        <a href="{{ route('product.edit', $product->id) }}"
+                                           class="btn btn-success btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+
+                                        <form id="delete-form-{{ $product->id }}"
+                                              action="{{ route('product.delete', $product->id) }}"
+                                              method="POST"
+                                              style="display:inline;">
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="confirmDelete({{ $product->id }})">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($categories as $key => $category)
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
+                            @endforeach
+                        </tbody>
 
-                                        <td>{{ $category->name }}</td>
-
-                                        <td>
-                                            <img src="{{ asset('uploads/category/' . $category->image) }}" width="60">
-                                        </td>
-
-                                        <td>{{ $category->description }}</td>
-
-                                        <td>
-                                            @if ($category->status == 1)
-                                                <span class="badge bg-success">Publish</span>
-                                            @else
-                                                <span class="badge bg-danger">Unpublish</span>
-                                            @endif
-                                        </td>
-
-                                        <td>
-                                            <a href="{{ route('category.edit', $category->id) }}"
-                                                class="btn btn-success btn-sm">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-
-                                            <form id="delete-form-{{ $category->id }}"
-                                          action="{{ route('category.delete', $category->id) }}"
-                                          method="POST"
-                                          style="display:inline;">
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="button"
-                                            class="btn btn-danger btn-sm"
-                                            onclick="confirmDelete({{$category->id }})">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </button>
-
-                                    </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    </table>
                 </div>
+
             </div>
         </div>
     </div>
-  <script>
+</div>
+
+<script>
 function confirmDelete(id) {
     Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        text: "This product will be deleted permanently!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -101,19 +121,5 @@ function confirmDelete(id) {
     });
 }
 </script>
-@if (session('success'))
-    @if (request()->routeIs('category.manage'))
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: "{{ session('success') }}",
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-            });
-        </script>
-    @endif
-@endif
+
 @endsection

@@ -2,34 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Unit;
-use Illuminate\Http\Request;
+use App\Models\ProductImage;
+use App\Models\ProductSpecification;
 
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * CREATE PAGE
      */
     public function index()
     {
-        $categories = Category::all();
-        $brands      = Brand::all();
-        $units       = Unit::all();
-
-        return view('admin.products.index', compact(
-            'categories',
-            'brands',
-            'units'
-        ));
+        return view('admin.products.index', [
+            'categories' => Category::all(),
+            'brands'     => Brand::all(),
+            'units'      => Unit::all(),
+        ]);
     }
 
     /**
-     * Get Subcategory by Category ID (AJAX)
+     * AJAX SUBCATEGORY
      */
     public function getSubcategory($id)
     {
@@ -42,84 +42,220 @@ class ProductController extends Controller
     }
 
     /**
-     * Store Product
+     * STORE PRODUCT
      */
     public function store(Request $request)
     {
-        // validation
         $request->validate([
-            'category_id'     => 'required',
-            'subcategory_id'  => 'required',
-            'name'            => 'required',
-            'product_code'    => 'required',
-            'stock'           => 'required',
-            'regular_price'   => 'required',
+            'category_id'    => 'required',
+            'subcategory_id' => 'required',
+            'name'           => 'required',
+            'regular_price'  => 'required',
+            'thumbnail'      => 'required|image',
         ]);
 
-        $imageName = null;
+        DB::beginTransaction();
 
-        // image upload
-        if ($request->hasFile('image')) {
+        try {
 
-            $image = $request->file('image');
+            $product = new Product();
 
-            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $product->category_id    = $request->category_id;
+            $product->subcategory_id = $request->subcategory_id;
+            $product->brand_id       = $request->brand_id;
+            $product->unit_id        = $request->unit_id;
 
-            $image->move(public_path('uploads/products'), $imageName);
+            $product->name = $request->name;
+            $product->slug = Str::slug($request->name);
+
+            $product->sku = $request->sku;
+            $product->product_code = $request->product_code;
+
+            $product->stock = $request->stock;
+
+            $product->regular_price = $request->regular_price;
+            $product->sale_price    = $request->sale_price;
+            $product->discount      = $request->discount;
+
+            $product->short_description = $request->short_description;
+            $product->long_description  = $request->long_description;
+
+            $product->featured = $request->featured ?? 0;
+            $product->status   = $request->status;
+
+            // THUMBNAIL
+            if ($request->hasFile('thumbnail')) {
+
+                $file = $request->file('thumbnail');
+                $fileName = time().'.'.$file->getClientOriginalExtension();
+
+                $file->move(public_path('uploads/products'), $fileName);
+
+                $product->thumbnail = 'uploads/products/'.$fileName;
+            }
+
+            $product->save();
+
+            // GALLERY IMAGES
+            if ($request->hasFile('images')) {
+
+                foreach ($request->file('images') as $img) {
+
+                    $imgName = rand().'.'.$img->getClientOriginalExtension();
+
+                    $img->move(public_path('uploads/products/gallery'), $imgName);
+
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'image'      => 'uploads/products/gallery/'.$imgName,
+                    ]);
+                }
+            }
+
+            // SPECIFICATIONS
+            if ($request->spec_key) {
+
+                foreach ($request->spec_key as $key => $value) {
+
+                    if (!empty($request->spec_key[$key])) {
+
+                        ProductSpecification::create([
+                            'product_id' => $product->id,
+                            'spec_key'   => $request->spec_key[$key],
+                            'spec_value' => $request->spec_value[$key],
+                        ]);
+                    }
+                }
+            }
+
+            DB::commit();
+
+            return back()->with('success', 'Product Created Successfully');
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return back()->with('error', $e->getMessage());
         }
+    }
 
-        // store product
-        Product::create([
-            'category_id'       => $request->category_id,
-            'subcategory_id'    => $request->subcategory_id,
-            'brand_id'          => $request->brand_id,
-            'unit_id'           => $request->unit_id,
-            'name'              => $request->name,
-            'product_code'      => $request->product_code,
-            'stock'             => $request->stock,
-            'regular_price'     => $request->regular_price,
-            'sale_price'        => $request->sale_price,
-            'short_description' => $request->short_description,
-            'long_description'  => $request->long_description,
-            'image'             => $imageName,
-            'status'            => $request->status,
+    /**
+     * ADMIN PRODUCT LIST (MANAGE PAGE)
+     */
+    public function manage()
+    {
+        $products = Product::with(['category','subcategory','brand'])
+            ->latest()
+            ->get();
+
+        return view('admin.products.manage', compact('products'));
+    }
+
+    /**
+     * FRONTEND PRODUCT DETAILS
+     */
+    public function show($slug)
+    {
+        $product = Product::with([
+            'images',
+            'specifications',
+            'category',
+            'subcategory',
+            'brand'
+        ])->where('slug', $slug)->firstOrFail();
+
+        $relatedProducts = Product::where('subcategory_id', $product->subcategory_id)
+            ->where('id', '!=', $product->id)
+            ->take(8)
+            ->get();
+
+        return view('frontend.product.details', compact('product', 'relatedProducts'));
+    }
+
+    /**
+     * EDIT PRODUCT
+     */
+    public function edit($id)
+    {
+        $product = Product::with(['images','specifications'])->findOrFail($id);
+
+        return view('admin.products.edit', [
+            'product'    => $product,
+            'categories' => Category::all(),
+            'brands'     => Brand::all(),
+            'units'      => Unit::all(),
         ]);
-
-        return redirect()
-            ->back()
-            ->with('success', 'Product Added Successfully');
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * UPDATE PRODUCT
      */
-    public function edit(Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        DB::beginTransaction();
+
+        try {
+
+            $product->category_id    = $request->category_id;
+            $product->subcategory_id = $request->subcategory_id;
+            $product->brand_id       = $request->brand_id;
+            $product->unit_id        = $request->unit_id;
+
+            $product->name = $request->name;
+            $product->slug = Str::slug($request->name);
+
+            $product->sku = $request->sku;
+            $product->product_code = $request->product_code;
+
+            $product->stock = $request->stock;
+
+            $product->regular_price = $request->regular_price;
+            $product->sale_price    = $request->sale_price;
+            $product->discount      = $request->discount;
+
+            $product->short_description = $request->short_description;
+            $product->long_description  = $request->long_description;
+
+            $product->featured = $request->featured ?? 0;
+            $product->status   = $request->status;
+
+            // THUMBNAIL UPDATE
+            if ($request->hasFile('thumbnail')) {
+
+                $file = $request->file('thumbnail');
+                $fileName = time().'.'.$file->getClientOriginalExtension();
+
+                $file->move(public_path('uploads/products'), $fileName);
+
+                $product->thumbnail = 'uploads/products/'.$fileName;
+            }
+
+            $product->save();
+
+            DB::commit();
+
+            return back()->with('success', 'Product Updated Successfully');
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
-     * Update the specified resource in storage.
+     * DELETE PRODUCT
      */
-    public function update(Request $request, Product $product)
+    public function destroy($id)
     {
-        //
-    }
+        $product = Product::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        $product->delete();
+
+        return back()->with('success', 'Product Deleted Successfully');
     }
 }
