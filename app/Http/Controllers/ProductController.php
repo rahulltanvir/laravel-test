@@ -47,11 +47,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_id'    => 'required',
-            'subcategory_id' => 'required',
-            'name'           => 'required',
-            'regular_price'  => 'required',
-            'thumbnail'      => 'required|image',
+            'category_id'       => 'required',
+            'subcategory_id'    => 'required',
+            'name'              => 'required|unique:products,name',
+            'regular_price'     => 'required|numeric',
+            'sale_price'        => 'nullable|numeric',
+            'discount'          => 'nullable|numeric',
+            'stock'             => 'nullable|integer',
+            'thumbnail'         => 'required|image|mimes:jpg,jpeg,png,webp',
+            'images.*'          => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'status'            => 'required',
         ]);
 
         DB::beginTransaction();
@@ -68,10 +73,10 @@ class ProductController extends Controller
             $product->name = $request->name;
             $product->slug = Str::slug($request->name);
 
-            $product->sku = $request->sku;
+            $product->sku          = $request->sku;
             $product->product_code = $request->product_code;
 
-            $product->stock = $request->stock;
+            $product->stock = $request->stock ?? 0;
 
             $product->regular_price = $request->regular_price;
             $product->sale_price    = $request->sale_price;
@@ -83,36 +88,43 @@ class ProductController extends Controller
             $product->featured = $request->featured ?? 0;
             $product->status   = $request->status;
 
-            // THUMBNAIL
+            /**
+             * THUMBNAIL UPLOAD
+             */
             if ($request->hasFile('thumbnail')) {
 
                 $file = $request->file('thumbnail');
-                $fileName = time().'.'.$file->getClientOriginalExtension();
+
+                $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
                 $file->move(public_path('uploads/products'), $fileName);
 
-                $product->thumbnail = 'uploads/products/'.$fileName;
+                $product->thumbnail = 'uploads/products/' . $fileName;
             }
 
             $product->save();
 
-            // GALLERY IMAGES
+            /**
+             * GALLERY IMAGES
+             */
             if ($request->hasFile('images')) {
 
                 foreach ($request->file('images') as $img) {
 
-                    $imgName = rand().'.'.$img->getClientOriginalExtension();
+                    $imgName = time() . '_' . rand() . '.' . $img->getClientOriginalExtension();
 
                     $img->move(public_path('uploads/products/gallery'), $imgName);
 
                     ProductImage::create([
                         'product_id' => $product->id,
-                        'image'      => 'uploads/products/gallery/'.$imgName,
+                        'image'      => 'uploads/products/gallery/' . $imgName,
                     ]);
                 }
             }
 
-            // SPECIFICATIONS
+            /**
+             * SPECIFICATIONS
+             */
             if ($request->spec_key) {
 
                 foreach ($request->spec_key as $key => $value) {
@@ -141,19 +153,21 @@ class ProductController extends Controller
     }
 
     /**
-     * ADMIN PRODUCT LIST (MANAGE PAGE)
+     * MANAGE PRODUCTS
      */
     public function manage()
     {
-        $products = Product::with(['category','subcategory','brand'])
-            ->latest()
-            ->get();
+        $products = Product::with([
+            'category',
+            'subcategory',
+            'brand'
+        ])->latest()->get();
 
         return view('admin.products.manage', compact('products'));
     }
 
     /**
-     * FRONTEND PRODUCT DETAILS
+     * SHOW PRODUCT DETAILS
      */
     public function show($slug)
     {
@@ -167,18 +181,25 @@ class ProductController extends Controller
 
         $relatedProducts = Product::where('subcategory_id', $product->subcategory_id)
             ->where('id', '!=', $product->id)
+            ->latest()
             ->take(8)
             ->get();
 
-        return view('admin.products.edit', compact('product', 'relatedProducts'));
+        return view('admin.products.manage', compact(
+            'product',
+            'relatedProducts'
+        ));
     }
 
     /**
-     * EDIT PRODUCT
+     * EDIT PAGE
      */
     public function edit($id)
     {
-        $product = Product::with(['images','specifications'])->findOrFail($id);
+        $product = Product::with([
+            'images',
+            'specifications'
+        ])->findOrFail($id);
 
         return view('admin.products.edit', [
             'product'    => $product,
@@ -193,6 +214,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'category_id'       => 'required',
+            'subcategory_id'    => 'required',
+            'name'              => 'required|unique:products,name,' . $id,
+            'regular_price'     => 'required|numeric',
+            'sale_price'        => 'nullable|numeric',
+            'discount'          => 'nullable|numeric',
+            'stock'             => 'nullable|integer',
+            'thumbnail'         => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'images.*'          => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'status'            => 'required',
+        ]);
+
         $product = Product::findOrFail($id);
 
         DB::beginTransaction();
@@ -207,10 +241,10 @@ class ProductController extends Controller
             $product->name = $request->name;
             $product->slug = Str::slug($request->name);
 
-            $product->sku = $request->sku;
+            $product->sku          = $request->sku;
             $product->product_code = $request->product_code;
 
-            $product->stock = $request->stock;
+            $product->stock = $request->stock ?? 0;
 
             $product->regular_price = $request->regular_price;
             $product->sale_price    = $request->sale_price;
@@ -222,25 +256,71 @@ class ProductController extends Controller
             $product->featured = $request->featured ?? 0;
             $product->status   = $request->status;
 
-            // THUMBNAIL UPDATE
+            /**
+             * UPDATE THUMBNAIL
+             */
             if ($request->hasFile('thumbnail')) {
 
+                if ($product->thumbnail &&
+                    file_exists(public_path($product->thumbnail))) {
+
+                    unlink(public_path($product->thumbnail));
+                }
+
                 $file = $request->file('thumbnail');
-                $fileName = time().'.'.$file->getClientOriginalExtension();
+
+                $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
                 $file->move(public_path('uploads/products'), $fileName);
 
-                $product->thumbnail = 'uploads/products/'.$fileName;
+                $product->thumbnail = 'uploads/products/' . $fileName;
             }
 
             $product->save();
 
+            /**
+             * ADD NEW GALLERY IMAGES
+             */
+            if ($request->hasFile('images')) {
+
+                foreach ($request->file('images') as $img) {
+
+                    $imgName = time() . '_' . rand() . '.' . $img->getClientOriginalExtension();
+
+                    $img->move(public_path('uploads/products/gallery'), $imgName);
+
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'image'      => 'uploads/products/gallery/' . $imgName,
+                    ]);
+                }
+            }
+
+            /**
+             * UPDATE SPECIFICATIONS
+             */
+            ProductSpecification::where('product_id', $product->id)->delete();
+
+            if ($request->spec_key) {
+
+                foreach ($request->spec_key as $key => $value) {
+
+                    if (!empty($request->spec_key[$key])) {
+
+                        ProductSpecification::create([
+                            'product_id' => $product->id,
+                            'spec_key'   => $request->spec_key[$key],
+                            'spec_value' => $request->spec_value[$key],
+                        ]);
+                    }
+                }
+            }
+
             DB::commit();
 
             return redirect()
-            ->route('product.manage')
-            ->with('success', 'Product Updated Successfully');
-
+                ->route('product.manage')
+                ->with('success', 'Product Updated Successfully');
 
         } catch (\Exception $e) {
 
@@ -255,10 +335,54 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('images')->findOrFail($id);
 
-        $product->delete();
+        DB::beginTransaction();
 
-        return back()->with('success', 'Product Deleted Successfully');
+        try {
+
+            /**
+             * DELETE THUMBNAIL
+             */
+            if ($product->thumbnail &&
+                file_exists(public_path($product->thumbnail))) {
+
+                unlink(public_path($product->thumbnail));
+            }
+
+            /**
+             * DELETE GALLERY IMAGES
+             */
+            foreach ($product->images as $image) {
+
+                if ($image->image &&
+                    file_exists(public_path($image->image))) {
+
+                    unlink(public_path($image->image));
+                }
+
+                $image->delete();
+            }
+
+            /**
+             * DELETE SPECIFICATIONS
+             */
+            ProductSpecification::where('product_id', $product->id)->delete();
+
+            /**
+             * DELETE PRODUCT
+             */
+            $product->delete();
+
+            DB::commit();
+
+            return back()->with('success', 'Product Deleted Successfully');
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return back()->with('error', $e->getMessage());
+        }
     }
 }
