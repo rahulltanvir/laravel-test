@@ -10,7 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UnitController;
-
+//frontend
 Route::get('/', [MyCommerceController::class, 'index'])->name('home');
 route::get('/product-category', [MyCommerceController::class, 'category'])->name('product-category');
 route::get('/product-detail', [MyCommerceController::class, 'detail'])->name('product-detail');
