@@ -15,8 +15,14 @@ return new class extends Migration
 
         $table->id();
 
-        $table->foreignId('category_id')->nullable();
-        $table->foreignId('subcategory_id')->nullable();
+        $table->foreignId('category_id')
+      ->constrained('categories')
+      ->onDelete('cascade');
+
+$table->foreignId('subcategory_id')
+      ->constrained('sub_categories')
+      ->onDelete('cascade');
+
         $table->foreignId('brand_id')->nullable();
         $table->foreignId('unit_id')->nullable();
 
