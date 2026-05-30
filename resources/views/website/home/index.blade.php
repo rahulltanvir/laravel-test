@@ -236,7 +236,7 @@ online super shop
                                 <li><span>4.0 Review(s)</span></li>
                             </ul>
                             <div class="price">
-                                <span>tk {{$product->sale_price}}</span>
+                                <span>Price:{{ number_format($product->sale_price) }}৳</span>
                             </div>
                         </div>
                     </div>
