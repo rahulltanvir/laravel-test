@@ -12,7 +12,8 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UnitController;
 //frontend
 Route::get('/', [MyCommerceController::class, 'index'])->name('home');
-route::get('/product-category', [MyCommerceController::class, 'category'])->name('product-category');
+Route::get('/product-category/{id}', [MyCommerceController::class, 'category'])
+->name('product-category');
 route::get('/product-detail', [MyCommerceController::class, 'detail'])->name('product-detail');
 route::get('/show-card', [Cardcontroller::class, 'index'])->name('show-card');
 route::get('/check-out', [CheckoutController::class, 'index'])->name('check-out');

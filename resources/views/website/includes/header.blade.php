@@ -204,9 +204,8 @@
                           <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
                           <ul class="sub-category">
                               @foreach ($categories as $category)
-
                                   <li>
-                                      <a href="#">
+                                      <a href="{{ route('product-category', $category->id) }}">
                                           {{ $category->name }}
                                       </a>
 
@@ -222,21 +221,7 @@
 
                                       </ul>
                                   </li>
-
                               @endforeach
-
-
-
-                              {{-- <li><a href="product-grids.html">Televisions</a></li>
-                                <li><a href="product-grids.html">best selling</a></li>
-                                <li><a href="product-grids.html">top 100 offer</a></li>
-                                <li><a href="product-grids.html">sunglass</a></li>
-                                <li><a href="product-grids.html">watch</a></li>
-                                <li><a href="product-grids.html">man’s product</a></li>
-                                <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                                <li><a href="product-grids.html">Computers & Tablets </a></li>
-                                <li><a href="product-grids.html">Video Games </a></li>
-                                <li><a href="product-grids.html">Home Appliances </a></li> --}}
                           </ul>
                       </div>
 

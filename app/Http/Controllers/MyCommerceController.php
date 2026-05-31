@@ -16,17 +16,25 @@ class MyCommerceController extends Controller
         return view('website.home.index', compact('categories','products'));
     }
 
-    public function category()
-    {
-        // $categories = Category::with('subcategories')->get();
+    public function category($id)
+{
+    $categories = Category::with('subcategories')->get();
 
-        // return view('website.category.index', compact('categories'));
-    }
+    $category = Category::findOrFail($id);
+
+    $products = Product::where('category_id', $id)->get();
+
+    return view('website.category.index', compact(
+        'categories',
+        'category',
+        'products'
+    ));
+}
 
     public function detail()
     {
         // $categories = Category::with('subcategories')->get();
 
-        // return view('website.detail.index', compact('categories'));
+        return view('website.detail.index');
     }
 }
