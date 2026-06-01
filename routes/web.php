@@ -14,7 +14,7 @@ use App\Http\Controllers\UnitController;
 Route::get('/', [MyCommerceController::class, 'index'])->name('home');
 Route::get('/product-category/{id}', [MyCommerceController::class, 'category'])
 ->name('product-category');
-route::get('/product-detail', [MyCommerceController::class, 'detail'])->name('product-detail');
+route::get('/product-detail/{id}', [MyCommerceController::class, 'detail'])->name('product-detail');
 route::get('/show-card', [Cardcontroller::class, 'index'])->name('show-card');
 route::get('/check-out', [CheckoutController::class, 'index'])->name('check-out');
 
