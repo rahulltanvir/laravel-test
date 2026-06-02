@@ -31,10 +31,10 @@ class MyCommerceController extends Controller
     ));
 }
 
-    public function detail()
+    public function detail($id)
     {
         // $categories = Category::with('subcategories')->get();
-
-        return view('website.detail.index');
+$product = Product::findOrFail($id);
+        return view('website.detail.index', compact('product'));
     }
 }
