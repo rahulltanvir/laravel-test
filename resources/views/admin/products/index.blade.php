@@ -156,7 +156,7 @@
                     </div>
 
                     {{-- Specifications --}}
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-sm-3 control-label">Specifications</label>
                         <div class="col-sm-9">
 
@@ -181,7 +181,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- Featured --}}
                     <div class="form-group row">
