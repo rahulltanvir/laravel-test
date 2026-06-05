@@ -1,206 +1,118 @@
 @extends('website.master')
 
 @section('title')
-Shopping Card page
+    Shopping Cart page
 @endsection
 
 @section('body')
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <h1 class="page-title">Cart</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="breadcrumbs">
-<div class="container">
-<div class="row align-items-center">
-<div class="col-lg-6 col-md-6 col-12">
-<div class="breadcrumbs-content">
-<h1 class="page-title">Cart</h1>
-</div>
-</div>
-<div class="col-lg-6 col-md-6 col-12">
-<ul class="breadcrumb-nav">
-<li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-<li><a href="index.html">Shop</a></li>
-<li>Cart</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
+    <div class="shopping-cart section">
+        <div class="container">
 
+            <div class="cart-list-head">
 
-<div class="shopping-cart section">
-<div class="container">
-<div class="cart-list-head">
+                <div class="cart-list-title">
+                    <div class="row">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-4">Product Name</div>
+                        <div class="col-lg-2">Quantity</div>
+                        <div class="col-lg-2">Subtotal</div>
+                        <div class="col-lg-2">Discount</div>
+                        <div class="col-lg-1">Remove</div>
+                    </div>
+                </div>
 
-<div class="cart-list-title">
-<div class="row">
-<div class="col-lg-1 col-md-1 col-12">
-</div>
-<div class="col-lg-4 col-md-3 col-12">
-<p>Product Name</p>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<p>Quantity</p>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<p>Subtotal</p>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<p>Discount</p>
-</div>
-<div class="col-lg-1 col-md-2 col-12">
-<p>Remove</p>
-</div>
-</div>
-</div>
+                @php
+                    $cartItems = session('cart', []);
+                    $total = 0;
+                @endphp
 
+                @forelse ($cartItems as $item)
+                    @php
+                        $subtotal = $item['price'] * $item['quantity'];
+                        $total += $subtotal;
+                    @endphp
 
-<div class="cart-single-list">
-<div class="row align-items-center">
-<div class="col-lg-1 col-md-1 col-12">
-<a href="product-details.html"><img src="website/assets/images/cart/01.jpg" alt="#"></a>
-</div>
-<div class="col-lg-4 col-md-3 col-12">
-<h5 class="product-name"><a href="product-details.html">
-Canon EOS M50 Mirrorless Camera</a></h5>
-<p class="product-des">
-<span><em>Type:</em> Mirrorless</span>
-<span><em>Color:</em> Black</span>
-</p>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<div class="count-input">
-<select class="form-control">
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-</select>
-</div>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<p>$910.00</p>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<p>$29.00</p>
-</div>
-<div class="col-lg-1 col-md-2 col-12">
-<a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
-</div>
-</div>
-</div>
+                    <div class="cart-single-list">
+                        <div class="row align-items-center">
 
+                            <div class="col-lg-1">
+                                <img src="{{ asset($item['image']) }}" width="60">
+                            </div>
 
-<div class="cart-single-list">
-<div class="row align-items-center">
-<div class="col-lg-1 col-md-1 col-12">
-<a href="product-details.html"><img src="website/assets/images/cart/02.jpg" alt="#"></a>
-</div>
-<div class="col-lg-4 col-md-3 col-12">
-<h5 class="product-name"><a href="product-details.html">
-Apple iPhone X 256 GB Space Gray</a></h5>
-<p class="product-des">
-<span><em>Memory:</em> 256 GB</span>
-<span><em>Color:</em> Space Gray</span>
-</p>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<div class="count-input">
-<select class="form-control">
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-</select>
-</div>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<p>$1100.00</p>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<p>—</p>
-</div>
-<div class="col-lg-1 col-md-2 col-12">
-<a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
-</div>
-</div>
-</div>
+                            <div class="col-lg-4">
+                                <h5>{{ $item['name'] }}</h5>
+                            </div>
 
+                            <div class="col-lg-2">
+                                <p>{{ $item['quantity'] }}</p>
+                            </div>
 
-<div class="cart-single-list">
-<div class="row align-items-center">
-<div class="col-lg-1 col-md-1 col-12">
-<a href="product-details.html"><img src="website/assets/images/cart/03.jpg" alt="#"></a>
-</div>
-<div class="col-lg-4 col-md-3 col-12">
-<h5 class="product-name"><a href="product-details.html">HP LaserJet Pro Laser Printer</a></h5>
-<p class="product-des">
-<span><em>Type:</em> Laser</span>
-<span><em>Color:</em> White</span>
-</p>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<div class="count-input">
-<select class="form-control">
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-</select>
-</div>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<p>$550.00</p>
-</div>
-<div class="col-lg-2 col-md-2 col-12">
-<p>—</p>
-</div>
-<div class="col-lg-1 col-md-2 col-12">
-<a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
-</div>
-</div>
-</div>
+                            <div class="col-lg-2">
+                                <p>{{ number_format($subtotal) }}৳</p>
+                            </div>
 
-</div>
-<div class="row">
-<div class="col-12">
+                            <div class="col-lg-2">
+                                <p>0৳</p>
+                            </div>
 
-<div class="total-amount">
-<div class="row">
-<div class="col-lg-8 col-md-6 col-12">
-<div class="left">
-<div class="coupon">
- <form action="#" target="_blank">
-<input name="Coupon" placeholder="Enter Your Coupon">
-<div class="button">
-<button class="btn">Apply Coupon</button>
-</div>
-</form>
-</div>
-</div>
-</div>
-<div class="col-lg-4 col-md-6 col-12">
-<div class="right">
-<ul>
-<li>Cart Subtotal<span>$2560.00</span></li>
-<li>Shipping<span>Free</span></li>
-<li>You Save<span>$29.00</span></li>
-<li class="last">You Pay<span>$2531.00</span></li>
-</ul>
-<div class="button">
-<a href="{{route('check-out') }}" class="btn ">Checkout</a>
-<a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
-</div>
-</div>
-</div>
-</div>
-</div>
+                            <div class="col-lg-1">
+                                <a href="#"><i class="lni lni-close"></i></a>
+                            </div>
 
-</div>
-</div>
-</div>
-</div>
+                        </div>
+                    </div>
 
+                @empty
 
+                    <div class="text-center py-5">
+                        <h4>Your Cart is Empty</h4>
+                    </div>
+                @endforelse
+
+            </div>
+
+            {{-- TOTAL SECTION --}}
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="total-amount">
+                        <div class="row">
+
+                            <div class="col-lg-8"></div>
+
+                            <div class="col-lg-4">
+                                <div class="right">
+
+                                    <ul>
+                                        <li>Cart Subtotal<span>{{ number_format($total) }}৳</span></li>
+                                        <li>Shipping<span>Free</span></li>
+                                        <li>You Save<span>0৳</span></li>
+                                        <li class="last">You Pay<span>{{ number_format($total) }}৳</span></li>
+                                    </ul>
+
+                                    <div class="button">
+                                        <a href="{{ route('check-out') }}" class="btn">Checkout</a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 @endsection

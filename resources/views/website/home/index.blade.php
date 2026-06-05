@@ -219,7 +219,7 @@ online super shop
                         <div class="product-image">
                             <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="{{ route('product-detail',$product->id) }}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">

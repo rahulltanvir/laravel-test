@@ -14,9 +14,10 @@ use App\Http\Controllers\UnitController;
 Route::get('/', [MyCommerceController::class, 'index'])->name('home');
 Route::get('/product-category/{id}', [MyCommerceController::class, 'category'])
 ->name('product-category');
-route::get('/product-detail/{id}', [MyCommerceController::class, 'detail'])->name('product-detail');
-route::get('/show-card', [Cardcontroller::class, 'index'])->name('show-card');
-route::get('/check-out', [CheckoutController::class, 'index'])->name('check-out');
+Route::get('/product-detail/{id}', [MyCommerceController::class, 'detail'])->name('product-detail');
+Route::post('/add-to-cart/{id}', [Cardcontroller::class, 'index'])->name('add-to-cart');
+Route::get('/cart', [Cardcontroller::class, 'show'])->name('cart');
+Route::get('/check-out', [CheckoutController::class, 'index'])->name('check-out');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
    
