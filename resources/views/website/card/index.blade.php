@@ -62,7 +62,7 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <p>৳</p>
+                                <p>0৳</p>
                             </div>
 
                             <div class="col-lg-1">
