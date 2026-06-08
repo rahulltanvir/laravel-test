@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
-                    <h1 class="page-title">Cart</h1>
+                    <h3 class="page-title">Cart</h3>
                 </div>
             </div>
         </div>
@@ -26,20 +26,20 @@
                         <div class="col-lg-4">Product Name</div>
                         <div class="col-lg-2">Quantity</div>
                         <div class="col-lg-2">Subtotal</div>
-                        <div class="col-lg-2">Discount</div>
+                        <div class="col-lg-2">Total</div>
                         <div class="col-lg-1">Remove</div>
                     </div>
                 </div>
 
                 @php
-                    $cartItems = session('cart', []);
-                    $total = 0;
+                    
+                    $grandTotal = 0;
                 @endphp
 
                 @forelse ($cartItems as $item)
                     @php
-                        $subtotal = $item['price'] * $item['quantity'];
-                        $total += $subtotal;
+                        $lineTotal = $item['price'] * $item['quantity'];
+                        $grandTotal += $lineTotal;
                     @endphp
 
                     <div class="cart-single-list">
@@ -58,11 +58,11 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <p>{{ number_format($subtotal) }}৳</p>
+                                <p>{{ number_format($item['price']) }}৳</p>
                             </div>
 
                             <div class="col-lg-2">
-                                <p>0৳</p>
+                                <p>{{ number_format($lineTotal) }}৳</p>
                             </div>
 
                             <div class="col-lg-1">
@@ -94,10 +94,10 @@
                                 <div class="right">
 
                                     <ul>
-                                        <li>Cart Subtotal<span>{{ number_format($total) }}৳</span></li>
-                                        <li>Shipping<span>Free</span></li>
-                                        <li>You Save<span>0৳</span></li>
-                                        <li class="last">You Pay<span>{{ number_format($total) }}৳</span></li>
+                                        <li>Subtotal <span>{{ number_format($grandTotal) }}৳</span></li>
+                                        <li>Shipping <span>Free</span></li>
+                                        <li>Discount <span>0৳</span></li>
+                                        <li class="last">Grand Total <span>{{ number_format($grandTotal) }}৳</span></li>
                                     </ul>
 
                                     <div class="button">
