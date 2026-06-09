@@ -37,4 +37,27 @@ class Cardcontroller extends Controller
     $cartItems = session('cart', []);
     return view('website.card.index', compact('cartItems'));
 }
+public function remove(Request $request)
+{
+    $id = $request->id;
+
+    $cart = session()->get('cart', []);
+
+    if (isset($cart[$id])) {
+        unset($cart[$id]);
+        session()->put('cart', $cart);
+    }
+
+    // recalculate total
+    $grandTotal = 0;
+
+    foreach ($cart as $item) {
+        $grandTotal += $item['price'] * $item['quantity'];
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'grandTotal' => $grandTotal
+    ]);
+}
 }

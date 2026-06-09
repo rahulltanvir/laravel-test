@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
-
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class MyCommerceController extends Controller
@@ -29,6 +29,14 @@ class MyCommerceController extends Controller
         'category',
         'products'
     ));
+}
+public function subcategory($id)
+{
+    $subcategory = SubCategory::findOrFail($id);
+
+    $products = Product::where('subcategory_id', $id)->get();
+
+    return view('website.category.index', compact('subcategory', 'products'));
 }
 
     public function detail($id)

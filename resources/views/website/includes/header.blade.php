@@ -128,93 +128,97 @@
                                   <span>(+100) 123 456 7890</span>
                               </h3>
                           </div>
-    @php
-    $cartItems = session('cart', []);
-    $cartCount = count($cartItems);
+                          @php
+                              $cartItems = session('cart', []);
+                              $cartCount = count($cartItems);
 
-    $total = 0;
-    foreach ($cartItems as $item) {
-        $total += $item['price'] * $item['quantity'];
-    }
-@endphp
+                              $total = 0;
+                              foreach ($cartItems as $item) {
+                                  $total += $item['price'] * $item['quantity'];
+                              }
+                          @endphp
 
-<div class="navbar-cart">
+                          <div class="navbar-cart">
 
-    <div class="wishlist">
-        <a href="javascript:void(0)">
-            <i class="lni lni-heart"></i>
-            <span class="total-items">0</span>
-        </a>
-    </div>
-
-    <div class="cart-items">
-        <a href="javascript:void(0)" class="main-btn">
-            <i class="lni lni-cart"></i>
-            <span class="total-items">{{ $cartCount }}</span>
-        </a>
-
-        <!-- DROPDOWN -->
-        <div class="shopping-item">
-
-            <div class="dropdown-cart-header">
-                <span>{{ $cartCount }} Items</span>
-                <a href="{{ route('cart') }}">View Cart</a>
-            </div>
-
-            <ul class="shopping-list">
-
-                @forelse ($cartItems as $item)
-                    <li>
-                        <a href="javascript:void(0)" class="remove">
-                            <i class="lni lni-close"></i>
-                        </a>
-
-                        <div class="cart-img-head">
-                            <a class="cart-img" href="{{ route('product-detail', $item['id']) }}">
-                                <img src="{{ asset($item['image']) }}" alt="#">
-                            </a>
-                        </div>
-
-                        <div class="content">
-                            <a href="{{ route('product-detail', $item['id']) }}"><h5>{{ $item['name'] }}</h5></a>
-
-                            <p class="quantity">
-                                {{ $item['quantity'] }}x -
-                                <span class="amount">{{ number_format($item['price']) }}৳</span>
-                            </p>
-                        </div>
-                    </li>
-
-                @empty
-                    <li class="text-center">Cart is empty</li>
-                @endforelse
-
-            </ul>
-
-            <!-- 🔥 THIS IS IMPORTANT (inside shopping-item) -->
-            <div class="bottom">
-                <div class="total">
-                    <span>Total</span>
-                    <span class="total-amount">{{ number_format($total) }}৳</span>
-                </div>
-
-                <div class="button">
-                    <a href="3" class="btn animate">Checkout</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-</div>
-                                  </div>
-
+                              <div class="wishlist">
+                                  <a href="javascript:void(0)">
+                                      <i class="lni lni-heart"></i>
+                                      <span class="total-items">0</span>
+                                  </a>
                               </div>
+
+                              <div class="cart-items">
+                                  <a href="javascript:void(0)" class="main-btn">
+                                      <i class="lni lni-cart"></i>
+                                      <span class="total-items">{{ $cartCount }}</span>
+                                  </a>
+
+                                  <!-- DROPDOWN -->
+                                  <div class="shopping-item">
+
+                                      <div class="dropdown-cart-header">
+                                          <span>{{ $cartCount }} Items</span>
+                                          <a href="{{ route('cart') }}">View Cart</a>
+                                      </div>
+
+                                      <ul class="shopping-list">
+
+                                          @forelse ($cartItems as $item)
+                                              <li>
+                                                  <a href="javascript:void(0)" class="remove">
+                                                      <i class="lni lni-close"></i>
+                                                  </a>
+
+                                                  <div class="cart-img-head">
+                                                      <a class="cart-img"
+                                                          href="{{ route('product-detail', $item['id']) }}">
+                                                          <img src="{{ asset($item['image']) }}" alt="#">
+                                                      </a>
+                                                  </div>
+
+                                                  <div class="content">
+                                                      <a href="{{ route('product-detail', $item['id']) }}">
+                                                          <h5>{{ $item['name'] }}</h5>
+                                                      </a>
+
+                                                      <p class="quantity">
+                                                          {{ $item['quantity'] }}x -
+                                                          <span
+                                                              class="amount">{{ number_format($item['price']) }}৳</span>
+                                                      </p>
+                                                  </div>
+                                              </li>
+
+                                          @empty
+                                              <li class="text-center">Cart is empty</li>
+                                          @endforelse
+
+                                      </ul>
+
+                                      <!-- 🔥 THIS IS IMPORTANT (inside shopping-item) -->
+                                      <div class="bottom">
+                                          <div class="total">
+                                              <span>Total</span>
+                                              <span class="total-amount">{{ number_format($total) }}৳</span>
+                                          </div>
+
+                                          <div class="button">
+                                              <a href="3" class="btn animate">Checkout</a>
+                                          </div>
+                                      </div>
+
+                                  </div>
+                              </div>
+
                           </div>
                       </div>
+
                   </div>
               </div>
           </div>
+      </div>
+      </div>
+      </div>
       </div>
 
 
@@ -235,11 +239,9 @@
                                       <ul class="inner-sub-category">
 
                                           @foreach ($category->subcategories as $subcategory)
-                                              <li>
-                                                  <a href="#">
-                                                      {{ $subcategory->name }}
-                                                  </a>
-                                              </li>
+                                              <a href="{{ route('product-subcategory', $subcategory->id) }}">
+                                                  {{ $subcategory->name }}
+                                              </a>
                                           @endforeach
 
                                       </ul>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -15,7 +16,12 @@ class CategoryController extends Controller
     {
         return view('admin.category.index');
     }
+public function subcategory($id)
+{
+    $subcategory = SubCategory::findOrFail($id);
 
+    return view('website.category.index', compact('subcategory'));
+}
     /**
      * Show the form for creating a new resource.
      */

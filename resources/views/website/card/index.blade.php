@@ -32,7 +32,7 @@
                 </div>
 
                 @php
-                    
+
                     $grandTotal = 0;
                 @endphp
 
@@ -66,7 +66,11 @@
                             </div>
 
                             <div class="col-lg-1">
-                                <a href="#"><i class="lni lni-close"></i></a>
+                                <a style=" background: transparent !important" href="javascript:void(0)" class="remove-item"
+                                    data-id="{{ $item['id'] }}">
+                                    <i style="font-size: 10px;
+    color: red;" class="lni lni-close"></i>
+                                </a>
                             </div>
 
                         </div>
@@ -94,10 +98,11 @@
                                 <div class="right">
 
                                     <ul>
-                                        <li>Subtotal <span>{{ number_format($grandTotal) }}৳</span></li>
+                                        {{-- <li>Subtotal <span id="grandTotal">{{ number_format($grandTotal) }}৳</span></li> --}}
                                         <li>Shipping <span>Free</span></li>
                                         <li>Discount <span>0৳</span></li>
-                                        <li class="last">Grand Total <span>{{ number_format($grandTotal) }}৳</span></li>
+                                        <li class="last">Grand Total <span
+                                                id="grandTotal">{{ number_format($grandTotal) }}৳</span></li>
                                     </ul>
 
                                     <div class="button">
@@ -116,3 +121,41 @@
         </div>
     </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).on('click', '.remove-item', function() {
+
+        let id = $(this).data('id');
+        let row = $(this).closest('.cart-single-list');
+
+        $.ajax({
+            url: "{{ route('remove-from-cart') }}",
+            type: "POST",
+            data: {
+                id: id,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(res) {
+
+                if (res.status === 'success') {
+
+                    row.remove();
+
+                    // update grand total
+                    $('#grandTotal').text(res.grandTotal.toLocaleString() + '৳');
+
+                    // optional: empty cart message
+                    if (res.grandTotal === 0) {
+                        $('.cart-list-head').html(`
+                        <div class="text-center py-5">
+                            <h4>Your Cart is Empty</h4>
+                        </div>
+                    `);
+                    }
+                }
+            }
+        });
+
+    });
+</script>
