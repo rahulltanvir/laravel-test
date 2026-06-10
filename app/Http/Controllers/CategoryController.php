@@ -18,9 +18,9 @@ class CategoryController extends Controller
     }
 public function subcategory($id)
 {
-    $subcategory = SubCategory::findOrFail($id);
 
-    return view('website.category.index', compact('subcategory'));
+
+    return view('website.category.index');
 }
     /**
      * Show the form for creating a new resource.
