@@ -596,30 +596,12 @@ online super shop
             </div>
             <div class="brands-logo-wrapper">
                 <div class="brands-logo-carousel d-flex align-items-center justify-content-between">
-                    <div class="brand-logo">
-                        <img src="website/assets/images/brands/01.png" alt="#">
+                    @foreach ( $brands as $brand )
+                        <div class="brand-logo">
+                        <img src="{{ asset('uploads/brands/'.$brand->image) }}" alt="#">
                     </div>
-                    <div class="brand-logo">
-                        <img src="website/assets/images/brands/02.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="website/assets/images/brands/03.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="website/assets/images/brands/04.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="website/assets/images/brands/05.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="website/assets/images/brands/06.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="website/assets/images/brands/03.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="website/assets/images/brands/04.png" alt="#">
-                    </div>
+                    @endforeach
+                    
                 </div>
             </div>
         </div>

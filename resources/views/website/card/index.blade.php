@@ -54,7 +54,13 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <p>{{ $item['quantity'] }}</p>
+                                <button class=" decrease" style="border:none; width:32px; height:20px;" data-id="{{ $item['id'] }}">-</button>
+
+                                <span class="qty-{{ $item['id'] }}">
+                                    {{ $item['quantity'] }}
+                                </span>
+
+                                <button class=" increase" style="border:none; width:32px; height:20px;" data-id="{{ $item['id'] }}">+</button>
                             </div>
 
                             <div class="col-lg-2">
@@ -62,8 +68,10 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <p>{{ number_format($lineTotal) }}৳</p>
-                            </div>
+    <p class="line-total-{{ $item['id'] }}">
+        {{ number_format($lineTotal) }}৳
+    </p>
+</div>
 
                             <div class="col-lg-1">
                                 <a style=" background: transparent !important" href="javascript:void(0)" class="remove-item"
@@ -159,3 +167,40 @@
 
     });
 </script>
+
+<script>
+$(document).on('click', '.increase, .decrease', function() {
+
+    let id = $(this).data('id');
+
+    let action = $(this).hasClass('increase')
+        ? 'increase'
+        : 'decrease';
+
+    $.ajax({
+        url: "{{ route('update-cart-qty') }}",
+        type: "POST",
+        data: {
+            id: id,
+            action: action,
+            _token: "{{ csrf_token() }}"
+        },
+
+        success: function(res) {
+
+            $('.qty-' + id).text(res.quantity);
+
+            $('.line-total-' + id).text(
+                res.lineTotal.toLocaleString() + '৳'
+            );
+
+            $('#grandTotal').text(
+                res.grandTotal.toLocaleString() + '৳'
+            );
+        }
+    });
+
+});
+</script>
+
+

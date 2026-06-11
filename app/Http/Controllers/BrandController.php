@@ -40,7 +40,7 @@ class BrandController extends Controller
         'image'       => $imageName,
         'status'      => $request->brand_status
     ]);
-    return redirect()->route('brand.manage')->with('success', 'Brand created successfully');
+    return redirect()->back()->with('success', 'Brand created successfully');
     }
 
     /**

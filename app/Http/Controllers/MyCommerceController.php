@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
@@ -13,7 +14,8 @@ class MyCommerceController extends Controller
     {
         $categories = Category::with('subcategories')->get();
         $products = Product::latest()->take(8)->get();
-        return view('website.home.index', compact('categories','products'));
+        $brands= Brand::all();
+        return view('website.home.index', compact('categories','products','brands'));
     }
 
     public function category($id)
@@ -45,4 +47,6 @@ public function subcategory($id)
 $product = Product::findOrFail($id);
         return view('website.detail.index', compact('product'));
     }
+    
+    
 }

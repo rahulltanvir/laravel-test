@@ -37,6 +37,43 @@ class Cardcontroller extends Controller
     $cartItems = session('cart', []);
     return view('website.card.index', compact('cartItems'));
 }
+public function updateQty(Request $request)
+{
+    $cart = session()->get('cart', []);
+
+    if (isset($cart[$request->id])) {
+
+        if ($request->action == 'increase') {
+
+            $cart[$request->id]['quantity']++;
+
+        } elseif ($request->action == 'decrease') {
+
+            if ($cart[$request->id]['quantity'] > 1) {
+                $cart[$request->id]['quantity']--;
+            }
+        }
+
+        session()->put('cart', $cart);
+    }
+
+    $lineTotal =
+        $cart[$request->id]['price'] *
+        $cart[$request->id]['quantity'];
+
+    $grandTotal = 0;
+
+    foreach ($cart as $item) {
+        $grandTotal += $item['price'] * $item['quantity'];
+    }
+
+    return response()->json([
+        'quantity'   => $cart[$request->id]['quantity'],
+        'lineTotal'  => $lineTotal,
+        'grandTotal' => $grandTotal,
+    ]);
+}
+
 public function remove(Request $request)
 {
     $id = $request->id;
