@@ -33,13 +33,13 @@
 
                 @php
 
-                    $grandTotal = 0;
+                    $cartTotal = 0;
                 @endphp
 
                 @forelse ($cartItems as $item)
                     @php
                         $lineTotal = $item['price'] * $item['quantity'];
-                        $grandTotal += $lineTotal;
+                        $cartTotal += $lineTotal;
                     @endphp
 
                     <div class="cart-single-list">
@@ -54,13 +54,15 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <button class=" decrease" style="border:none; width:32px; height:20px;" data-id="{{ $item['id'] }}">-</button>
+                                <button class=" decrease" style="border:none; width:32px; height:20px;"
+                                    data-id="{{ $item['id'] }}">-</button>
 
                                 <span class="qty-{{ $item['id'] }}">
                                     {{ $item['quantity'] }}
                                 </span>
 
-                                <button class=" increase" style="border:none; width:32px; height:20px;" data-id="{{ $item['id'] }}">+</button>
+                                <button class=" increase" style="border:none; width:32px; height:20px;"
+                                    data-id="{{ $item['id'] }}">+</button>
                             </div>
 
                             <div class="col-lg-2">
@@ -68,16 +70,15 @@
                             </div>
 
                             <div class="col-lg-2">
-    <p class="line-total-{{ $item['id'] }}">
-        {{ number_format($lineTotal) }}৳
-    </p>
-</div>
+                                <p class="line-total-{{ $item['id'] }}">
+                                    {{ number_format($lineTotal) }}৳
+                                </p>
+                            </div>
 
                             <div class="col-lg-1">
                                 <a style=" background: transparent !important" href="javascript:void(0)" class="remove-item"
                                     data-id="{{ $item['id'] }}">
-                                    <i style="font-size: 10px;
-    color: red;" class="lni lni-close"></i>
+                                    <i style="font-size: 10px;color: red;" class="lni lni-close"></i>
                                 </a>
                             </div>
 
@@ -106,11 +107,29 @@
                                 <div class="right">
 
                                     <ul>
-                                        {{-- <li>Subtotal <span id="grandTotal">{{ number_format($grandTotal) }}৳</span></li> --}}
-                                        <li>Shipping <span>Free</span></li>
-                                        <li>Discount <span>0৳</span></li>
-                                        <li class="last">Grand Total <span
-                                                id="grandTotal">{{ number_format($grandTotal) }}৳</span></li>
+                                        <ul>
+                                            <li>
+                                                Cart total
+                                                <span id="cartTotal">{{ number_format($cartTotal) }}৳</span>
+                                            </li>
+
+                                            <li>
+                                                Shipping Tax 10%
+                                                <span id="tax">{{ number_format(($cartTotal * 10) / 100) }}৳</span>
+                                            </li>
+
+                                            <li>
+                                                Shipping Cost
+                                                <span id="shippingCost">{{$shippingCost}}৳</span>
+                                            </li>
+
+                                            <li class="last">
+                                                Grand Total
+                                                <span id="grandTotal">
+                                                    {{ number_format($cartTotal + ($cartTotal * 10) / 100) }}৳
+                                                </span>
+                                            </li>
+                                        </ul>
                                     </ul>
 
                                     <div class="button">
@@ -169,38 +188,46 @@
 </script>
 
 <script>
-$(document).on('click', '.increase, .decrease', function() {
+    $(document).on('click', '.increase, .decrease', function() {
 
-    let id = $(this).data('id');
+        let id = $(this).data('id');
 
-    let action = $(this).hasClass('increase')
-        ? 'increase'
-        : 'decrease';
+        let action = $(this).hasClass('increase') ?
+            'increase' :
+            'decrease';
 
-    $.ajax({
-        url: "{{ route('update-cart-qty') }}",
-        type: "POST",
-        data: {
-            id: id,
-            action: action,
-            _token: "{{ csrf_token() }}"
-        },
+        $.ajax({
+            url: "{{ route('update-cart-qty') }}",
+            type: "POST",
+            data: {
+                id: id,
+                action: action,
+                _token: "{{ csrf_token() }}"
+            },
 
-        success: function(res) {
+            success: function(res) {
 
-            $('.qty-' + id).text(res.quantity);
+                $('.qty-' + id).text(res.quantity);
 
-            $('.line-total-' + id).text(
-                res.lineTotal.toLocaleString() + '৳'
-            );
+                $('.line-total-' + id).text(
+                    res.lineTotal.toLocaleString() + '৳'
+                );
 
-            $('#grandTotal').text(
-                res.grandTotal.toLocaleString() + '৳'
-            );
-        }
+                $('#cartTotal').text(
+                    res.cartTotal.toLocaleString() + '৳'
+                );
+
+                $('#tax').text(
+                    res.tax.toLocaleString() + '৳'
+                );
+
+                $('#grandTotal').text(
+                    res.grandTotal.toLocaleString() + '৳'
+                );
+                $('#shippingCost').text(res.shippingCost.toLocaleString() + '৳');
+                
+            }
+        });
+
     });
-
-});
 </script>
-
-
