@@ -126,7 +126,7 @@
                                             <li class="last">
                                                 Grand Total
                                                 <span id="grandTotal">
-                                                    {{ number_format($cartTotal + ($cartTotal * 10) / 100) }}৳
+                                                   {{ number_format($cartTotal + ($cartTotal * 10) / 100 + $shippingCost) }}৳
                                                 </span>
                                             </li>
                                         </ul>
@@ -150,64 +150,32 @@
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-    $(document).on('click', '.remove-item', function() {
 
-        let id = $(this).data('id');
-        let row = $(this).closest('.cart-single-list');
+    <script>
+$(document).on('click', '.increase, .decrease', function() {
 
-        $.ajax({
-            url: "{{ route('remove-from-cart') }}",
-            type: "POST",
-            data: {
-                id: id,
-                _token: "{{ csrf_token() }}"
-            },
-            success: function(res) {
+    let id = $(this).data('id');
 
-                if (res.status === 'success') {
+    let action = $(this).hasClass('increase')
+        ? 'increase'
+        : 'decrease';
 
-                    row.remove();
+    $.ajax({
+        url: "{{ route('update-cart-qty') }}",
+        type: "POST",
+        data: {
+            id: id,
+            action: action,
+            _token: "{{ csrf_token() }}"
+        },
 
-                    // update grand total
-                    $('#grandTotal').text(res.grandTotal.toLocaleString() + '৳');
+        success: function(res) {
 
-                    // optional: empty cart message
-                    if (res.grandTotal === 0) {
-                        $('.cart-list-head').html(`
-                        <div class="text-center py-5">
-                            <h4>Your Cart is Empty</h4>
-                        </div>
-                    `);
-                    }
-                }
-            }
-        });
+            if (res.status === 'success') {
 
-    });
-</script>
-
-<script>
-    $(document).on('click', '.increase, .decrease', function() {
-
-        let id = $(this).data('id');
-
-        let action = $(this).hasClass('increase') ?
-            'increase' :
-            'decrease';
-
-        $.ajax({
-            url: "{{ route('update-cart-qty') }}",
-            type: "POST",
-            data: {
-                id: id,
-                action: action,
-                _token: "{{ csrf_token() }}"
-            },
-
-            success: function(res) {
-
-                $('.qty-' + id).text(res.quantity);
+                $('.qty-' + id).text(
+                    res.quantity
+                );
 
                 $('.line-total-' + id).text(
                     res.lineTotal.toLocaleString() + '৳'
@@ -221,13 +189,77 @@
                     res.tax.toLocaleString() + '৳'
                 );
 
+                $('#shippingCost').text(
+                    res.shippingCost.toLocaleString() + '৳'
+                );
+
                 $('#grandTotal').text(
                     res.grandTotal.toLocaleString() + '৳'
                 );
-                $('#shippingCost').text(res.shippingCost.toLocaleString() + '৳');
-                
-            }
-        });
 
+                if (res.cartTotal == 0) {
+
+                    $('.cart-list-head').html(`
+                        <div class="text-center py-5">
+                            <h4>Your Cart is Empty</h4>
+                        </div>
+                    `);
+
+                }
+            }
+        }
     });
+
+});
+</script>
+
+
+<script>
+   $(document).on('click', '.remove-item', function() {
+
+    let id = $(this).data('id');
+    let row = $(this).closest('.cart-single-list');
+
+    $.ajax({
+        url: "{{ route('remove-from-cart') }}",
+        type: "POST",
+        data: {
+            id: id,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function(res) {
+
+            if (res.status === 'success') {
+
+                row.remove();
+
+                $('#cartTotal').text(
+                    res.cartTotal.toLocaleString() + '৳'
+                );
+
+                $('#tax').text(
+                    res.tax.toLocaleString() + '৳'
+                );
+
+                $('#shippingCost').text(
+                    res.shippingCost.toLocaleString() + '৳'
+                );
+
+                $('#grandTotal').text(
+                    res.grandTotal.toLocaleString() + '৳'
+                );
+
+                if (res.cartTotal == 0) {
+
+                    $('.cart-list-head').html(`
+                        <div class="text-center py-5">
+                            <h4>Your Cart is Empty</h4>
+                        </div>
+                    `);
+                }
+            }
+        }
+    });
+
+});
 </script>

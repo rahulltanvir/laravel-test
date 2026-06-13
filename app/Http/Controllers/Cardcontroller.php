@@ -17,7 +17,6 @@ class Cardcontroller extends Controller
         if (isset($cart[$id])) {
 
             $cart[$id]['quantity'] += $request->product_qty;
-
         } else {
 
             $cart[$id] = [
@@ -71,9 +70,7 @@ class Cardcontroller extends Controller
 
         if ($request->action == 'increase') {
             $cart[$request->id]['quantity']++;
-        }
-
-        elseif ($request->action == 'decrease') {
+        } elseif ($request->action == 'decrease') {
             if ($cart[$request->id]['quantity'] > 1) {
                 $cart[$request->id]['quantity']--;
             }
@@ -96,6 +93,7 @@ class Cardcontroller extends Controller
         $grandTotal = $cartTotal + $tax + $shippingCost;
 
         return response()->json([
+            'status'       => 'success',
             'quantity'     => $cart[$request->id]['quantity'],
             'lineTotal'    => $lineTotal,
             'cartTotal'    => $cartTotal,
@@ -112,35 +110,37 @@ class Cardcontroller extends Controller
 
         $cart = session()->get('cart', []);
 
-if (isset($cart[$id])) {
-    unset($cart[$id]);
-    session()->put('cart', $cart);
-}
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+        }
 
-// recalc
-$cartTotal = 0;
+        // recalc
+        $cartTotal = 0;
 
-foreach ($cart as $item) {
-    $cartTotal += $item['price'] * $item['quantity'];
-}
+        foreach ($cart as $item) {
+            $cartTotal += $item['price'] * $item['quantity'];
+        }
 
-$tax = ($cartTotal * 10) / 100;
-$shippingCost = 200;
-$grandTotal = $cartTotal + $tax + $shippingCost;
+        $tax = ($cartTotal * 10) / 100;
+        $shippingCost = 200;
+        $grandTotal = $cartTotal + $tax + $shippingCost;
 
-// IMPORTANT: empty cart case handle
-if (count($cart) == 0) {
-    $tax = 0;
-    $shippingCost = 0;
-    $grandTotal = 0;
-}
+        // IMPORTANT: empty cart case handle
+        if (count($cart) == 0) {
 
-return response()->json([
-    'status'       => 'success',
-    'cartTotal'    => $cartTotal,
-    'tax'          => $tax,
-    'shippingCost' => $shippingCost,
-    'grandTotal'   => $grandTotal
-]);
+            $tax = 0;
+            $shippingCost = 0;
+            $grandTotal = 0;
+            $cartTotal = 0;
+        }
+
+        return response()->json([
+            'status'       => 'success',
+            'cartTotal'    => $cartTotal,
+            'tax'          => $tax,
+            'shippingCost' => $shippingCost,
+            'grandTotal'   => $grandTotal
+        ]);
     }
 }
