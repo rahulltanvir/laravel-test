@@ -212,7 +212,7 @@
                                           </div>
 
                                           <div class="button">
-                                              <a href="3" class="btn animate">Checkout</a>
+                                              <a href="{{ route('check-out') }}" class="btn animate">Checkout</a>
                                           </div>
                                       </div>
 
