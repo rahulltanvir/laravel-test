@@ -21,6 +21,8 @@ Route::post('/update-cart-qty', [Cardcontroller::class, 'updateQty'])->name('upd
 Route::post('/remove-from-cart', [Cardcontroller::class, 'remove'])->name('remove-from-cart');
 Route::get('/check-out', [CheckoutController::class, 'index'])->name('check-out');
 
+
+
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
    
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
