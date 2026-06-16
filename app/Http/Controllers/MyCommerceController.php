@@ -47,6 +47,12 @@ public function subcategory($id)
 $product = Product::findOrFail($id);
         return view('website.detail.index', compact('product'));
     }
+ public function checkout()
+{
+    $cartItems = session('cart', []);
+
+    dd($cartItems);
+}
     
     
 }

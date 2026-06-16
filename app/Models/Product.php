@@ -23,7 +23,7 @@ class Product extends Model
         'product_code',
 
         'stock',
-
+        'product_weight',
         'regular_price',
         'sale_price',
         'discount',

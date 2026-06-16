@@ -17,7 +17,7 @@ Check out Page
 <div class="col-lg-6 col-md-6 col-12">
 <ul class="breadcrumb-nav">
 <li><a href="{{ route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-<li><a href="{{ route() }}">Shop</a></li>
+<li><a href="#">Shop</a></li>
 <li>checkout</li>
 </ul>
 </div>

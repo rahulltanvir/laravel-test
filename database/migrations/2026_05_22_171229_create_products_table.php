@@ -33,6 +33,7 @@ $table->foreignId('subcategory_id')
         $table->string('product_code')->nullable();
 
         $table->integer('stock')->default(0);
+        $table->double('product_weight')->nullable();
 
         $table->double('regular_price');
         $table->double('sale_price')->nullable();
