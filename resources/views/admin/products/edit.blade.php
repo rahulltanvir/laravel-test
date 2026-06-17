@@ -145,6 +145,14 @@
                                    value="{{ $product->stock }}">
                         </div>
                     </div>
+                    {{-- product Weight --}}
+                    <div class="form-group row">
+                            <label class="col-sm-3 control-label">Product Weight (KG)</label>
+                            <div class="col-sm-9">
+                                <input type="number" step="0.01" name="up_product_weight" class="form-control"
+                                    placeholder="Product Weight">
+                            </div>
+                        </div>
 
                     {{-- PRICE --}}
                     <div class="form-group row">

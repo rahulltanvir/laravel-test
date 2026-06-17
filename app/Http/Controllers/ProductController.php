@@ -54,6 +54,7 @@ class ProductController extends Controller
             'sale_price'        => 'nullable|numeric',
             'discount'          => 'nullable|numeric',
             'stock'             => 'nullable|integer',
+            'product_weight'    => 'nullable|numeric',
             'thumbnail'         => 'required|image|mimes:jpg,jpeg,png,webp',
             'images.*'          => 'nullable|image|mimes:jpg,jpeg,png,webp',
             'status'            => 'required',
@@ -77,6 +78,7 @@ class ProductController extends Controller
             $product->product_code = $request->product_code;
 
             $product->stock = $request->stock ?? 0;
+            $product->product_weight = $request->product_weight ?? 0;
 
             $product->regular_price = $request->regular_price;
             $product->sale_price    = $request->sale_price;
@@ -222,6 +224,7 @@ class ProductController extends Controller
             'sale_price'        => 'nullable|numeric',
             'discount'          => 'nullable|numeric',
             'stock'             => 'nullable|integer',
+            'upproduct_weight'    => 'nullable|numeric',
             'thumbnail'         => 'nullable|image|mimes:jpg,jpeg,png,webp',
             'images.*'          => 'nullable|image|mimes:jpg,jpeg,png,webp',
             'status'            => 'required',
@@ -245,6 +248,7 @@ class ProductController extends Controller
             $product->product_code = $request->product_code;
 
             $product->stock = $request->stock ?? 0;
+            $product->product_weight = $request->upproduct_weight ?? 0;
 
             $product->regular_price = $request->regular_price;
             $product->sale_price    = $request->sale_price;
