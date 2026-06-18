@@ -55,7 +55,7 @@
                             <h3 class="price">
                                 {{ number_format($product->sale_price) }}৳<span>{{ number_format($product->regular_price) }}৳</span>
                             </h3>
-                            <p class="info-text">{{ $product->short_description }}</p>
+                            <p class="info-text">{!! $product->short_description !!}</p>
                             <div class="row">
                                 {{-- Add To cart  --}}
                                 <form action="{{ route('add-to-cart',$product->id) }}" method="POST">

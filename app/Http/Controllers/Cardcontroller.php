@@ -165,14 +165,12 @@ class Cardcontroller extends Controller
     $tax = ($cartTotal * 10) / 100;
 
     // Shipping Cost by Weight
-    if ($totalWeight <= 1) {
-        $shippingCost = 80;
-    } elseif ($totalWeight <= 3) {
-        $shippingCost = 150;
-    } elseif ($totalWeight <= 5) {
+    if ($totalWeight <= 4) {
         $shippingCost = 250;
-    } else {
+    } elseif ($totalWeight <= 10) {
         $shippingCost = 400;
+    } else {
+        $shippingCost = 1000;
     }
 
     $grandTotal = $cartTotal + $tax + $shippingCost;

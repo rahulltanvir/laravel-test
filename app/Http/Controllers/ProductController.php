@@ -196,20 +196,26 @@ class ProductController extends Controller
     /**
      * EDIT PAGE
      */
-    public function edit($id)
-    {
-        $product = Product::with([
-            'images',
-            'specifications'
-        ])->findOrFail($id);
+   public function edit($id)
+{
+    $product = Product::with([
+        'images',
+        'specifications'
+    ])->findOrFail($id);
 
-        return view('admin.products.edit', [
-            'product'    => $product,
-            'categories' => Category::all(),
-            'brands'     => Brand::all(),
-            'units'      => Unit::all(),
-        ]);
-    }
+    $subcategories = SubCategory::where(
+        'category_id',
+        $product->category_id
+    )->get();
+
+    return view('admin.products.edit', [
+        'product'       => $product,
+        'categories'    => Category::all(),
+        'subcategories' => $subcategories,
+        'brands'        => Brand::all(),
+        'units'         => Unit::all(),
+    ]);
+}
 
     /**
      * UPDATE PRODUCT
@@ -224,7 +230,7 @@ class ProductController extends Controller
             'sale_price'        => 'nullable|numeric',
             'discount'          => 'nullable|numeric',
             'stock'             => 'nullable|integer',
-            'upproduct_weight'    => 'nullable|numeric',
+            'up_product_weight' => 'nullable|numeric',
             'thumbnail'         => 'nullable|image|mimes:jpg,jpeg,png,webp',
             'images.*'          => 'nullable|image|mimes:jpg,jpeg,png,webp',
             'status'            => 'required',
@@ -248,7 +254,7 @@ class ProductController extends Controller
             $product->product_code = $request->product_code;
 
             $product->stock = $request->stock ?? 0;
-            $product->product_weight = $request->upproduct_weight ?? 0;
+            $product->product_weight = $request->up_product_weight ?? 0;
 
             $product->regular_price = $request->regular_price;
             $product->sale_price    = $request->sale_price;

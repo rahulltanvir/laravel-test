@@ -100,6 +100,7 @@
                                 <input type="number" name="stock" class="form-control" placeholder="Stock">
                             </div>
                         </div>
+                        {{-- Product Weight --}}
                         <div class="form-group row">
                             <label class="col-sm-3 control-label">Product Weight (KG)</label>
                             <div class="col-sm-9">
@@ -133,7 +134,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 control-label">Short Description</label>
                             <div class="col-sm-9">
-                                <textarea name="short_description" class="form-control"></textarea>
+                                <textarea name="short_description" class="form-control summernote"></textarea>
                             </div>
                         </div>
 
