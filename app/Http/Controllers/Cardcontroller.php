@@ -7,6 +7,22 @@ use Illuminate\Http\Request;
 
 class Cardcontroller extends Controller
 {
+
+    // ================= SHIPPING CALCULATION =================
+    private function getShippingCost($totalWeight)
+    {
+        if ($totalWeight <= 1) {
+            return 80;
+        } elseif ($totalWeight <= 3) {
+            return 150;
+        } elseif ($totalWeight <= 5) {
+            return 250;
+        }
+
+        return 400;
+    }
+
+
     // ================= ADD TO CART =================
     public function index(Request $request, $id)
     {
@@ -14,183 +30,250 @@ class Cardcontroller extends Controller
 
         $cart = session()->get('cart', []);
 
+
         if (isset($cart[$id])) {
 
             $cart[$id]['quantity'] += $request->product_qty;
+
         } else {
 
             $cart[$id] = [
-    'id'       => $product->id,
-    'name'     => $product->name,
-    'price'    => $product->sale_price,
-    'image'    => $product->thumbnail,
-    'quantity' => $request->product_qty,
-    'product_weight'   => $product->product_weight,
-];
+                'id'             => $product->id,
+                'name'           => $product->name,
+                'price'          => $product->sale_price,
+                'image'          => $product->thumbnail,
+                'quantity'       => $request->product_qty,
+                'product_weight' => $product->product_weight,
+            ];
         }
 
+
         session()->put('cart', $cart);
+
 
         return redirect()->route('cart');
     }
 
+
+
     // ================= SHOW CART =================
     public function show()
-{
-    $cartItems = session('cart', []);
+    {
+        $cartItems = session('cart', []);
 
-    $cartTotal = 0;
-    $totalWeight = 0;
+        $cartTotal = 0;
+        $totalWeight = 0;
 
-    foreach ($cartItems as $item) {
-        $cartTotal += $item['price'] * $item['quantity'];
-        $totalWeight += $item['product_weight'] * $item['quantity'];
+
+        foreach ($cartItems as $item) {
+
+            $cartTotal += $item['price'] * $item['quantity'];
+
+            if(isset($item['product_weight'])) {
+                $totalWeight += $item['product_weight'] * $item['quantity'];
+            }
+        }
+
+
+        $tax = ($cartTotal * 10) / 100;
+
+
+        $shippingCost = $this->getShippingCost($totalWeight);
+
+
+        $grandTotal = $cartTotal + $tax + $shippingCost;
+
+
+
+        return view('website.card.index', compact(
+            'cartItems',
+            'cartTotal',
+            'tax',
+            'totalWeight',
+            'shippingCost',
+            'grandTotal'
+        ));
     }
 
-    $tax = ($cartTotal * 10) / 100;
 
-    // Weight অনুযায়ী Shipping Cost
-    if ($totalWeight <= 1) {
-        $shippingCost = 80;
-    } elseif ($totalWeight <= 3) {
-        $shippingCost = 150;
-    } elseif ($totalWeight <= 5) {
-        $shippingCost = 250;
-    } else {
-        $shippingCost = 400;
-    }
 
-    $grandTotal = $cartTotal + $tax + $shippingCost;
-
-    return view('website.card.index', compact(
-        'cartItems',
-        'cartTotal',
-        'tax',
-        'totalWeight',
-        'shippingCost',
-        'grandTotal'
-    ));
-}
 
     // ================= UPDATE QTY =================
-   public function updateQty(Request $request)
-{
-    $cart = session()->get('cart', []);
+    public function updateQty(Request $request)
+    {
 
-    if (!isset($cart[$request->id])) {
+        $cart = session()->get('cart', []);
+
+
+        if (!isset($cart[$request->id])) {
+
+            return response()->json([
+                'error' => 'Item not found'
+            ],404);
+        }
+
+
+
+        if ($request->action == 'increase') {
+
+            $cart[$request->id]['quantity']++;
+
+        } 
+        elseif ($request->action == 'decrease') {
+
+            if($cart[$request->id]['quantity'] > 1){
+
+                $cart[$request->id]['quantity']--;
+            }
+        }
+
+
+
+        session()->put('cart',$cart);
+
+
+
+        $lineTotal = 
+        $cart[$request->id]['price'] * 
+        $cart[$request->id]['quantity'];
+
+
+
+        $cartTotal = 0;
+        $totalWeight = 0;
+
+
+
+        foreach($cart as $item){
+
+            $cartTotal += 
+            $item['price'] * $item['quantity'];
+
+
+            if(isset($item['product_weight'])){
+
+                $totalWeight += 
+                $item['product_weight'] * $item['quantity'];
+            }
+        }
+
+
+
+        $tax = ($cartTotal * 10) / 100;
+
+
+        $shippingCost = $this->getShippingCost($totalWeight);
+
+
+
+        $grandTotal = 
+        $cartTotal + $tax + $shippingCost;
+
+
+
         return response()->json([
-            'error' => 'Item not found'
-        ], 404);
+
+            'status'       => 'success',
+            'quantity'     => $cart[$request->id]['quantity'],
+            'lineTotal'    => $lineTotal,
+            'cartTotal'    => $cartTotal,
+            'tax'          => $tax,
+            'totalWeight'  => $totalWeight,
+            'shippingCost' => $shippingCost,
+            'grandTotal'   => $grandTotal,
+
+        ]);
+
     }
 
-    // Quantity Update
-    if ($request->action == 'increase') {
-        $cart[$request->id]['quantity']++;
-    } elseif ($request->action == 'decrease') {
-        if ($cart[$request->id]['quantity'] > 1) {
-            $cart[$request->id]['quantity']--;
-        }
-    }
 
-    session()->put('cart', $cart);
 
-    // Current Product Line Total
-    $lineTotal = $cart[$request->id]['price'] * $cart[$request->id]['quantity'];
 
-    // Cart Total & Weight
-    $cartTotal = 0;
-    $totalWeight = 0;
-
-    foreach ($cart as $item) {
-        $cartTotal += $item['price'] * $item['quantity'];
-
-        if (isset($item['product_weight'])) {
-            $totalWeight += $item['product_weight'] * $item['quantity'];
-        }
-    }
-
-    // Tax
-    $tax = ($cartTotal * 10) / 100;
-
-    // Shipping Cost by Weight
-    if ($totalWeight <= 1) {
-        $shippingCost = 80;
-    } elseif ($totalWeight <= 3) {
-        $shippingCost = 150;
-    } elseif ($totalWeight <= 5) {
-        $shippingCost = 250;
-    } else {
-        $shippingCost = 400;
-    }
-
-    // Grand Total
-    $grandTotal = $cartTotal + $tax + $shippingCost;
-
-    return response()->json([
-        'status'       => 'success',
-        'quantity'     => $cart[$request->id]['quantity'],
-        'lineTotal'    => $lineTotal,
-        'cartTotal'    => $cartTotal,
-        'tax'          => $tax,
-        'totalWeight'  => $totalWeight,
-        'shippingCost' => $shippingCost,
-        'grandTotal'   => $grandTotal,
-    ]);
-}
 
     // ================= REMOVE ITEM =================
     public function remove(Request $request)
-{
-    $id = $request->id;
+    {
 
-    $cart = session()->get('cart', []);
+        $id = $request->id;
 
-    if (isset($cart[$id])) {
-        unset($cart[$id]);
-        session()->put('cart', $cart);
-    }
 
-    // Recalculate Cart
-    $cartTotal = 0;
-    $totalWeight = 0;
+        $cart = session()->get('cart', []);
 
-    foreach ($cart as $item) {
-        $cartTotal += $item['price'] * $item['quantity'];
 
-        if (isset($item['product_weight'])) {
-            $totalWeight += $item['product_weight'] * $item['quantity'];
+
+        if(isset($cart[$id])){
+
+            unset($cart[$id]);
+
+            session()->put('cart',$cart);
         }
-    }
 
-    $tax = ($cartTotal * 10) / 100;
 
-    // Shipping Cost by Weight
-    if ($totalWeight <= 4) {
-        $shippingCost = 250;
-    } elseif ($totalWeight <= 10) {
-        $shippingCost = 400;
-    } else {
-        $shippingCost = 1000;
-    }
 
-    $grandTotal = $cartTotal + $tax + $shippingCost;
-
-    // Empty Cart
-    if (empty($cart)) {
         $cartTotal = 0;
-        $tax = 0;
-        $shippingCost = 0;
-        $grandTotal = 0;
         $totalWeight = 0;
+
+
+
+        foreach($cart as $item){
+
+
+            $cartTotal += 
+            $item['price'] * $item['quantity'];
+
+
+
+            if(isset($item['product_weight'])){
+
+                $totalWeight += 
+                $item['product_weight'] * $item['quantity'];
+            }
+
+        }
+
+
+
+        if(empty($cart)){
+
+
+            $cartTotal = 0;
+            $tax = 0;
+            $shippingCost = 0;
+            $grandTotal = 0;
+            $totalWeight = 0;
+
+
+        }else{
+
+
+            $tax = ($cartTotal * 10) / 100;
+
+
+            $shippingCost = 
+            $this->getShippingCost($totalWeight);
+
+
+
+            $grandTotal = 
+            $cartTotal + $tax + $shippingCost;
+
+        }
+
+
+
+
+        return response()->json([
+
+            'status'       => 'success',
+            'cartTotal'    => $cartTotal,
+            'tax'          => $tax,
+            'totalWeight'  => $totalWeight,
+            'shippingCost' => $shippingCost,
+            'grandTotal'   => $grandTotal
+
+        ]);
+
     }
 
-    return response()->json([
-        'status'       => 'success',
-        'cartTotal'    => $cartTotal,
-        'tax'          => $tax,
-        'totalWeight'  => $totalWeight,
-        'shippingCost' => $shippingCost,
-        'grandTotal'   => $grandTotal
-    ]);
-}
+
 }

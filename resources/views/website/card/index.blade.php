@@ -114,7 +114,7 @@
                                             </li>
 
                                             <li>
-                                                Shipping Tax 10%
+                                                VAT 10%
                                                 <span id="tax">{{ number_format(($cartTotal * 10) / 100) }}৳</span>
                                             </li>
 
