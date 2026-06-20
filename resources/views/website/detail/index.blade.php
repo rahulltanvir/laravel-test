@@ -16,7 +16,8 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="{{ route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="{{ route('product-category',$product->category) }}">{{ $product->category->name}}</a></li>
+                        <li><a href="{{ route('product-category', $product->category) }}">{{ $product->category->name }}</a>
+                        </li>
                         <li>{{ $product->name }}</li>
                     </ul>
                 </div>
@@ -33,16 +34,26 @@
                         <div class="product-images">
                             <main id="gallery">
                                 <div class="main-img">
-                                    <img src="{{ asset($product->thumbnail) }}" id="current" alt="#">
+                                    <img src="{{ asset($product->thumbnail) }}" id="current" alt="">
                                 </div>
+
                                 <div class="images">
                                     @foreach ($product->images as $otherImage)
-                                        <img src="{{ asset($otherImage->image) }}" class="img" alt="#">
+                                        <img src="{{ asset($otherImage->image) }}" class="img" alt="">
                                     @endforeach
-
-
                                 </div>
                             </main>
+
+                            <script>
+                                const current = document.getElementById('current');
+                                const imgs = document.querySelectorAll('.img');
+
+                                imgs.forEach(img => {
+                                    img.addEventListener('click', () => {
+                                        current.src = img.src;
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
@@ -58,7 +69,7 @@
                             <p class="info-text">{!! $product->short_description !!}</p>
                             <div class="row">
                                 {{-- Add To cart  --}}
-                                <form action="{{ route('add-to-cart',$product->id) }}" method="POST">
+                                <form action="{{ route('add-to-cart', $product->id) }}" method="POST">
                                     @csrf
 
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
