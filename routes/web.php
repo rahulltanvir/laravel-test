@@ -20,9 +20,12 @@ Route::get('/cart', [Cardcontroller::class, 'show'])->name('cart');
 Route::post('/update-cart-qty', [Cardcontroller::class, 'updateQty'])->name('update-cart-qty');
 Route::post('/remove-from-cart', [Cardcontroller::class, 'remove'])->name('remove-from-cart');
 Route::get('/check-out', [CheckoutController::class, 'index'])->name('check-out');
-Route::post('/checkout',[CheckoutController::class,'store'])
-    ->name('check-out');
 
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('check-out-store');
+
+Route::get('/success', function () {
+    return view('website.checkout.success');
+})->name('success');
 
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
