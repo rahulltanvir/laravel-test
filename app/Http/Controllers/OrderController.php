@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -22,5 +23,35 @@ class OrderController extends Controller
                       ->findOrFail($id);
 
         return view('admin.orderlist.details', compact('order'));
+    }
+
+
+    // Order Confirm
+    public function confirmOrder($id)
+    {
+        $order = Order::findOrFail($id);
+
+        $order->status = 'confirmed';
+        $order->save();
+
+        return redirect()->back()
+                         ->with('success', 'Order Confirmed Successfully');
+    }
+
+
+    // Generate Invoice PDF
+    public function invoice($id)
+    {
+        $order = Order::with('items.product')
+                      ->findOrFail($id);
+
+
+        $pdf = Pdf::loadView(
+            'admin.orderlist.invoice-pdf',
+            compact('order')
+        );
+
+
+        return $pdf->download('invoice-'.$order->id.'.pdf');
     }
 }

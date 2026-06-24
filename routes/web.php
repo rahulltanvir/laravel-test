@@ -26,6 +26,8 @@ Route::post('/checkout', [CheckoutController::class, 'store'])->name('check-out-
 Route::get('/success', function () {return view('website.checkout.success');})->name('success');
 Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
 Route::get('/order/details/{id}', [OrderController::class, 'show'])->name('admin.order.details');
+Route::get('/admin/order-confirm/{id}',[OrderController::class,'confirmOrder'])->name('admin.order.confirm');
+Route::get('/admin/invoice/{id}',[OrderController::class,'invoice'])->name('admin.invoice');
 
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
