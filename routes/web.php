@@ -24,10 +24,6 @@ Route::post('/remove-from-cart', [Cardcontroller::class, 'remove'])->name('remov
 Route::get('/check-out', [CheckoutController::class, 'index'])->name('check-out');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('check-out-store');
 Route::get('/success', function () {return view('website.checkout.success');})->name('success');
-Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
-Route::get('/order/details/{id}', [OrderController::class, 'show'])->name('admin.order.details');
-Route::get('/admin/order-confirm/{id}',[OrderController::class,'confirmOrder'])->name('admin.order.confirm');
-Route::get('/admin/invoice/{id}',[OrderController::class,'invoice'])->name('admin.invoice');
 
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
@@ -77,4 +73,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::put('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
     
+    Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
+Route::get('/order/details/{id}', [OrderController::class, 'show'])->name('admin.order.details');
+Route::get('/admin/order-confirm/{id}',[OrderController::class,'confirmOrder'])->name('admin.order.confirm');
+Route::get('/admin/invoice/{id}',[OrderController::class,'invoice'])->name('admin.invoice');
+
 });

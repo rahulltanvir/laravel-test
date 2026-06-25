@@ -52,6 +52,6 @@ class OrderController extends Controller
         );
 
 
-        return $pdf->download('invoice-'.$order->id.'.pdf');
+        return $pdf->stream('invoice-'.$order->id.'.pdf');
     }
 }
