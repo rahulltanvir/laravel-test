@@ -95,9 +95,8 @@
         <table>
             <tr>
                 <td>
-                    <img src="{{ asset('uploads/invoice-logo/wahzia.png') }}"
-                         alt=""
-                         width="120">
+                   <img src="{{ public_path('uploads/invoice-logo/wahzia.png') }}"
+     width="120">
                         
                 </td>
 
