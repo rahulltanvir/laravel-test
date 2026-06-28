@@ -34,7 +34,7 @@
                                     <p class="text-muted">NEW CLIENTS</p>
                                 </div>
                                 <div class="ms-auto">
-                                    <h2 class="counter text-primary">23 </h2>
+                                    <h2 class="counter text-primary">{{ $totalCustomers }} </h2>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                     <p class="text-muted">NEW ORDER</p>
                                 </div>
                                 <div class="ms-auto">
-                                    <h2 class="counter text-cyan">169</h2>
+                                    <h2 class="counter text-cyan">{{ $totalOrders }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                     <p class="text-muted">NEW PRODUCT</p>
                                 </div>
                                 <div class="ms-auto">
-                                    <h2 class="counter text-purple">157</h2>
+                                    <h2 class="counter text-purple"> {{ $products }} </h2>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                                     <p class="text-muted">All CATEGORY</p>
                                 </div>
                                 <div class="ms-auto">
-                                    <h2 class="counter text-success">431</h2>
+                                    <h2 class="counter text-success"> {{  $categories }} </h2>
                                 </div>
                             </div>
                         </div>
