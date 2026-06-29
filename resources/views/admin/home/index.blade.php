@@ -31,7 +31,7 @@
                             <div class="d-flex no-block align-items-center">
                                 <div>
                                     <h3><i class="icon-screen-desktop"></i></h3>
-                                    <p class="text-muted">NEW CLIENTS</p>
+                                    <p class="text-muted">NEW Customer</p>
                                 </div>
                                 <div class="ms-auto">
                                     <h2 class="counter text-primary">{{ $totalCustomers }} </h2>
