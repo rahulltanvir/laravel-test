@@ -20,13 +20,16 @@ class Order extends Model
         'note',
 
         'payment_method',
+        'payment_status',
+        'sender_number',
+        'transaction_id',
 
         'subtotal',
         'tax',
         'shipping_cost',
         'grand_total',
 
-        'status'
+        'status',
     ];
 
     public function items()

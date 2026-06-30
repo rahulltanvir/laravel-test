@@ -62,6 +62,9 @@ class CheckoutController extends Controller
             'upazila' => 'required',
             'address' => 'required',
             'payment_method' => 'required',
+            'transaction_id' => 'required_if:payment_method,bkash,nagad,rocket,bank',
+
+'sender_number' => 'required_if:payment_method,bkash,nagad,rocket,bank',
         ]);
 
         $cartItems = session('cart', []);
@@ -104,26 +107,37 @@ class CheckoutController extends Controller
             'tax' => $tax,
             'shipping_cost' => $shippingCost,
             'grand_total' => $grandTotal,
+            'payment_status' => $request->payment_method == 'cod' ? 'Cash On Delivery': 'Pending',
+
+            'sender_number' => $request->sender_number,
+
+            'transaction_id' => $request->transaction_id,
         ]);
 
         // ================= ORDER ITEMS =================
         foreach ($cartItems as $item) {
-            OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $item['id'],
-                'product_name' => $item['name'],
-                'price' => $item['price'],
-                'quantity' => $item['quantity'],
-                'subtotal' => $item['price'] * $item['quantity'],
-            ]);
 
-            // stock decrease (safe)
-            $product = Product::find($item['id']);
+    OrderItem::create([
+        'order_id'      => $order->id,
+        'product_id'    => $item['id'],
+        'product_name'  => $item['name'],
+        'price'         => $item['price'],
+        'quantity'      => $item['quantity'],
+        'subtotal'      => $item['price'] * $item['quantity'],
+    ]);
 
-            if ($product) {
-                $product->decrement('stock', $item['quantity']);
-            }
+    // cash on delivery 
+    if ($request->payment_method == 'cod') {
+
+        $product = Product::find($item['id']);
+
+        if ($product) {
+            $product->decrement('stock', $item['quantity']);
         }
+
+    }
+
+}
 
         // ================= CLEAR CART =================
         session()->forget('cart');

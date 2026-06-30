@@ -93,34 +93,131 @@ Checkout Page
                         </div>
 
                         <!-- Payment -->
-                        <div class="col-md-12">
-                            <div class="card p-3">
-                                <h5>Payment Method</h5>
+                        <!-- Payment -->
+<div class="col-md-12">
+    <div class="card p-4 mb-3">
 
-                                <div class="form-check">
-                                    <input type="radio" name="payment_method" value="cod" checked>
-                                    Cash On Delivery
-                                </div>
+        <h5 class="mb-3">Payment Method</h5>
 
-                                <div class="form-check">
-                                    <input type="radio" name="payment_method" value="bkash">
-                                    Bkash
-                                </div>
+        <!-- Cash On Delivery -->
+        <div class="form-check mb-2">
+            <input class="form-check-input payment-method"
+                   type="radio"
+                   name="payment_method"
+                   id="cod"
+                   value="cod"
+                   checked>
 
-                                <div class="form-check">
-                                    <input type="radio" name="payment_method" value="nagad">
-                                    Nagad
-                                </div>
+            <label class="form-check-label" for="cod">
+                Cash On Delivery
+            </label>
+        </div>
 
-                                <!-- ✅ SUBMIT BUTTON (IMPORTANT) -->
-                                <div class="mt-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Place Order
-                                    </button>
-                                </div>
+        <!-- bKash -->
+        <div class="form-check mb-2">
+            <input class="form-check-input payment-method"
+                   type="radio"
+                   name="payment_method"
+                   id="bkash"
+                   value="bkash">
 
-                            </div>
-                        </div>
+            <label class="form-check-label" for="bkash">
+                bKash
+            </label>
+        </div>
+
+        <!-- Nagad -->
+        <div class="form-check mb-2">
+            <input class="form-check-input payment-method"
+                   type="radio"
+                   name="payment_method"
+                   id="nagad"
+                   value="nagad">
+
+            <label class="form-check-label" for="nagad">
+                Nagad
+            </label>
+        </div>
+
+        <!-- Rocket -->
+        <div class="form-check mb-2">
+            <input class="form-check-input payment-method"
+                   type="radio"
+                   name="payment_method"
+                   id="rocket"
+                   value="rocket">
+
+            <label class="form-check-label" for="rocket">
+                Rocket
+            </label>
+        </div>
+
+        <!-- Bank -->
+        <div class="form-check mb-3">
+            <input class="form-check-input payment-method"
+                   type="radio"
+                   name="payment_method"
+                   id="bank"
+                   value="bank">
+
+            <label class="form-check-label" for="bank">
+                Bank Transfer
+            </label>
+        </div>
+
+        <!-- Payment Info -->
+        <div id="payment-box"
+             class="border rounded p-3 bg-light"
+             style="display:none;">
+
+            <h6 class="mb-3">
+                Payment Information
+            </h6>
+
+            <div class="alert alert-warning">
+
+                <strong>bKash Personal:</strong> 017XXXXXXXX <br>
+
+                <strong>Nagad Personal:</strong> 018XXXXXXXX <br>
+
+                <strong>Rocket:</strong> 019XXXXXXXX <br>
+
+                <strong>Bank Account:</strong><br>
+
+                DBBL<br>
+
+                A/C Name : Your Company<br>
+
+                A/C No : 1234567890
+
+            </div>
+
+            <div class="mb-3">
+                <label>Sender Mobile Number</label>
+
+                <input type="text"
+                       name="sender_number"
+                       class="form-control"
+                       placeholder="01XXXXXXXXX">
+            </div>
+
+            <div class="mb-3">
+                <label>Transaction ID</label>
+
+                <input type="text"
+                       name="transaction_id"
+                       class="form-control"
+                       placeholder="Transaction ID">
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary mt-3 w-100">
+            Place Order
+        </button>
+
+    </div>
+</div>
 
                     </div>
                 </form>
@@ -159,3 +256,31 @@ Checkout Page
 </section>
 
 @endsection
+<script>
+
+document.addEventListener('DOMContentLoaded',function(){
+
+    const methods=document.querySelectorAll('.payment-method');
+
+    const box=document.getElementById('payment-box');
+
+    methods.forEach(function(item){
+
+        item.addEventListener('change',function(){
+
+            if(this.value=="cod")
+            {
+                box.style.display="none";
+            }
+            else
+            {
+                box.style.display="block";
+            }
+
+        });
+
+    });
+
+});
+
+</script>
