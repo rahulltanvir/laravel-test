@@ -77,6 +77,7 @@ class CheckoutController extends Controller
         $totalWeight = 0;
 
         foreach ($cartItems as $item) {
+        
             $cartTotal += $item['price'] * $item['quantity'];
 
             $totalWeight += ($item['product_weight'] ?? 0) * $item['quantity'];
@@ -125,7 +126,7 @@ class CheckoutController extends Controller
         'quantity'      => $item['quantity'],
         'subtotal'      => $item['price'] * $item['quantity'],
     ]);
-
+dd($orderItem);
     // cash on delivery 
     if ($request->payment_method == 'cod') {
 

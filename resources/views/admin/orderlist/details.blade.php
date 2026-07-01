@@ -16,7 +16,9 @@
 
         <h5>Customer Information</h5>
 
+
         <table class="table table-bordered">
+
 
             <tr>
                 <th width="200">Order ID</th>
@@ -38,7 +40,7 @@
 
             <tr>
                 <th>Email</th>
-                <td>{{ $order->email }}</td>
+                <td>{{ $order->email ?? '-' }}</td>
             </tr>
 
 
@@ -54,20 +56,140 @@
 
 
             <tr>
-                <th>Payment Method</th>
+                <th>Note</th>
                 <td>
-                    {{ $order->payment_method }}
+                    {{ $order->note ?? '-' }}
                 </td>
             </tr>
 
 
+
+            {{-- Payment Method --}}
+
             <tr>
-                <th>Status</th>
+                <th>Payment Method</th>
                 <td>
-                    <span class="badge bg-warning">
-                        {{ $order->status }}
-                    </span>
+                    {{ ucfirst($order->payment_method) }}
                 </td>
+            </tr>
+
+
+
+            {{-- Payment Status --}}
+
+            <tr>
+                <th>Payment Status</th>
+
+                <td>
+
+                    @if($order->payment_status == 'Paid')
+
+                        <span class="badge bg-success">
+                            Paid
+                        </span>
+
+                    @else
+
+                        <span class="badge bg-warning text-dark">
+                            Pending
+                        </span>
+
+                    @endif
+
+                </td>
+
+            </tr>
+
+
+
+
+            {{-- Sender Number --}}
+
+            @if($order->sender_number)
+
+            <tr>
+
+                <th>
+                    Sender Number
+                </th>
+
+
+                <td>
+                    {{ $order->sender_number }}
+                </td>
+
+            </tr>
+
+            @endif
+
+
+
+
+            {{-- Transaction ID --}}
+
+            @if($order->transaction_id)
+
+            <tr>
+
+                <th>
+                    Transaction ID
+                </th>
+
+
+                <td>
+                    {{ $order->transaction_id }}
+                </td>
+
+            </tr>
+
+            @endif
+
+
+
+
+
+            {{-- Order Status --}}
+
+            <tr>
+
+                <th>
+                    Order Status
+                </th>
+
+
+                <td>
+
+
+                    @if($order->status == 'pending')
+
+
+                        <span class="badge bg-warning text-dark">
+                            Pending
+                        </span>
+
+
+                    @elseif($order->status == 'confirmed')
+
+
+                        <span class="badge bg-success">
+                            Confirmed
+                        </span>
+
+
+                    @elseif($order->status == 'cancelled')
+
+
+                        <span class="badge bg-danger">
+                            Cancelled
+                        </span>
+
+
+                    @endif
+
+
+                </td>
+
+
             </tr>
 
 
@@ -75,113 +197,269 @@
 
 
 
+
+
         {{-- Product Information --}}
+
 
         <h5 class="mt-4">
             Order Products
         </h5>
 
 
+
         <table class="table table-bordered">
+
 
             <thead>
 
                 <tr>
+
                     <th>SL</th>
+
                     <th>Product Name</th>
+
                     <th>Quantity</th>
+
                     <th>Price</th>
+
                     <th>Total</th>
+
                 </tr>
 
             </thead>
 
 
+
+
             <tbody>
 
 
-                @foreach($order->items as $item)
+            @foreach($order->items as $item)
+
 
                 <tr>
+
 
                     <td>
                         {{ $loop->iteration }}
                     </td>
 
 
+
                     <td>
-                        {{ $item->product->name }}
+
+                        {{ $item->product_name }}
+
                     </td>
 
 
+
                     <td>
+
                         {{ $item->quantity }}
+
                     </td>
 
 
+
                     <td>
-                        {{ $item->price }}
+
+                        {{ number_format($item->price) }}৳
+
                     </td>
 
 
+
                     <td>
-                        {{ $item->price * $item->quantity }}
+
+                        {{ number_format($item->price * $item->quantity) }}৳
+
                     </td>
 
 
                 </tr>
 
 
-                @endforeach
+            @endforeach
+
 
 
             </tbody>
 
 
+
         </table>
+
+
+
 
 
 
 
         {{-- Order Summary --}}
 
+
+
         <h5 class="mt-4">
             Order Summary
         </h5>
+
 
 
         <table class="table table-bordered">
 
 
             <tr>
-                <th>Subtotal</th>
-                <td>{{ $order->subtotal }}</td>
-            </tr>
+
+                <th>
+                    Subtotal
+                </th>
 
 
-            <tr>
-                <th>Tax</th>
-                <td>{{ $order->tax }}</td>
-            </tr>
-
-
-            <tr>
-                <th>Shipping Cost</th>
-                <td>{{ $order->shipping_cost }}</td>
-            </tr>
-
-
-            <tr>
-                <th>Grand Total</th>
                 <td>
-                    <strong>
-                        {{ $order->grand_total }}
-                    </strong>
+                    {{ number_format($order->subtotal) }}৳
                 </td>
+
+
+            </tr>
+
+
+
+            <tr>
+
+                <th>
+                    VAT
+                </th>
+
+
+                <td>
+                    {{ number_format($order->tax) }}৳
+                </td>
+
+
+            </tr>
+
+
+
+
+            <tr>
+
+                <th>
+                    Shipping Cost
+                </th>
+
+
+                <td>
+                    {{ number_format($order->shipping_cost) }}৳
+                </td>
+
+
+            </tr>
+
+
+
+
+            <tr>
+
+                <th>
+                    Grand Total
+                </th>
+
+
+                <td>
+
+                    <strong>
+                        {{ number_format($order->grand_total) }}৳
+                    </strong>
+
+                </td>
+
+
             </tr>
 
 
         </table>
+
+
+
+
+        {{-- Action Buttons --}}
+
+
+        <div class="mt-4">
+
+
+            @if(
+                $order->payment_method != 'cod'
+                &&
+                $order->payment_status == 'Pending'
+            )
+
+
+            <a href="{{ route('admin.payment.approve',$order->id) }}"
+               class="btn btn-success">
+
+                Approve Payment
+
+            </a>
+
+
+            @endif
+
+
+
+
+
+            @if($order->status == 'pending')
+
+
+            <a href="{{ route('admin.order.confirm',$order->id) }}"
+               class="btn btn-primary">
+
+                Confirm Order
+
+            </a>
+
+
+            @endif
+
+
+
+
+
+            @if($order->status != 'cancelled')
+
+
+            <a href="{{ route('admin.order.cancel',$order->id) }}"
+               class="btn btn-danger"
+               onclick="return confirm('Cancel this order?')">
+
+                Cancel Order
+
+            </a>
+
+
+            @endif
+
+
+
+            @if($order->status == 'confirmed')
+
+
+            <a href="{{ route('admin.invoice',$order->id) }}"
+               class="btn btn-dark">
+
+                Invoice
+
+            </a>
+
+
+            @endif
+
+
+
+        </div>
 
 
 

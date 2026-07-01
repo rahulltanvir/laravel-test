@@ -415,25 +415,25 @@ body{
 
         <tbody>
 
-            @foreach($order->items as $item)
+@foreach($order->items as $item)
 
-                <tr>
+<tr>
 
-                    <td>{{ $loop->iteration }}</td>
+    <td>{{ $loop->iteration }}</td>
 
-                    <td>{{ $item->product->name ?? 'Product Deleted' }}</td>
+    <td>{{ $item->product_name }}</td>
 
-                    <td>{{ $item->quantity }}</td>
+    <td>{{ $item->quantity }}</td>
 
-                    <td> {{ number_format($item->price,2) }}</td>
+    <td>{{ number_format($item->price,2) }}</td>
 
-                    <td> {{ number_format($item->price * $item->quantity,2) }}</td>
+    <td>{{ number_format($item->subtotal,2) }}</td>
 
-                </tr>
+</tr>
 
-            @endforeach
+@endforeach
 
-        </tbody>
+</tbody>
 
     </table>
 

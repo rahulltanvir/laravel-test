@@ -18,13 +18,13 @@ class OrderController extends Controller
 
 
     public function show($id)
-    {
-        $order = Order::with('items.product')
-                      ->findOrFail($id);
+{
+    
+    $order = Order::with('items.product')
+                  ->findOrFail($id);
 
-        return view('admin.orderlist.details', compact('order'));
-    }
-
+    return view('admin.orderlist.details', compact('order'));
+}
 
     // Order Confirm
     public function confirmOrder($id)
@@ -37,21 +37,36 @@ class OrderController extends Controller
         return redirect()->back()
                          ->with('success', 'Order Confirmed Successfully');
     }
+    public function approvePayment($id)
+{
+    $order = Order::findOrFail($id);
+
+
+    $order->update([
+
+        'payment_status' => 'Paid',
+
+        'status' => 'confirmed',
+
+    ]);
+
+
+    return back()
+        ->with('success','Payment approved successfully');
+}
 
 
     // Generate Invoice PDF
-    public function invoice($id)
-    {
-        $order = Order::with('items.product')
-                      ->findOrFail($id);
+public function invoice($id)
+{
+    $order = Order::with('items')
+                  ->findOrFail($id);
 
+    $pdf = Pdf::loadView(
+        'admin.orderlist.invoice-pdf',
+        compact('order')
+    );
 
-        $pdf = Pdf::loadView(
-            'admin.orderlist.invoice-pdf',
-            compact('order')
-        );
-
-
-        return $pdf->stream('invoice-'.$order->id.'.pdf');
-    }
+    return $pdf->stream('invoice-'.$order->id.'.pdf');
+}
 }
