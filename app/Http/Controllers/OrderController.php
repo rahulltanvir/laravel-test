@@ -37,21 +37,17 @@ class OrderController extends Controller
         return redirect()->back()
                          ->with('success', 'Order Confirmed Successfully');
     }
-    public function approvePayment($id)
+public function approvePayment($id)
 {
-    $order = Order::findOrFail($id);
-
+    $order = Order::with('items')->findOrFail($id);
 
     $order->update([
-
         'payment_status' => 'Paid',
-
         'status' => 'confirmed',
-
     ]);
 
-
-    return back()
+    return redirect()
+        ->route('admin.order.details', $order->id)
         ->with('success','Payment approved successfully');
 }
 

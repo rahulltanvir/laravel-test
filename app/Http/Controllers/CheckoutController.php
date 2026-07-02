@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class CheckoutController extends Controller
             $totalWeight += ($item['product_weight'] ?? 0) * $item['quantity'];
         }
 
-        $tax = ($cartTotal * 10) / 100;
+        $tax = ($cartTotal * 2) / 100;
 
         $shippingCost = $this->getShippingCost($totalWeight);
 
@@ -64,7 +65,7 @@ class CheckoutController extends Controller
             'payment_method' => 'required',
             'transaction_id' => 'required_if:payment_method,bkash,nagad,rocket,bank',
 
-'sender_number' => 'required_if:payment_method,bkash,nagad,rocket,bank',
+            'sender_number' => 'required_if:payment_method,bkash,nagad,rocket,bank',
         ]);
 
         $cartItems = session('cart', []);
@@ -77,7 +78,7 @@ class CheckoutController extends Controller
         $totalWeight = 0;
 
         foreach ($cartItems as $item) {
-        
+
             $cartTotal += $item['price'] * $item['quantity'];
 
             $totalWeight += ($item['product_weight'] ?? 0) * $item['quantity'];
@@ -108,7 +109,7 @@ class CheckoutController extends Controller
             'tax' => $tax,
             'shipping_cost' => $shippingCost,
             'grand_total' => $grandTotal,
-            'payment_status' => $request->payment_method == 'cod' ? 'Cash On Delivery': 'Pending',
+            'payment_status' => $request->payment_method == 'cod' ? 'Cash On Delivery' : 'Pending',
 
             'sender_number' => $request->sender_number,
 
@@ -118,27 +119,27 @@ class CheckoutController extends Controller
         // ================= ORDER ITEMS =================
         foreach ($cartItems as $item) {
 
-    OrderItem::create([
-        'order_id'      => $order->id,
-        'product_id'    => $item['id'],
-        'product_name'  => $item['name'],
-        'price'         => $item['price'],
-        'quantity'      => $item['quantity'],
-        'subtotal'      => $item['price'] * $item['quantity'],
-    ]);
-dd($orderItem);
-    // cash on delivery 
-    if ($request->payment_method == 'cod') {
+            $orderItem = OrderItem::create([
+                'order_id'      => $order->id,
+                'product_id'    => $item['id'],
+                'product_name'  => $item['name'],
+                'price'         => $item['price'],
+                'quantity'      => $item['quantity'],
+                'subtotal'      => $item['price'] * $item['quantity'],
+            ]);
 
-        $product = Product::find($item['id']);
 
-        if ($product) {
-            $product->decrement('stock', $item['quantity']);
+
+            // cash on delivery 
+            if ($request->payment_method == 'cod') {
+
+                $product = Product::find($item['id']);
+
+                if ($product) {
+                    $product->decrement('stock', $item['quantity']);
+                }
+            }
         }
-
-    }
-
-}
 
         // ================= CLEAR CART =================
         session()->forget('cart');

@@ -114,7 +114,7 @@
                                             </li>
 
                                             <li>
-                                                VAT 10%
+                                                VAT 2%
                                                 <span id="tax">{{ number_format(($cartTotal * 10) / 100) }}৳</span>
                                             </li>
 
