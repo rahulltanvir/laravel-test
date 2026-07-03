@@ -31,15 +31,11 @@
                     </div>
                 </div>
 
-                @php
 
-                    $cartTotal = 0;
-                @endphp
 
                 @forelse ($cartItems as $item)
                     @php
                         $lineTotal = $item['price'] * $item['quantity'];
-                        $cartTotal += $lineTotal;
                     @endphp
 
                     <div class="cart-single-list">
@@ -54,14 +50,14 @@
                             </div>
 
                             <div class="col-lg-2">
-                                <button class=" decrease" style="border:none; width:32px; height:20px;"
+                                <button class="decrease" style="border:none; width:32px; height:20px;"
                                     data-id="{{ $item['id'] }}">-</button>
 
                                 <span class="qty-{{ $item['id'] }}">
                                     {{ $item['quantity'] }}
                                 </span>
 
-                                <button class=" increase" style="border:none; width:32px; height:20px;"
+                                <button class="increase" style="border:none; width:32px; height:20px;"
                                     data-id="{{ $item['id'] }}">+</button>
                             </div>
 
@@ -76,9 +72,9 @@
                             </div>
 
                             <div class="col-lg-1">
-                                <a style=" background: transparent !important" href="javascript:void(0)" class="remove-item"
-                                    data-id="{{ $item['id'] }}">
-                                    <i style="font-size: 10px;color: red;" class="lni lni-close"></i>
+                                <a href="javascript:void(0)" class="remove-item" data-id="{{ $item['id'] }}"
+                                    style="background:transparent !important;">
+                                    <i class="lni lni-close" style="font-size:10px;color:red;"></i>
                                 </a>
                             </div>
 
@@ -93,7 +89,6 @@
                 @endforelse
 
             </div>
-
             {{-- TOTAL SECTION --}}
             <div class="row">
                 <div class="col-12">
@@ -107,33 +102,31 @@
                                 <div class="right">
 
                                     <ul>
-                                        <ul>
-                                            <li>
-                                                Cart total
-                                                <span id="cartTotal">{{ number_format($cartTotal) }}৳</span>
-                                            </li>
+                                        <li>
+                                            Cart Total
+                                            <span id="cartTotal">{{ number_format($cartTotal) }}৳</span>
+                                        </li>
 
-                                            <li>
-                                                VAT 2%
-                                                <span id="tax">{{ number_format(($cartTotal * 10) / 100) }}৳</span>
-                                            </li>
+                                        <li>
+                                            VAT 2%
+                                            <span id="tax">{{ number_format($tax) }}৳</span>
+                                        </li>
 
-                                            <li>
-                                                Shipping Cost
-                                                <span id="shippingCost">{{$shippingCost}}৳</span>
-                                            </li>
+                                        <li>
+                                            Shipping Cost
+                                            <span id="shippingCost">{{ number_format($shippingCost) }}৳</span>
+                                        </li>
 
-                                            <li class="last">
-                                                Grand Total
-                                                <span id="grandTotal">
-                                                   {{ number_format($cartTotal + ($cartTotal * 10) / 100 + $shippingCost) }}৳
-                                                </span>
-                                            </li>
-                                        </ul>
+                                        <li class="last">
+                                            Grand Total
+                                            <span id="grandTotal">{{ number_format($grandTotal) }}৳</span>
+                                        </li>
                                     </ul>
 
                                     <div class="button">
-                                        <a href="{{ route('check-out') }}" class="btn">Checkout</a>
+                                        <a href="{{ route('check-out') }}" class="btn">
+                                            Checkout
+                                        </a>
                                     </div>
 
                                 </div>
@@ -151,115 +144,115 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-    <script>
-$(document).on('click', '.increase, .decrease', function() {
+<script>
+    $(document).on('click', '.increase, .decrease', function() {
 
-    let id = $(this).data('id');
+        let id = $(this).data('id');
 
-    let action = $(this).hasClass('increase')
-        ? 'increase'
-        : 'decrease';
+        let action = $(this).hasClass('increase') ?
+            'increase' :
+            'decrease';
 
-    $.ajax({
-        url: "{{ route('update-cart-qty') }}",
-        type: "POST",
-        data: {
-            id: id,
-            action: action,
-            _token: "{{ csrf_token() }}"
-        },
+        $.ajax({
+            url: "{{ route('update-cart-qty') }}",
+            type: "POST",
+            data: {
+                id: id,
+                action: action,
+                _token: "{{ csrf_token() }}"
+            },
 
-        success: function(res) {
+            success: function(res) {
 
-            if (res.status === 'success') {
+                if (res.status === 'success') {
 
-                $('.qty-' + id).text(
-                    res.quantity
-                );
+                    $('.qty-' + id).text(
+                        res.quantity
+                    );
 
-                $('.line-total-' + id).text(
-                    res.lineTotal.toLocaleString() + '৳'
-                );
+                    $('.line-total-' + id).text(
+                        res.lineTotal.toLocaleString() + '৳'
+                    );
 
-                $('#cartTotal').text(
-                    res.cartTotal.toLocaleString() + '৳'
-                );
+                    $('#cartTotal').text(
+                        res.cartTotal.toLocaleString() + '৳'
+                    );
 
-                $('#tax').text(
-                    res.tax.toLocaleString() + '৳'
-                );
+                    $('#tax').text(
+                        res.tax.toLocaleString() + '৳'
+                    );
 
-                $('#shippingCost').text(
-                    res.shippingCost.toLocaleString() + '৳'
-                );
+                    $('#shippingCost').text(
+                        res.shippingCost.toLocaleString() + '৳'
+                    );
 
-                $('#grandTotal').text(
-                    res.grandTotal.toLocaleString() + '৳'
-                );
+                    $('#grandTotal').text(
+                        res.grandTotal.toLocaleString() + '৳'
+                    );
 
-                if (res.cartTotal == 0) {
+                    if (res.cartTotal == 0) {
 
-                    $('.cart-list-head').html(`
+                        $('.cart-list-head').html(`
                         <div class="text-center py-5">
                             <h4>Your Cart is Empty</h4>
                         </div>
                     `);
 
+                    }
                 }
             }
-        }
-    });
+        });
 
-});
+    });
 </script>
 
 
 <script>
-   $(document).on('click', '.remove-item', function() {
+    $(document).on('click', '.remove-item', function() {
 
-    let id = $(this).data('id');
-    let row = $(this).closest('.cart-single-list');
+        let id = $(this).data('id');
+        let row = $(this).closest('.cart-single-list');
 
-    $.ajax({
-        url: "{{ route('remove-from-cart') }}",
-        type: "POST",
-        data: {
-            id: id,
-            _token: "{{ csrf_token() }}"
-        },
-        success: function(res) {
+        $.ajax({
+            url: "{{ route('remove-from-cart') }}",
+            type: "POST",
+            data: {
+                id: id,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(res) {
 
-            if (res.status === 'success') {
+                if (res.status === 'success') {
 
-                row.remove();
+                    row.remove();
 
-                $('#cartTotal').text(
-                    res.cartTotal.toLocaleString() + '৳'
-                );
+                    $('#cartTotal').text(
+                        res.cartTotal.toLocaleString() + '৳'
+                    );
 
-                $('#tax').text(
-                    res.tax.toLocaleString() + '৳'
-                );
+                    $('#tax').text(
+                        res.tax.toLocaleString() + '৳'
+                    );
 
-                $('#shippingCost').text(
-                    res.shippingCost.toLocaleString() + '৳'
-                );
+                    $('#shippingCost').text(
+                        res.shippingCost.toLocaleString() + '৳'
+                    );
 
-                $('#grandTotal').text(
-                    res.grandTotal.toLocaleString() + '৳'
-                );
+                    $('#grandTotal').text(
+                        res.grandTotal.toLocaleString() + '৳'
+                    );
 
-                if (res.cartTotal == 0) {
+                    if (res.cartTotal == 0) {
 
-                    $('.cart-list-head').html(`
+                        $('.cart-list-head').html(`
                         <div class="text-center py-5">
                             <h4>Your Cart is Empty</h4>
                         </div>
                     `);
+                    }
                 }
             }
-        }
-    });
+        });
 
-});
+    });
 </script>

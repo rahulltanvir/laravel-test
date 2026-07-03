@@ -17,16 +17,16 @@
 
 
   <header class="header navbar-area">
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <select>
-                <option></option>
-                <option></option>
-            </select>
-        </div>
-    </div>
-</div>
+      <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <select>
+                      <option></option>
+                      <option></option>
+                  </select>
+              </div>
+          </div>
+      </div>
       <div class="topbar">
           <div class="container">
               <div class="row align-items-center">
@@ -72,18 +72,39 @@
                   </div>
                   <div class="col-lg-4 col-md-4 col-12">
                       <div class="top-end">
-                          <div class="user">
-                              <i class="lni lni-user"></i>
-                              Hello
-                          </div>
-                          <ul class="user-login">
-                              <li>
-                                  <a href="login.html">Sign In</a>
-                              </li>
-                              <li>
-                                  <a href="register.html">Register</a>
-                              </li>
-                          </ul>
+                          @if (Auth::guard('customer')->check())
+                              <div class="user">
+                                  <i class="lni lni-user"></i>
+                                  Hello, {{ Auth::guard('customer')->user()->name }}
+                              </div>
+
+                              <ul class="user-login">
+                                  <li>
+                                      <a href="{{ route('customer.logout') }}">Logout</a>
+                                  </li>
+                              </ul>
+                          @else
+                              <div class="user">
+                                  <i class="lni lni-user"></i>
+                                  Hello
+                              </div>
+
+                              <ul class="user-login">
+                                  <li>
+                                      <a href="javascript:void(0)" data-bs-toggle="modal"
+                                          data-bs-target="#customerLogin">
+                                          Sign In
+                                      </a>
+                                  </li>
+
+                                  <li>
+                                      <a href="javascript:void(0)" data-bs-toggle="modal"
+                                          data-bs-target="#customerRegister">
+                                          Register
+                                      </a>
+                                  </li>
+                              </ul>
+                          @endif
                       </div>
                   </div>
               </div>
@@ -271,7 +292,8 @@
                           <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                               <ul id="nav" class="navbar-nav ms-auto">
                                   <li class="nav-item">
-                                      <a href="{{ route('home') }}" class="active" aria-label="Toggle navigation">Home</a>
+                                      <a href="{{ route('home') }}" class="active"
+                                          aria-label="Toggle navigation">Home</a>
                                   </li>
                                   <li class="nav-item">
                                       <a class="dd-menu collapsed" href="javascript:void(0)"

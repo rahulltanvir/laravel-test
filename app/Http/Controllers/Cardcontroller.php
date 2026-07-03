@@ -75,7 +75,7 @@ class Cardcontroller extends Controller
         }
 
 
-        $tax = ($cartTotal * 10) / 100;
+        $tax = ($cartTotal * 2) / 100;
 
 
         $shippingCost = $this->getShippingCost($totalWeight);
@@ -246,7 +246,7 @@ class Cardcontroller extends Controller
         }else{
 
 
-            $tax = ($cartTotal * 10) / 100;
+            $tax = ($cartTotal * 2) / 100;
 
 
             $shippingCost = 

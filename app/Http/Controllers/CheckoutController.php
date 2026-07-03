@@ -84,7 +84,7 @@ class CheckoutController extends Controller
             $totalWeight += ($item['product_weight'] ?? 0) * $item['quantity'];
         }
 
-        $tax = ($cartTotal * 10) / 100;
+        $tax = ($cartTotal * 2) / 100;
 
         $shippingCost = $this->getShippingCost($totalWeight);
 
