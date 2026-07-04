@@ -24,17 +24,27 @@ Route::post('/update-cart-qty', [Cardcontroller::class, 'updateQty'])->name('upd
 Route::post('/remove-from-cart', [Cardcontroller::class, 'remove'])->name('remove-from-cart');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('check-out');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('check-out-store');
-Route::get('/success', function () {return view('website.checkout.success');})->name('success');
+Route::get('/success', function () {
+    return view('website.checkout.success');
+})->name('success');
 
 //customer
-Route::post('/customer-register', [CustomerAuthController::class, 'register'])->name('customer.register');
-Route::post('/customer-login', [CustomerAuthController::class, 'login'])->name('customer.login');
-Route::get('/customer-logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
+
+// SHOW LOGIN PAGE
+Route::get('/customer/login', function () {return view('frontend.auth.login');})->name('customer.login');
+// SHOW REGISTER PAGE
+Route::get('/customer/register', function () {return view('frontend.auth.register');})->name('customer.register');
+// REGISTER POST
+Route::post('/customer/register', [CustomerAuthController::class, 'register'])->name('customer.register.submit');
+// LOGIN POST
+Route::post('/customer/login', [CustomerAuthController::class, 'login'])->name('customer.login.submit');
+// LOGOUT POST (IMPORTANT)
+Route::post('/customer/logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
 
 
 
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
-   
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     //category
@@ -73,22 +83,23 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
     Route::get('product/get-subcategories/{id}', [ProductController::class, 'getSubcategory'])
-    ->name('product.get-subcategories');
+        ->name('product.get-subcategories');
     Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
     Route::get('/product/manage', [ProductController::class, 'manage'])->name('product.manage');
     Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::put('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
-    
-    Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
-    Route::get('/admin/order/cancel/{id}', 
-    [OrderController::class,'cancelOrder']
-)->name('admin.order.cancel');
-Route::get('/admin/payment/approve/{id}',
-    [OrderController::class,'approvePayment']
-)->name('admin.payment.approve');
-Route::get('/order/details/{id}', [OrderController::class, 'show'])->name('admin.order.details');
-Route::get('/admin/order-confirm/{id}',[OrderController::class,'confirmOrder'])->name('admin.order.confirm');
-Route::get('/admin/invoice/{id}',[OrderController::class,'invoice'])->name('admin.invoice');
 
+    Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
+    Route::get(
+        '/admin/order/cancel/{id}',
+        [OrderController::class, 'cancelOrder']
+    )->name('admin.order.cancel');
+    Route::get(
+        '/admin/payment/approve/{id}',
+        [OrderController::class, 'approvePayment']
+    )->name('admin.payment.approve');
+    Route::get('/order/details/{id}', [OrderController::class, 'show'])->name('admin.order.details');
+    Route::get('/admin/order-confirm/{id}', [OrderController::class, 'confirmOrder'])->name('admin.order.confirm');
+    Route::get('/admin/invoice/{id}', [OrderController::class, 'invoice'])->name('admin.invoice');
 });
