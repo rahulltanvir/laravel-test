@@ -31,9 +31,9 @@ Route::get('/success', function () {
 //customer
 
 // SHOW LOGIN PAGE
-Route::get('/customer/login', function () {return view('frontend.auth.login');})->name('customer.login');
+Route::get('/customer/login', function () {return view('website.customer.login');})->name('customer.login');
 // SHOW REGISTER PAGE
-Route::get('/customer/register', function () {return view('frontend.auth.register');})->name('customer.register');
+Route::get('/customer/register', function () {return view('website.customer.registration');})->name('customer.register');
 // REGISTER POST
 Route::post('/customer/register', [CustomerAuthController::class, 'register'])->name('customer.register.submit');
 // LOGIN POST
