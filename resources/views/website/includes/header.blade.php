@@ -71,42 +71,48 @@
                       </div>
                   </div>
                   <div class="col-lg-4 col-md-4 col-12">
-                      <div class="top-end">
-                          @if (Auth::guard('customer')->check())
-                              <div class="user">
-                                  <i class="lni lni-user"></i>
-                                  Hello, {{ Auth::guard('customer')->user()->name }}
-                              </div>
+    <div class="top-end">
 
-                              <ul class="user-login">
-                                  <li>
-                                      <a href="{{ route('customer.logout') }}">Logout</a>
-                                  </li>
-                              </ul>
-                          @else
-                              <div class="user">
-                                  <i class="lni lni-user"></i>
-                                  Hello
-                              </div>
+        @if (Auth::guard('customer')->check())
 
-                              <ul class="user-login">
-                                  <li>
-                                      <a href="javascript:void(0)" data-bs-toggle="modal"
-                                          data-bs-target="#customerLogin">
-                                          Sign In
-                                      </a>
-                                  </li>
+            <div class="user">
+                <i class="lni lni-user"></i>
+                Hello, {{ Auth::guard('customer')->user()->name }}
+            </div>
 
-                                  <li>
-                                      <a href="javascript:void(0)" data-bs-toggle="modal"
-                                          data-bs-target="#customerRegister">
-                                          Register
-                                      </a>
-                                  </li>
-                              </ul>
-                          @endif
-                      </div>
-                  </div>
+            <ul class="user-login">
+                <li>
+                    <a href="{{ route('customer.logout') }}">Logout</a>
+                </li>
+            </ul>
+
+        @else
+
+            <div class="user">
+                <i class="lni lni-user"></i>
+                Hello
+            </div>
+
+            <ul class="user-login">
+
+                <li>
+                    <a href="{{ route('customer.login') }}">
+                        Sign In
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('customer.register') }}">
+                        Register
+                    </a>
+                </li>
+
+            </ul>
+
+        @endif
+
+    </div>
+</div>
               </div>
           </div>
       </div>
@@ -118,7 +124,7 @@
                   <div class="col-lg-3 col-md-3 col-7">
 
                       <a class="navbar-brand" href="{{ route('home') }}">
-                          <img src="{{ asset('/') }}website/assets/images/logo/logo.svg" alt="Logo">
+                          <img src="{{ asset('website/assets/images/logo/logo.svg') }}" alt="Logo">
                       </a>
 
                   </div>

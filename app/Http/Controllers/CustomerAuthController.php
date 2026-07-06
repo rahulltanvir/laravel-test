@@ -9,51 +9,47 @@ use Illuminate\Support\Facades\Hash;
 
 class CustomerAuthController extends Controller
 {
-    // ================= REGISTER =================
+    public function loginForm()
+    {
+        return view('website.customer.login');
+    }
+
+    public function registerForm()
+    {
+        return view('website.customer.registration');
+    }
+
     public function register(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'phone' => 'required|unique:customers',
             'email' => 'required|email|unique:customers',
             'password' => 'required|min:6',
         ]);
 
-        $customer = Customer::create([
+        Customer::create([
             'name' => $request->name,
-            'phone' => $request->phone,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::guard('customer')->login($customer);
-
-        return redirect()->route('home')->with('success', 'Registration Successful');
+        return redirect()->route('customer.login')->with('success', 'Registration successful');
     }
 
-    // ================= LOGIN =================
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('customer')->attempt([
-            'email' => $request->email,
-            'password' => $request->password
-        ])) {
-            return redirect()->route('home')->with('success', 'Login Successful');
+        if (Auth::guard('customer')->attempt($credentials)) {
+            return redirect('/')->with('success', 'Login successful');
         }
 
-        return back()->with('error', 'Invalid Credentials');
+        return back()->with('error', 'Invalid credentials');
     }
 
-    // ================= LOGOUT =================
     public function logout()
     {
         Auth::guard('customer')->logout();
-
-        return redirect()->route('home');
+        return redirect('/');
     }
 }

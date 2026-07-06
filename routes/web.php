@@ -31,16 +31,11 @@ Route::get('/success', function () {
 //customer
 
 // SHOW LOGIN PAGE
-Route::get('/customer/login', function () {return view('website.customer.login');})->name('customer.login');
-// SHOW REGISTER PAGE
-Route::get('/customer/register', function () {return view('website.customer.registration');})->name('customer.register');
-// REGISTER POST
-Route::post('/customer/register', [CustomerAuthController::class, 'register'])->name('customer.register.submit');
-// LOGIN POST
-Route::post('/customer/login', [CustomerAuthController::class, 'login'])->name('customer.login.submit');
-// LOGOUT POST (IMPORTANT)
+Route::get('/customer/login', [CustomerAuthController::class, 'loginForm'])->name('customer.login');
+Route::get('/customer/register', [CustomerAuthController::class, 'registerForm'])->name('customer.register');
+Route::post('/customer/register', [CustomerAuthController::class, 'register'])->name('customer.register.post');
+Route::post('/customer/login', [CustomerAuthController::class, 'login'])->name('customer.login.post');
 Route::post('/customer/logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
-
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
