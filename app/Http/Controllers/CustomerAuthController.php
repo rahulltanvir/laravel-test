@@ -22,16 +22,18 @@ class CustomerAuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:customers',
-            'password' => 'required|min:6',
-        ]);
+    'name'     => 'required',
+    'phone'    => 'required|unique:customers,phone',
+    'email'    => 'required|email|unique:customers,email',
+    'password' => 'required|min:6',
+]);
 
-        Customer::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+Customer::create([
+    'name'     => $request->name,
+    'phone'    => $request->phone,
+    'email'    => $request->email,
+    'password' => Hash::make($request->password),
+]);
 
         return redirect()->route('customer.login')->with('success', 'Registration successful');
     }

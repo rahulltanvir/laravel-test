@@ -9,18 +9,12 @@ class Customer extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = [
-
-        'name',
-
-        'phone',
-
-        'email',
-
-        'password',
-
-    ];
-
+   protected $fillable = [
+    'name',
+    'phone',
+    'email',
+    'password',
+];
     protected $hidden = [
 
         'password',

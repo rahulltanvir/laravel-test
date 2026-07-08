@@ -38,6 +38,7 @@ Route::post('/customer/login', [CustomerAuthController::class, 'login'])->name('
 Route::post('/customer/logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
 
 
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
