@@ -80,6 +80,11 @@
                               </div>
 
                               <ul class="user-login">
+                                <li>
+    <a href="{{ route('customer.dashboard') }}">
+        My Dashboard
+    </a>
+</li>
                                   <form action="{{ route('customer.logout') }}" method="POST">
                                       @csrf
                                       <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3">
@@ -88,6 +93,7 @@
                                       </button>
                                   </form>
                               </ul>
+
                           @else
                               <div class="user">
                                   <i class="lni lni-user"></i>
@@ -304,7 +310,7 @@
     @endif
 
 
-</div>
+</div> 
 
                           </div>
                       </div>

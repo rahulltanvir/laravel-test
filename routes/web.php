@@ -9,7 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerAuthController;
-
+use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UnitController;
@@ -40,7 +40,20 @@ Route::post('/customer/logout', [CustomerAuthController::class, 'logout'])->name
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
+    
+//Customer dashboard
+        Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])
+        ->name('customer.dashboard');
+    Route::get('/customer/orders', [CustomerDashboardController::class, 'orders'])
+        ->name('customer.orders');
+        Route::get('/customer/order/{id}', [CustomerDashboardController::class, 'orderDetails'])
+        ->name('customer.order.details');
+        Route::get('/customer/profile', [CustomerDashboardController::class, 'profile'])
+        ->name('customer.profile');
 
+    Route::post('/customer/profile/update', [CustomerDashboardController::class, 'profileUpdate'])
+        ->name('customer.profile.update');
+//admindashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     //category
