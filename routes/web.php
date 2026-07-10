@@ -22,8 +22,7 @@ Route::post('/add-to-cart/{id}', [Cardcontroller::class, 'index'])->name('add-to
 Route::get('/cart', [Cardcontroller::class, 'show'])->name('cart');
 Route::post('/update-cart-qty', [Cardcontroller::class, 'updateQty'])->name('update-cart-qty');
 Route::post('/remove-from-cart', [Cardcontroller::class, 'remove'])->name('remove-from-cart');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('check-out');
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('check-out-store');
+
 Route::get('/success', function () {
     return view('website.checkout.success');
 })->name('success');
@@ -37,7 +36,16 @@ Route::post('/customer/register', [CustomerAuthController::class, 'register'])->
 Route::post('/customer/login', [CustomerAuthController::class, 'login'])->name('customer.login.post');
 Route::post('/customer/logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
 
+// Customer Dashboard login
+Route::middleware('auth:customer')->group(function () {
 
+    Route::get('/checkout', [CheckoutController::class, 'index'])
+        ->name('check-out');
+
+    Route::post('/checkout', [CheckoutController::class, 'store'])
+        ->name('check-out-store');
+
+});
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     
@@ -53,6 +61,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     Route::post('/customer/profile/update', [CustomerDashboardController::class, 'profileUpdate'])
         ->name('customer.profile.update');
+
+
+
 //admindashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

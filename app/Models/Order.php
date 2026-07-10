@@ -8,6 +8,8 @@ class Order extends Model
 {
     protected $fillable = [
 
+        'customer_id',
+
         'name',
         'phone',
         'email',
@@ -32,8 +34,15 @@ class Order extends Model
         'status',
     ];
 
+
     public function items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

@@ -80,11 +80,11 @@
                               </div>
 
                               <ul class="user-login">
-                                <li>
-    <a href="{{ route('customer.dashboard') }}">
-        My Dashboard
-    </a>
-</li>
+                                  <li>
+                                      <a href="{{ route('customer.dashboard') }}">
+                                          My Dashboard
+                                      </a>
+                                  </li>
                                   <form action="{{ route('customer.logout') }}" method="POST">
                                       @csrf
                                       <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3">
@@ -93,7 +93,6 @@
                                       </button>
                                   </form>
                               </ul>
-
                           @else
                               <div class="user">
                                   <i class="lni lni-user"></i>
@@ -197,128 +196,123 @@
 
                                   <!-- DROPDOWN -->
                                   @php
-    $cartItems = session('cart', []);
+                                      $cartItems = session('cart', []);
 
-    $cartCount = 0;
-    $total = 0;
+                                      $cartCount = 0;
+                                      $total = 0;
 
-    foreach ($cartItems as $item) {
-        $cartCount += $item['quantity'];
-        $total += $item['price'] * $item['quantity'];
-    }
-@endphp
-
-
-<div class="shopping-item">
-
-    <div class="dropdown-cart-header">
-        <span>{{ $cartCount }} Items</span>
-        <a href="{{ route('cart') }}">View Cart</a>
-    </div>
+                                      foreach ($cartItems as $item) {
+                                          $cartCount += $item['quantity'];
+                                          $total += $item['price'] * $item['quantity'];
+                                      }
+                                  @endphp
 
 
-    <ul class="shopping-list">
+                                  <div class="shopping-item">
 
-        @forelse ($cartItems as $item)
-
-            <li>
-
-                <a href="#" class="remove">
-                    <i class="lni lni-close"></i>
-                </a>
+                                      <div class="dropdown-cart-header">
+                                          <span>{{ $cartCount }} Items</span>
+                                          <a href="{{ route('cart') }}">View Cart</a>
+                                      </div>
 
 
-                <div class="cart-img-head">
+                                      <ul class="shopping-list">
 
-                    <a class="cart-img"
-                       href="{{ route('product-detail',$item['id']) }}">
+                                          @forelse ($cartItems as $item)
+                                              <li>
 
-                        <img src="{{ asset($item['image']) }}"
-                             alt="{{ $item['name'] }}">
-
-                    </a>
-
-                </div>
+                                                  <a href="#" class="remove">
+                                                      <i class="lni lni-close"></i>
+                                                  </a>
 
 
-                <div class="content">
+                                                  <div class="cart-img-head">
 
-                    <a href="{{ route('product-detail',$item['id']) }}">
-                        <h5>
-                            {{ Str::limit($item['name'],25) }}
-                        </h5>
-                    </a>
+                                                      <a class="cart-img"
+                                                          href="{{ route('product-detail', $item['id']) }}">
 
+                                                          <img src="{{ asset($item['image']) }}"
+                                                              alt="{{ $item['name'] }}">
 
-                    <p class="quantity">
+                                                      </a>
 
-                        {{ $item['quantity'] }} x
-
-                        <span class="amount">
-                            {{ number_format($item['price']) }}৳
-                        </span>
-
-                    </p>
+                                                  </div>
 
 
-                </div>
+                                                  <div class="content">
+
+                                                      <a href="{{ route('product-detail', $item['id']) }}">
+                                                          <h5>
+                                                              {{ Str::limit($item['name'], 25) }}
+                                                          </h5>
+                                                      </a>
 
 
-            </li>
+                                                      <p class="quantity">
+
+                                                          {{ $item['quantity'] }} x
+
+                                                          <span class="amount">
+                                                              {{ number_format($item['price']) }}৳
+                                                          </span>
+
+                                                      </p>
 
 
-        @empty
-
-            <li class="text-center">
-                <p>Your cart is empty</p>
-            </li>
-
-        @endforelse
+                                                  </div>
 
 
-    </ul>
+                                              </li>
+
+
+                                          @empty
+
+                                              <li class="text-center">
+                                                  <p>Your cart is empty</p>
+                                              </li>
+                                          @endforelse
+
+
+                                      </ul>
 
 
 
-    @if(count($cartItems) > 0)
+                                      @if (count($cartItems) > 0)
+                                          <div class="bottom">
 
-    <div class="bottom">
+                                              <div class="total">
 
-        <div class="total">
+                                                  <span>Total</span>
 
-            <span>Total</span>
+                                                  <span class="total-amount">
+                                                      {{ number_format($total) }}৳
+                                                  </span>
 
-            <span class="total-amount">
-                {{ number_format($total) }}৳
-            </span>
-
-        </div>
-
-
-        <div class="button">
-
-            <a href="{{ route('check-out') }}"
-               class="btn animate">
-                Checkout
-            </a>
-
-        </div>
+                                              </div>
 
 
-    </div>
+                                              <div class="button">
 
-    @endif
+                                                  <a href="{{ route('check-out') }}" class="btn animate">
+                                                      Checkout
+                                                  </a>
+
+                                              </div>
 
 
-</div> 
+                                          </div>
+                                      @endif
 
+
+                                  </div>
+
+                              </div>
                           </div>
-                      </div>
 
+                      </div>
                   </div>
               </div>
           </div>
-      </div>
       </div>
       </div>
       </div>

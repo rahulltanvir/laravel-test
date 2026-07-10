@@ -2,59 +2,229 @@
 
 @section('body')
 
-<section class="account-login section">
+<section class="account-login section py-5">
     <div class="container">
 
         <div class="row">
 
-            <div class="col-lg-3">
+            <!-- Sidebar -->
+            <div class="col-lg-3 mb-4">
 
-                <div class="list-group">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
 
-                    <a href="{{ route('customer.dashboard') }}"
-                        class="list-group-item list-group-item-action active">
-                        Dashboard
-                    </a>
+                        <img src="https://via.placeholder.com/100"
+                            class="rounded-circle mb-3"
+                            alt="Customer">
 
-                    <a href="#"
-                        class="list-group-item list-group-item-action">
-                        My Orders
-                    </a>
+                        <h5 class="mb-1">
+                            {{ auth('customer')->user()->name }}
+                        </h5>
 
-                    <a href="#"
-                        class="list-group-item list-group-item-action">
-                        Profile
-                    </a>
+                        <small class="text-muted">
+                            {{ auth('customer')->user()->email }}
+                        </small>
 
-                    <form action="{{ route('customer.logout') }}" method="POST">
-                        @csrf
+                    </div>
 
-                        <button class="list-group-item list-group-item-action text-danger w-100 text-start border-0">
-                            Logout
-                        </button>
-                    </form>
+                    <div class="list-group list-group-flush">
+
+                        <a href="{{ route('customer.dashboard') }}"
+                            class="list-group-item list-group-item-action active">
+                            <i class="lni lni-dashboard me-2"></i>
+                            Dashboard
+                        </a>
+
+                        <a href="#"
+                            class="list-group-item list-group-item-action">
+                            <i class="lni lni-package me-2"></i>
+                            My Orders
+                        </a>
+
+                        <a href="#"
+                            class="list-group-item list-group-item-action">
+                            <i class="lni lni-user me-2"></i>
+                            My Profile
+                        </a>
+
+                        <a href="#"
+                            class="list-group-item list-group-item-action">
+                            <i class="lni lni-lock-alt me-2"></i>
+                            Change Password
+                        </a>
+
+                        <form action="{{ route('customer.logout') }}" method="POST">
+                            @csrf
+
+                            <button
+                                class="list-group-item list-group-item-action text-danger border-0 w-100 text-start bg-white">
+                                <i class="lni lni-exit me-2"></i>
+                                Logout
+                            </button>
+                        </form>
+
+                    </div>
 
                 </div>
 
             </div>
 
+            <!-- Content -->
             <div class="col-lg-9">
 
-                <div class="card">
+                <!-- Welcome -->
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body">
+
+                        <h3 class="mb-3">
+                            Welcome,
+                            <span class="text-primary">
+                                {{ auth('customer')->user()->name }}
+                            </span>
+                        </h3>
+
+                        <p class="text-muted mb-0">
+                            Welcome to your customer dashboard.
+                            Here you can manage your orders, profile,
+                            password and account information.
+                        </p>
+
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+
+                        <div class="card shadow-sm border-0 text-center">
+
+                            <div class="card-body">
+
+                                <i class="lni lni-package fs-1 text-primary"></i>
+
+                                <h2 class="mt-3 mb-1">
+                                    0
+                                </h2>
+
+                                <p class="text-muted mb-0">
+                                    Total Orders
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <div class="card shadow-sm border-0 text-center">
+
+                            <div class="card-body">
+
+                                <i class="lni lni-timer fs-1 text-warning"></i>
+
+                                <h2 class="mt-3 mb-1">
+                                    0
+                                </h2>
+
+                                <p class="text-muted mb-0">
+                                    Pending Orders
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <div class="card shadow-sm border-0 text-center">
+
+                            <div class="card-body">
+
+                                <i class="lni lni-checkmark-circle fs-1 text-success"></i>
+
+                                <h2 class="mt-3 mb-1">
+                                    0
+                                </h2>
+
+                                <p class="text-muted mb-0">
+                                    Completed Orders
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="card shadow-sm border-0 mt-4">
+
+                    <div class="card-header bg-white">
+
+                        <h5 class="mb-0">
+                            Recent Orders
+                        </h5>
+
+                    </div>
 
                     <div class="card-body">
 
-                        <h3>
-                            Welcome,
-                            {{ auth('customer')->user()->name }}
-                        </h3>
+                        <div class="table-responsive">
 
-                        <hr>
+                            <table class="table table-bordered align-middle">
 
-                        <p>
-                            From your dashboard you can view your recent orders,
-                            manage your profile and update your password.
-                        </p>
+                                <thead>
+
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td>1</td>
+
+                                        <td>#1001</td>
+
+                                        <td>10 Jul 2026</td>
+
+                                        <td>৳1200</td>
+
+                                        <td>
+                                            <span class="badge bg-success">
+                                                Delivered
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td colspan="5" class="text-center text-muted">
+                                            Dynamic orders will appear here.
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
 
                     </div>
 
