@@ -1,15 +1,34 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class CustomerDashboardController extends Controller
 {
     public function index()
     {
-        return view('website.customer.dashboard');
+        $customer = auth('customer')->user();
+
+        $orders = Order::where('email', $customer->email)
+                        ->latest()
+                        ->get();
+
+        $totalOrders = $orders->count();
+        $pendingOrders = $orders->where('status', 'pending')->count();
+        $completedOrders = $orders->where('status', 'confirmed')->count();
+
+        return view('website.customer.dashboard', compact(
+            'orders',
+            'totalOrders',
+            'pendingOrders',
+            'completedOrders'
+        ));
     }
+
+
     public function orders()
 {
     $orders = Order::where('email', auth('customer')->user()->email)
@@ -50,5 +69,18 @@ public function profileUpdate(Request $request)
     ]);
 
     return back()->with('success', 'Profile updated successfully.');
+}
+public function invoice($id)
+{
+    $order = Order::with('items.product')
+        ->where('id', $id)
+        ->where('customer_id', auth('customer')->id())
+        ->firstOrFail();
+
+    $pdf = Pdf::loadView(
+        'admin.orderlist.invoice-pdf',
+        compact('order'));
+
+    return $pdf->stream('Invoice-'.$order->id.'.pdf');
 }
 }

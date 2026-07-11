@@ -45,23 +45,36 @@ Route::middleware('auth:customer')->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'store'])
         ->name('check-out-store');
 
+
+    Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])
+        ->name('customer.dashboard');
+
+
+    Route::get('/customer/orders', [CustomerDashboardController::class, 'orders'])
+        ->name('customer.orders');
+
+
+    Route::get('/customer/order/{id}', [CustomerDashboardController::class, 'orderDetails'])
+        ->name('customer.order.details');
+
+
+    Route::get('/customer/invoice/{id}', [CustomerDashboardController::class, 'invoice'])
+        ->name('customer.invoice');
+
+
+    Route::get('/customer/profile', [CustomerDashboardController::class, 'profile'])
+        ->name('customer.profile');
+
+
+    Route::post('/customer/profile/update', [CustomerDashboardController::class, 'profileUpdate'])
+        ->name('customer.profile.update');
+
 });
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     
 //Customer dashboard
-        Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])
-        ->name('customer.dashboard');
-    Route::get('/customer/orders', [CustomerDashboardController::class, 'orders'])
-        ->name('customer.orders');
-        Route::get('/customer/order/{id}', [CustomerDashboardController::class, 'orderDetails'])
-        ->name('customer.order.details');
-        Route::get('/customer/profile', [CustomerDashboardController::class, 'profile'])
-        ->name('customer.profile');
-
-    Route::post('/customer/profile/update', [CustomerDashboardController::class, 'profileUpdate'])
-        ->name('customer.profile.update');
-
+       
 
 
 //admindashboard

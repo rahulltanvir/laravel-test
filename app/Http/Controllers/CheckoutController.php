@@ -10,17 +10,17 @@ use App\Models\Product;
 class CheckoutController extends Controller
 {
     // ================= SHIPPING CALCULATION =================
-    private function getShippingCost($totalWeight)
+ private function getShippingCost($totalWeight)
     {
-        if ($totalWeight <= 1) {
-            return 80;
-        } elseif ($totalWeight <= 3) {
+        if ($totalWeight <= 1.5) {
             return 150;
+        } elseif ($totalWeight <= 2) {
+            return 300;
         } elseif ($totalWeight <= 5) {
-            return 250;
+            return 500;
         }
 
-        return 400;
+        return 1000;
     }
 
     // ================= CHECKOUT PAGE =================

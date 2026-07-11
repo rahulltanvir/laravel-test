@@ -1,161 +1,61 @@
 @extends('website.master')
 
 @section('body')
+    <section class="account-login section py-5">
+        <div class="container">
 
-<section class="account-login section py-5">
-    <div class="container">
+            <div class="row">
 
-        <div class="row">
+                <!-- Sidebar -->
+                <div class="col-lg-3 mb-4">
 
-            <!-- Sidebar -->
-            <div class="col-lg-3 mb-4">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body text-center">
 
-                <div class="card shadow-sm border-0">
-                    <div class="card-body text-center">
+                            <img src="https://via.placeholder.com/100" class="rounded-circle mb-3" alt="Customer">
 
-                        <img src="https://via.placeholder.com/100"
-                            class="rounded-circle mb-3"
-                            alt="Customer">
-
-                        <h5 class="mb-1">
-                            {{ auth('customer')->user()->name }}
-                        </h5>
-
-                        <small class="text-muted">
-                            {{ auth('customer')->user()->email }}
-                        </small>
-
-                    </div>
-
-                    <div class="list-group list-group-flush">
-
-                        <a href="{{ route('customer.dashboard') }}"
-                            class="list-group-item list-group-item-action active">
-                            <i class="lni lni-dashboard me-2"></i>
-                            Dashboard
-                        </a>
-
-                        <a href="#"
-                            class="list-group-item list-group-item-action">
-                            <i class="lni lni-package me-2"></i>
-                            My Orders
-                        </a>
-
-                        <a href="#"
-                            class="list-group-item list-group-item-action">
-                            <i class="lni lni-user me-2"></i>
-                            My Profile
-                        </a>
-
-                        <a href="#"
-                            class="list-group-item list-group-item-action">
-                            <i class="lni lni-lock-alt me-2"></i>
-                            Change Password
-                        </a>
-
-                        <form action="{{ route('customer.logout') }}" method="POST">
-                            @csrf
-
-                            <button
-                                class="list-group-item list-group-item-action text-danger border-0 w-100 text-start bg-white">
-                                <i class="lni lni-exit me-2"></i>
-                                Logout
-                            </button>
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Content -->
-            <div class="col-lg-9">
-
-                <!-- Welcome -->
-                <div class="card shadow-sm border-0 mb-4">
-                    <div class="card-body">
-
-                        <h3 class="mb-3">
-                            Welcome,
-                            <span class="text-primary">
+                            <h5 class="mb-1">
                                 {{ auth('customer')->user()->name }}
-                            </span>
-                        </h3>
+                            </h5>
 
-                        <p class="text-muted mb-0">
-                            Welcome to your customer dashboard.
-                            Here you can manage your orders, profile,
-                            password and account information.
-                        </p>
-
-                    </div>
-                </div>
-
-                <!-- Statistics -->
-                <div class="row">
-
-                    <div class="col-md-4 mb-3">
-
-                        <div class="card shadow-sm border-0 text-center">
-
-                            <div class="card-body">
-
-                                <i class="lni lni-package fs-1 text-primary"></i>
-
-                                <h2 class="mt-3 mb-1">
-                                    0
-                                </h2>
-
-                                <p class="text-muted mb-0">
-                                    Total Orders
-                                </p>
-
-                            </div>
+                            <small class="text-muted">
+                                {{ auth('customer')->user()->email }}
+                            </small>
 
                         </div>
 
-                    </div>
+                        <div class="list-group list-group-flush">
 
-                    <div class="col-md-4 mb-3">
+                            <a href="{{ route('customer.dashboard') }}"
+                                class="list-group-item list-group-item-action active">
+                                <i class="lni lni-dashboard me-2"></i>
+                                Dashboard
+                            </a>
 
-                        <div class="card shadow-sm border-0 text-center">
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="lni lni-package me-2"></i>
+                                My Orders
+                            </a>
 
-                            <div class="card-body">
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="lni lni-user me-2"></i>
+                                My Profile
+                            </a>
 
-                                <i class="lni lni-timer fs-1 text-warning"></i>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="lni lni-lock-alt me-2"></i>
+                                Change Password
+                            </a>
 
-                                <h2 class="mt-3 mb-1">
-                                    0
-                                </h2>
+                            <form action="{{ route('customer.logout') }}" method="POST">
+                                @csrf
 
-                                <p class="text-muted mb-0">
-                                    Pending Orders
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-
-                        <div class="card shadow-sm border-0 text-center">
-
-                            <div class="card-body">
-
-                                <i class="lni lni-checkmark-circle fs-1 text-success"></i>
-
-                                <h2 class="mt-3 mb-1">
-                                    0
-                                </h2>
-
-                                <p class="text-muted mb-0">
-                                    Completed Orders
-                                </p>
-
-                            </div>
+                                <button
+                                    class="list-group-item list-group-item-action text-danger border-0 w-100 text-start bg-white">
+                                    <i class="lni lni-exit me-2"></i>
+                                    Logout
+                                </button>
+                            </form>
 
                         </div>
 
@@ -163,66 +63,218 @@
 
                 </div>
 
-                <!-- Recent Orders -->
-                <div class="card shadow-sm border-0 mt-4">
+                <!-- Content -->
+                <div class="col-lg-9">
 
-                    <div class="card-header bg-white">
+                    <!-- Welcome -->
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-body">
 
-                        <h5 class="mb-0">
-                            Recent Orders
-                        </h5>
+                            <h3 class="mb-3">
+                                Welcome,
+                                <span class="text-primary">
+                                    {{ auth('customer')->user()->name }}
+                                </span>
+                            </h3>
+
+                            <p class="text-muted mb-0">
+                                Welcome to your customer dashboard.
+                                Here you can manage your orders, profile,
+                                password and account information.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="row">
+
+                        <div class="col-md-4 mb-3">
+
+                            <div class="card shadow-sm border-0 text-center">
+
+                                <div class="card-body">
+
+                                    <i class="lni lni-package fs-1 text-primary"></i>
+
+                                    <h2 class="mt-3 mb-1">
+                                        {{ $totalOrders }}
+                                    </h2>
+
+                                    <p class="text-muted mb-0">
+                                        Total Orders
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <div class="card shadow-sm border-0 text-center">
+
+                                <div class="card-body">
+
+                                    <i class="lni lni-timer fs-1 text-warning"></i>
+
+                                    <h2 class="mt-3 mb-1">
+                                        {{$pendingOrders}}
+                                    </h2>
+
+                                    <p class="text-muted mb-0">
+                                        Pending Orders
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <div class="card shadow-sm border-0 text-center">
+
+                                <div class="card-body">
+
+                                    <i class="lni lni-checkmark-circle fs-1 text-success"></i>
+
+                                    <h2 class="mt-3 mb-1">
+                                        {{ $completedOrders }}
+                                    </h2>
+
+                                    <p class="text-muted mb-0">
+                                        Completed Orders
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
-                    <div class="card-body">
+                    <!-- Recent Orders -->
+                    <div class="card shadow-sm border-0 mt-4">
 
-                        <div class="table-responsive">
+                        <div class="card-header bg-white">
 
-                            <table class="table table-bordered align-middle">
+                            <h5 class="mb-0">
+                                Recent Orders
+                            </h5>
 
-                                <thead>
+                        </div>
 
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Order ID</th>
-                                        <th>Date</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
-                                    </tr>
+                        <div class="card-body">
 
-                                </thead>
+                            <div class="table-responsive">
 
-                                <tbody>
+                                <table class="table table-bordered table-hover align-middle">
 
-                                    <tr>
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
 
-                                        <td>1</td>
+    <tbody>
 
-                                        <td>#1001</td>
+        @forelse($orders as $key => $order)
 
-                                        <td>10 Jul 2026</td>
+        <tr>
 
-                                        <td>৳1200</td>
+            <td>{{ $key + 1 }}</td>
 
-                                        <td>
-                                            <span class="badge bg-success">
-                                                Delivered
-                                            </span>
-                                        </td>
+            <td>
+                <strong>#{{ $order->id }}</strong>
+            </td>
 
-                                    </tr>
+            <td>
+                {{ $order->created_at->format('d M Y') }}
+            </td>
 
-                                    <tr>
+            <td>
+                ৳{{ number_format($order->grand_total,2) }}
+            </td>
 
-                                        <td colspan="5" class="text-center text-muted">
-                                            Dynamic orders will appear here.
-                                        </td>
+            <td>
 
-                                    </tr>
+                @if($order->status == 'pending')
+                    <span class="badge bg-warning text-dark">
+                        Pending
+                    </span>
 
-                                </tbody>
+                @elseif($order->status == 'confirmed')
+                    <span class="badge bg-primary">
+                        Confirmed
+                    </span>
 
-                            </table>
+                @elseif($order->status == 'processing')
+                    <span class="badge bg-info">
+                        Processing
+                    </span>
+
+                @elseif($order->status == 'shipped')
+                    <span class="badge bg-secondary">
+                        Shipped
+                    </span>
+
+                @elseif($order->status == 'delivered')
+                    <span class="badge bg-success">
+                        Delivered
+                    </span>
+
+                @elseif($order->status == 'cancelled')
+                    <span class="badge bg-danger">
+                        Cancelled
+                    </span>
+
+                @else
+                    <span class="badge bg-dark">
+                        {{ ucfirst($order->status) }}
+                    </span>
+                @endif
+
+            </td>
+
+            <td>
+
+  <a href="{{ route('customer.invoice',$order->id) }}"
+   target="_blank"
+   class="btn btn-sm btn-danger">
+
+    <i class="lni lni-download"></i>
+    PDF Invoice
+
+</a>
+
+            </td>
+
+        </tr>
+
+        @empty
+
+        <tr>
+            <td colspan="6" class="text-center py-4">
+                No Orders Found
+            </td>
+        </tr>
+
+        @endforelse
+
+    </tbody>
+
+</table>
+
+                            </div>
 
                         </div>
 
@@ -233,8 +285,5 @@
             </div>
 
         </div>
-
-    </div>
-</section>
-
+    </section>
 @endsection
