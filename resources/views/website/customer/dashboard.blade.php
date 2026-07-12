@@ -176,7 +176,7 @@
 
     <thead class="table-dark">
         <tr>
-            <th>#</th>
+            <th>No</th>
             <th>Order ID</th>
             <th>Date</th>
             <th>Total</th>
