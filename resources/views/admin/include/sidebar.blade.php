@@ -54,7 +54,7 @@
                         <span class="hide-menu">Slider</span>
                     </a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="">Add Slider</a></li>
+                        <li><a href="{{ route('sliders.index') }}">Add Slider</a></li>
                         <li><a href="">Manage Slider</a></li>
                     </ul>
                 </li>

@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UnitController;
 //frontend
@@ -79,7 +80,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
 //admindashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
+//slider
+Route::resource('sliders', SliderController::class);
     //category
     Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
