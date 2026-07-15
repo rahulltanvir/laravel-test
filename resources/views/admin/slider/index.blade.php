@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('content')
+@section('body')
 
 <div class="container-fluid">
 
