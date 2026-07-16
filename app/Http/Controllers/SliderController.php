@@ -7,118 +7,41 @@ use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
+
+    // Slider List
     public function index()
     {
         $sliders = Slider::latest()->get();
 
-        return view('admin.slider.index', compact('sliders'));
+        return view('admin.slider.manage-slider', compact('sliders'));
     }
 
 
+    // Add Slider Page
     public function create()
     {
-        return view('admin.slider.manage-slider');
+        return view('admin.slider.index');
     }
 
 
+    // Store Slider
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255',
-            'sub_title' => 'nullable|max:255',
-            'description' => 'nullable',
-            'button_text' => 'nullable|max:255',
-            'button_link' => 'nullable|max:255',
-            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'serial' => 'required|integer',
-            'status' => 'required',
+            'title'        => 'required|max:255',
+            'sub_title'    => 'nullable|max:255',
+            'description'  => 'nullable',
+            'button_text'  => 'nullable|max:255',
+            'button_link'  => 'nullable|max:255',
+            'image'        => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'serial'       => 'required|integer',
+            'status'       => 'required',
         ]);
 
 
         // Image Upload
-        $image = $request->file('image');
+        $imageName = null;
 
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-
-        $image->move(
-            public_path('uploads/sliders'),
-            $imageName
-        );
-
-
-        // Save Slider Data
-        Slider::create([
-
-            'title' => $request->title,
-
-            'sub_title' => $request->sub_title,
-
-            'description' => $request->description,
-
-            'button_text' => $request->button_text,
-
-            'button_link' => $request->button_link,
-
-            'image' => 'uploads/sliders/'.$imageName,
-
-            'serial' => $request->serial,
-
-            'status' => $request->status,
-
-        ]);
-
-
-        return redirect()
-                ->route('sliders.index')
-                ->with('success','Slider Added Successfully');
-    }
-
-
-
-    public function show(Slider $slider)
-    {
-        return view('admin.slider.show', compact('slider'));
-    }
-
-
-
-    public function edit(Slider $slider)
-    {
-        return view('admin.slider.edit', compact('slider'));
-    }
-
-
-
-    public function update(Request $request, Slider $slider)
-    {
-        $request->validate([
-            'title' => 'required|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'serial' => 'required|integer',
-            'status' => 'required',
-        ]);
-
-
-        $data = [
-
-            'title' => $request->title,
-
-            'sub_title' => $request->sub_title,
-
-            'description' => $request->description,
-
-            'button_text' => $request->button_text,
-
-            'button_link' => $request->button_link,
-
-            'serial' => $request->serial,
-
-            'status' => $request->status,
-
-        ];
-
-
-        // Update Image if new image selected
         if($request->hasFile('image')){
 
             $image = $request->file('image');
@@ -129,22 +52,105 @@ class SliderController extends Controller
                 public_path('uploads/sliders'),
                 $imageName
             );
+        }
+
+
+        // Save Data
+        Slider::create([
+
+            'title'        => $request->title,
+            'sub_title'    => $request->sub_title,
+            'description'  => $request->description,
+            'button_text'  => $request->button_text,
+            'button_link'  => $request->button_link,
+            'image'        => 'uploads/sliders/'.$imageName,
+            'serial'       => $request->serial,
+            'status'       => $request->status,
+
+        ]);
+
+
+        return redirect()
+            ->route('sliders.index')
+            ->with('success','Slider Added Successfully');
+    }
+
+
+
+    // Edit Slider Page
+    public function edit(Slider $slider)
+    {
+        return view('admin.slider.edit', compact('slider'));
+    }
+
+
+
+    // Update Slider
+    public function update(Request $request, Slider $slider)
+    {
+
+        $request->validate([
+            'title'        => 'required|max:255',
+            'sub_title'    => 'nullable|max:255',
+            'description'  => 'nullable',
+            'button_text'  => 'nullable|max:255',
+            'button_link'  => 'nullable|max:255',
+            'image'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'serial'       => 'required|integer',
+            'status'       => 'required',
+        ]);
+
+
+
+        $data = [
+
+            'title'        => $request->title,
+            'sub_title'    => $request->sub_title,
+            'description'  => $request->description,
+            'button_text'  => $request->button_text,
+            'button_link'  => $request->button_link,
+            'serial'       => $request->serial,
+            'status'       => $request->status,
+
+        ];
+
+
+
+        // Update Image
+        if($request->hasFile('image')){
+
+
+            $image = $request->file('image');
+
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+
+
+            $image->move(
+                public_path('uploads/sliders'),
+                $imageName
+            );
+
 
             $data['image'] = 'uploads/sliders/'.$imageName;
+
         }
+
 
 
         $slider->update($data);
 
 
+
         return redirect()
-                ->route('sliders.index')
-                ->with('success','Slider Updated Successfully');
+            ->route('sliders.index')
+            ->with('success','Slider Updated Successfully');
 
     }
 
 
 
+
+    // Delete Slider
     public function destroy(Slider $slider)
     {
 
@@ -152,8 +158,9 @@ class SliderController extends Controller
 
 
         return redirect()
-                ->route('sliders.index')
-                ->with('success','Slider Deleted Successfully');
+            ->route('sliders.index')
+            ->with('success','Slider Deleted Successfully');
 
     }
+
 }
