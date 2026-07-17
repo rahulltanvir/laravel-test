@@ -1,7 +1,7 @@
 @extends('website.master')
 
 @section('title')
-online super shop
+    online super shop
 @endsection
 
 @section('body')
@@ -13,34 +13,31 @@ online super shop
 
                         <div class="hero-slider">
 
-                            <div class="single-slider" style="background-image: url(website/assets/images/hero/slider-bg1.jpg);">
-                                <div class="content">
-                                    <h2><span>No restocking fee ($35 savings)</span>
-                                        M75 Sport Watch
-                                    </h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut
-                                        labore dolore magna aliqua.</p>
-                                    <h3><span>Now Only</span> $320.99</h3>
-                                    <div class="button">
-                                        <a href="product-grids.html" class="btn">Shop Now</a>
+                            @foreach ($sliders as $slider)
+                                <div class="single-slider" style="background-image: url('{{ asset($slider->image) }}');">
+                                    <div class="content">
+
+                                        @if ($slider->title)
+                                            <h2>{{ $slider->title }} </h2>
+                                        @endif
+                                        @if($slider->description)
+
+<p>
+    {{ $slider->description }}
+</p>
+
+@endif
+                                        
+                                        @if ($slider->button_text)
+                                            <div class="button">
+                                                <a href="{{ $slider->button_link }}" class="btn">
+                                                    {{ $slider->button_text }}
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
-                            </div>
-
-
-                            <div class="single-slider" style="background-image: url(website/assets/images/hero/slider-bg2.jpg);">
-                                <div class="content">
-                                    <h2><span>Big Sale Offer</span>
-                                        Get the Best Deal on CCTV Camera
-                                    </h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut
-                                        labore dolore magna aliqua.</p>
-                                    <h3><span>Combo Only:</span> $590.00</h3>
-                                    <div class="button">
-                                        <a href="product-grids.html" class="btn">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
 
                         </div>
 
@@ -50,7 +47,8 @@ online super shop
                     <div class="row">
                         <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
 
-                            <div class="hero-small-banner" style="background-image: url('website/assets/images/hero/slider-bnr.jpg');">
+                            <div class="hero-small-banner"
+                                style="background-image: url('website/assets/images/hero/slider-bnr.jpg');">
                                 <div class="content">
                                     <h2>
                                         <span>New line required</span>
@@ -122,7 +120,8 @@ online super shop
                             <li><a href="product-grids.html">View All</a></li>
                         </ul>
                         <div class="images">
-                            <img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-2.png" alt="#">
+                            <img src="{{ asset('/') }}website/assets/images/featured-categories/fetured-item-2.png"
+                                alt="#">
                         </div>
                     </div>
 
@@ -139,7 +138,8 @@ online super shop
                             <li><a href="product-grids.html">View All</a></li>
                         </ul>
                         <div class="images">
-                            <img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-3.png" alt="#">
+                            <img src="{{ asset('/') }}website/assets/images/featured-categories/fetured-item-3.png"
+                                alt="#">
                         </div>
                     </div>
 
@@ -156,7 +156,8 @@ online super shop
                             <li><a href="product-grids.html">View All</a></li>
                         </ul>
                         <div class="images">
-                            <img src="{{asset('/')}}website/assets/images/featured-categories/fetured-item-4.png" alt="#">
+                            <img src="{{ asset('/') }}website/assets/images/featured-categories/fetured-item-4.png"
+                                alt="#">
                         </div>
                     </div>
 
@@ -212,39 +213,40 @@ online super shop
                 </div>
             </div>
             <div class="row">
-                @foreach ( $products as $product)
-                   <div class="col-lg-3 col-md-6 col-12">
+                @foreach ($products as $product)
+                    <div class="col-lg-3 col-md-6 col-12">
 
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
-                            <div class="button">
-                                <a href="{{ route('product-detail',$product->id) }}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                        <div class="single-product">
+                            <div class="product-image">
+                                <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
+                                <div class="button">
+                                    <a href="{{ route('product-detail', $product->id) }}" class="btn"><i
+                                            class="lni lni-cart"></i> Add to Cart</a>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <span class="category">{{ $product->category->name }}</span>
+                                <h4 class="title">
+                                    <a href="{{ route('product-detail', $product->id) }}">{{ $product->name }}</a>
+                                </h4>
+                                <ul class="review">
+                                    <li><i class="lni lni-star-filled"></i></li>
+                                    <li><i class="lni lni-star-filled"></i></li>
+                                    <li><i class="lni lni-star-filled"></i></li>
+                                    <li><i class="lni lni-star-filled"></i></li>
+                                    <li><i class="lni lni-star"></i></li>
+                                    <li><span>4.0 Review(s)</span></li>
+                                </ul>
+                                <div class="price">
+                                    <span>Price:{{ number_format($product->sale_price) }}৳</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="product-info">
-                            <span class="category">{{ $product->category->name}}</span>
-                            <h4 class="title">
-                                <a href="{{ route('product-detail',$product->id) }}">{{ $product->name}}</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star"></i></li>
-                                <li><span>4.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>Price:{{ number_format($product->sale_price) }}৳</span>
-                            </div>
-                        </div>
+
                     </div>
-
-                </div> 
                 @endforeach
-                
-               
+
+
             </div>
         </div>
     </section>
@@ -254,7 +256,8 @@ online super shop
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner" style="background-image:url('website/assets/images/banner/banner-1-bg.jpg')">
+                    <div class="single-banner"
+                        style="background-image:url('website/assets/images/banner/banner-1-bg.jpg')">
                         <div class="content">
                             <h2>Smart Watch 2.0</h2>
                             <p>Space Gray Aluminum Case with <br>Black/Volt Real Sport Band </p>
@@ -265,7 +268,8 @@ online super shop
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner custom-responsive-margin" style="background-image:url('website/assets/images/banner/banner-2-bg.jpg')">
+                    <div class="single-banner custom-responsive-margin"
+                        style="background-image:url('website/assets/images/banner/banner-2-bg.jpg')">
                         <div class="content">
                             <h2>Smart Headphone</h2>
                             <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
@@ -387,7 +391,8 @@ online super shop
                         </div>
                     </div>
 
-                    <div class="single-banner right" style="background-image:url('website/assets/images/banner/banner-3-bg.jpg');margin-top: 30px;">
+                    <div class="single-banner right"
+                        style="background-image:url('website/assets/images/banner/banner-3-bg.jpg');margin-top: 30px;">
                         <div class="content">
                             <h2>Samsung Notebook 9 </h2>
                             <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
@@ -461,7 +466,8 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/01.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/01.jpg"
+                                    alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -474,7 +480,8 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/02.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/02.jpg"
+                                    alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -487,7 +494,8 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/03.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/03.jpg"
+                                    alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -503,7 +511,8 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/04.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/04.jpg"
+                                    alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -516,7 +525,8 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/05.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/05.jpg"
+                                    alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -529,7 +539,8 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/06.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/06.jpg"
+                                    alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -545,7 +556,8 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/07.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/07.jpg"
+                                    alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -558,7 +570,8 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/08.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/08.jpg"
+                                    alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -571,7 +584,8 @@ online super shop
 
                     <div class="single-list">
                         <div class="list-image">
-                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/09.jpg" alt="#"></a>
+                            <a href="product-grids.html"><img src="website/assets/images/home-product-list/09.jpg"
+                                    alt="#"></a>
                         </div>
                         <div class="list-info">
                             <h3>
@@ -596,12 +610,12 @@ online super shop
             </div>
             <div class="brands-logo-wrapper">
                 <div class="brands-logo-carousel d-flex align-items-center justify-content-between">
-                    @foreach ( $brands as $brand )
+                    @foreach ($brands as $brand)
                         <div class="brand-logo">
-                        <img src="{{ asset('uploads/brands/'.$brand->image) }}" alt="#">
-                    </div>
+                            <img src="{{ asset('uploads/brands/' . $brand->image) }}" alt="#">
+                        </div>
                     @endforeach
-                    
+
                 </div>
             </div>
         </div>
@@ -738,5 +752,4 @@ online super shop
             </ul>
         </div>
     </section>
-
 @endsection
