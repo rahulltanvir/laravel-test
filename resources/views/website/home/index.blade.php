@@ -20,14 +20,12 @@
                                         @if ($slider->title)
                                             <h2>{{ $slider->title }} </h2>
                                         @endif
-                                        @if($slider->description)
+                                        @if ($slider->description)
+                                            <p>
+                                                {{ $slider->description }}
+                                            </p>
+                                        @endif
 
-<p>
-    {{ $slider->description }}
-</p>
-
-@endif
-                                        
                                         @if ($slider->button_text)
                                             <div class="button">
                                                 <a href="{{ $slider->button_link }}" class="btn">

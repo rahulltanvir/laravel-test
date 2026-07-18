@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('title');
-            $table->string('sub_title')->nullable();
+            $table->string('price')->nullable();
             $table->text('description')->nullable();
 
             $table->string('button_text')->nullable();
