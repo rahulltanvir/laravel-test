@@ -25,9 +25,9 @@
 
 
                 <div class="mb-3">
-                    <label>Sub Title</label>
+                    <label>Price</label>
                     <input type="text" 
-                           name="sub_title" 
+                           name="price" 
                            class="form-control">
                 </div>
 

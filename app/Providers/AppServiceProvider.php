@@ -21,8 +21,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['website.includes.header'], function($view){
-            $view->with('categories', Category::all());
+       View::composer(['website.includes.header'], function($view){
+
+            $categories = Category::where('status', 1)
+                ->get();
+
+            $view->with('categories', $categories);
+
         });
     }
 }

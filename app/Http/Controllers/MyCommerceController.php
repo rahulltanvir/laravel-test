@@ -14,19 +14,34 @@ class MyCommerceController extends Controller
     public function index()
     {
         $sliders = Slider::where('status', 1)->latest()->get();
-        $categories = Category::with('subcategories')->get();
-        $products = Product::latest()->take(8)->get();
+        $categories = Category::where('status', 1)
+    ->with(['subcategories' => function ($query) {
+        $query->where('status', 1);
+    }])
+    ->get();
+        $products = Product::where('status', 1)
+    ->latest()
+    ->take(8)
+    ->get();
         $brands= Brand::all();
         return view('website.home.index', compact('categories','products','brands','sliders'));
     }
 
     public function category($id)
 {
-    $categories = Category::with('subcategories')->get();
+    $categories = Category::where('status', 1)
+    ->with(['subcategories' => function ($query) {
+        $query->where('status', 1);
+    }])
+    ->get();
 
-    $category = Category::findOrFail($id);
+$category = Category::where('id', $id)
+    ->where('status', 1)
+    ->firstOrFail();
 
-    $products = Product::where('category_id', $id)->get();
+$products = Product::where('category_id', $id)
+    ->where('status', 1)
+    ->get();
 
     return view('website.category.index', compact(
         'categories',
@@ -36,9 +51,13 @@ class MyCommerceController extends Controller
 }
 public function subcategory($id)
 {
-    $subcategory = SubCategory::findOrFail($id);
+   $subcategory = SubCategory::where('id', $id)
+    ->where('status', 1)
+    ->firstOrFail();
 
-    $products = Product::where('subcategory_id', $id)->get();
+$products = Product::where('subcategory_id', $id)
+    ->where('status', 1)
+    ->get();
 
     return view('website.category.index', compact('subcategory', 'products'));
 }
