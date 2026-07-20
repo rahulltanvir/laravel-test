@@ -22,7 +22,7 @@
 
         <thead>
             <tr>
-                <th>#</th>
+                <th>No:</th>
                 <th>Image</th>
                 <th>Title</th>
                 <th>Serial</th>
