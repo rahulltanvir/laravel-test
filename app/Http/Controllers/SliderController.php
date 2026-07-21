@@ -27,15 +27,15 @@ class SliderController extends Controller
     // Store Slider
     public function store(Request $request)
     {
-        $request->validate([
+         $request->validate([
             'title'        => 'required|max:255',
-            'sub_title'    => 'nullable|max:255',
+            'price'        => 'nullable|max:255',
             'description'  => 'nullable',
             'button_text'  => 'nullable|max:255',
             'button_link'  => 'nullable|max:255',
             'image'        => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'serial'       => 'required|integer',
-            'status'       => 'required',
+            'status'       => 'required|boolean',
         ]);
 
 
@@ -59,11 +59,11 @@ class SliderController extends Controller
         Slider::create([
 
             'title'        => $request->title,
-            'sub_title'    => $request->sub_title,
+            'price'        => $request->price,
             'description'  => $request->description,
             'button_text'  => $request->button_text,
             'button_link'  => $request->button_link,
-            'image'        => 'uploads/sliders/'.$imageName,
+            'image'        => 'uploads/sliders/' . $imageName,
             'serial'       => $request->serial,
             'status'       => $request->status,
 
@@ -148,7 +148,18 @@ class SliderController extends Controller
     }
 
 
+ public function changeStatus($id)
+    {
+        $slider = Slider::findOrFail($id);
 
+        $slider->status = $slider->status == 1 ? 0 : 1;
+
+        $slider->save();
+
+        return redirect()
+            ->route('sliders.index')
+            ->with('success', 'Slider status updated successfully.');
+    }
 
     // Delete Slider
     public function destroy(Slider $slider)

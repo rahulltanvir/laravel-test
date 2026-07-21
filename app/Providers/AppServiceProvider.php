@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Support\ServiceProvider;
 use View;
 
@@ -21,13 +22,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-       View::composer(['website.includes.header'], function($view){
+        View::composer(['website.includes.header'], function ($view) {
 
-            $categories = Category::where('status', 1)
-                ->get();
+            $categories = Category::where('status', 1)->get();
 
-            $view->with('categories', $categories);
+            $subcategories = SubCategory::where('status', 1)->get();
 
+            $view->with([
+                'categories' => $categories,
+                'subcategories' => $subcategories,
+            ]);
         });
     }
 }
