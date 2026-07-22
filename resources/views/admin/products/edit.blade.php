@@ -174,14 +174,14 @@
                             <label class="col-sm-3">Short Description</label>
 
                             <div class="col-sm-9">
-                                <textarea name="short_description" class="form-control">{!! $product->short_description !!}</textarea>
+                                <textarea name="short_description" id="short_description" class="form-control summernote">{!! $product->short_description !!}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-3">Long Description</label>
 
-                            <div class="col-sm-9">
+                            <div class="col-sm-9"id="long-description">
                                 <textarea name="long_description" class="form-control summernote">{{ $product->long_description }}</textarea>
                             </div>
                         </div>
@@ -239,3 +239,6 @@
         </div>
     </div>
 @endsection
+
+
+

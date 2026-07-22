@@ -91,7 +91,7 @@ class SliderController extends Controller
 
         $request->validate([
             'title'        => 'required|max:255',
-            'sub_title'    => 'nullable|max:255',
+            'price'    => 'nullable|max:255',
             'description'  => 'nullable',
             'button_text'  => 'nullable|max:255',
             'button_link'  => 'nullable|max:255',
@@ -105,7 +105,7 @@ class SliderController extends Controller
         $data = [
 
             'title'        => $request->title,
-            'sub_title'    => $request->sub_title,
+            'price'    => $request->sub_title,
             'description'  => $request->description,
             'button_text'  => $request->button_text,
             'button_link'  => $request->button_link,
