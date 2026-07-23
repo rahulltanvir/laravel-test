@@ -139,7 +139,7 @@
                         </div>
 
                         {{-- Long Description --}}
-                        <div class="form-group row" id="Long-Description">
+                        <div class="form-group row" id="long-description">
                             <label class="col-sm-3 control-label">Long Description</label>
                             <div class="col-sm-9">
                                 <textarea name="long_description" class="form-control summernote"></textarea>
