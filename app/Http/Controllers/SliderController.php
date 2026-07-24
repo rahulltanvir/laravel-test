@@ -95,7 +95,7 @@ class SliderController extends Controller
             'description'  => 'nullable',
             'button_text'  => 'nullable|max:255',
             'button_link'  => 'nullable|max:255',
-            'image'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'required|file|max:10240',
             'serial'       => 'required|integer',
             'status'       => 'required',
         ]);
@@ -105,7 +105,7 @@ class SliderController extends Controller
         $data = [
 
             'title'        => $request->title,
-            'price'    => $request->sub_title,
+            'price'    => $request->price,
             'description'  => $request->description,
             'button_text'  => $request->button_text,
             'button_link'  => $request->button_link,
