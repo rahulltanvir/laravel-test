@@ -14,7 +14,7 @@
                         <div class="hero-slider">
 
                             @foreach ($sliders as $slider)
-                                <div class="single-slider" style="background-image: url('{{ asset($slider->image) }}');">
+                                <div class="single-slider" style="background-image: url('{{ asset('uploads/sliders/' . $slider->image) }}');">
                                     <div class="content">
 
                                         @if ($slider->title)

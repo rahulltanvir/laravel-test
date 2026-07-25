@@ -39,8 +39,12 @@
                 <td>{{ $loop->iteration }}</td>
 
                 <td>
-                    <img src="{{ asset($slider->image) }}" width="120">
-                </td>
+    <img src="{{ asset('uploads/sliders/' . $slider->image) }}"
+         width="120"
+         height="60"
+         style="object-fit: cover;"
+         class="img-thumbnail">
+</td>
 
                 <td>{{ $slider->title }}</td>
 

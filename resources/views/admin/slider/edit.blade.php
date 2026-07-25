@@ -6,6 +6,24 @@
 
     <h4 class="mb-4">Edit Slider</h4>
 
+    {{-- Success Message --}}
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    {{-- Validation Errors --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="card">
 
         <div class="card-body">
@@ -20,7 +38,7 @@
 
                 {{-- Title --}}
                 <div class="mb-3">
-                    <label>Title</label>
+                    <label class="form-label">Title</label>
 
                     <input type="text"
                            name="title"
@@ -32,7 +50,7 @@
 
                 {{-- Price --}}
                 <div class="mb-3">
-                    <label>Price</label>
+                    <label class="form-label">Price</label>
 
                     <input type="text"
                            name="price"
@@ -43,7 +61,7 @@
 
                 {{-- Description --}}
                 <div class="mb-3">
-                    <label>Description</label>
+                    <label class="form-label">Description</label>
 
                     <textarea name="description"
                               class="form-control"
@@ -53,7 +71,7 @@
 
                 {{-- Button Text --}}
                 <div class="mb-3">
-                    <label>Button Text</label>
+                    <label class="form-label">Button Text</label>
 
                     <input type="text"
                            name="button_text"
@@ -64,7 +82,7 @@
 
                 {{-- Button Link --}}
                 <div class="mb-3">
-                    <label>Button Link</label>
+                    <label class="form-label">Button Link</label>
 
                     <input type="text"
                            name="button_link"
@@ -75,42 +93,59 @@
 
                 {{-- Current Image --}}
                 <div class="mb-3">
-                    <label>Current Slider Image</label>
 
-                    <br>
+                    <label class="form-label">Current Slider Image</label>
 
-                    <img src="{{ asset($slider->image) }}"
-                         width="250"
-                         class="img-thumbnail">
+                    <div class="mt-2">
+                        @if($slider->image)
+                            <img src="{{ asset('uploads/sliders/' . $slider->image) }}"
+                                 width="250"
+                                 height="120"
+                                 style="object-fit: cover;"
+                                 class="img-thumbnail">
+                        @else
+                            <p class="text-muted">No image available</p>
+                        @endif
+                    </div>
+
                 </div>
 
 
                 {{-- New Image --}}
                 <div class="mb-3">
-                    <label>Change Slider Image</label>
+
+                    <label class="form-label">Change Slider Image</label>
 
                     <input type="file"
                            name="image"
-                           class="form-control">
+                           class="form-control"
+                           accept="image/jpeg,image/png,image/jpg,image/webp">
+
+                    <small class="text-muted">
+                        Leave empty if you don't want to change the current image.
+                    </small>
+
                 </div>
 
 
                 {{-- Serial --}}
                 <div class="mb-3">
-                    <label>Serial</label>
+
+                    <label class="form-label">Serial</label>
 
                     <input type="number"
                            name="serial"
                            value="{{ old('serial', $slider->serial) }}"
                            class="form-control"
                            required>
+
                 </div>
 
 
                 {{-- Status --}}
                 <div class="mb-3">
 
-                    <label>Status</label>
+                    <label class="form-label">Status</label>
 
                     <select name="status" class="form-control">
 
@@ -133,6 +168,11 @@
                 <button type="submit" class="btn btn-primary">
                     Update Slider
                 </button>
+
+                <a href="{{ route('sliders.index') }}"
+                   class="btn btn-secondary">
+                    Back
+                </a>
 
             </form>
 

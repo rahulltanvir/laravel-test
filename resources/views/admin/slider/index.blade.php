@@ -2,117 +2,100 @@
 
 @section('body')
 
-<div class="container-fluid">
+    <div class="container-fluid">
 
-    <h4 class="mb-4">Add Slider</h4>
+        <h4 class="mb-4">Add Slider</h4>
 
-    <div class="card">
+        <div class="card">
 
-        <div class="card-body">
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-            <form action="{{ route('sliders.store') }}" method="POST" enctype="multipart/form-data">
+            <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form action="{{ route('sliders.store') }}" method="POST" enctype="multipart/form-data">
 
-                @csrf
-
-
-                <div class="mb-3">
-                    <label>Title</label>
-                    <input type="text" 
-                           name="title" 
-                           class="form-control"
-                           required>
-                </div>
+                    @csrf
 
 
-                <div class="mb-3">
-                    <label>Price</label>
-                    <input type="text" 
-                           name="price" 
-                           class="form-control">
-                </div>
+                    <div class="mb-3">
+                        <label>Title</label>
+                        <input type="text" name="title" class="form-control" required>
+                    </div>
 
 
-                <div class="mb-3">
-                    <label>Description</label>
-
-                    <textarea name="description" 
-                              class="form-control"
-                              rows="4"></textarea>
-                </div>
+                    <div class="mb-3">
+                        <label>Price</label>
+                        <input type="text" name="price" class="form-control">
+                    </div>
 
 
-                <div class="mb-3">
-                    <label>Button Text</label>
+                    <div class="mb-3">
+                        <label>Description</label>
 
-                    <input type="text"
-                           name="button_text"
-                           class="form-control">
-                </div>
+                        <textarea name="description" class="form-control" rows="4"></textarea>
+                    </div>
 
 
-                <div class="mb-3">
-                    <label>Button Link</label>
+                    <div class="mb-3">
+                        <label>Button Text</label>
 
-                    <input type="text"
-                           name="button_link"
-                           class="form-control">
-                </div>
+                        <input type="text" name="button_text" class="form-control">
+                    </div>
 
 
-                <div class="mb-3">
-                    <label>Slider Image</label>
+                    <div class="mb-3">
+                        <label>Button Link</label>
 
-                    <input type="file"
-                           name="image"
-                           class="form-control"
-                           required>
-                </div>
+                        <input type="text" name="button_link" class="form-control">
+                    </div>
 
 
-                <div class="mb-3">
-                    <label>Serial</label>
+                    <div class="mb-3">
+                        <label>Slider Image</label>
 
-                    <input type="number"
-                           name="serial"
-                           value="1"
-                           class="form-control">
-                </div>
+                        <input type="file" name="image" class="form-control" required>
+                    </div>
 
 
-                <div class="mb-3">
+                    <div class="mb-3">
+                        <label>Serial</label>
 
-                    <label>Status</label>
-
-                    <select name="status" class="form-control">
-
-                        <option value="1">Active</option>
-
-                        <option value="0">Inactive</option>
-
-                    </select>
-
-                </div>
+                        <input type="number" name="serial" value="1" class="form-control">
+                    </div>
 
 
-                <button type="submit" class="btn btn-primary">
-                    Save Slider
-                </button>
+                    <div class="mb-3">
+
+                        <label>Status</label>
+
+                        <select name="status" class="form-control">
+
+                            <option value="1">Active</option>
+
+                            <option value="0">Inactive</option>
+
+                        </select>
+
+                    </div>
 
 
-            </form>
+                    <button type="submit" class="btn btn-primary">
+                        Save Slider
+                    </button>
+
+
+                </form>
+
+            </div>
 
         </div>
 
     </div>
-
-</div>
 
 @endsection
