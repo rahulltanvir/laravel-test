@@ -76,4 +76,12 @@ class MyCommerceController extends Controller
 
         dd($cartItems);
     }
+public function shop()
+{
+    $products = Product::where('status', 1)
+        ->latest()
+        ->get();
+
+    return view('website.shop.index', compact('products'));
+}
 }
