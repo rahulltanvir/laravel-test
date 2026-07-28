@@ -1,88 +1,77 @@
 @extends('admin.master')
 
 @section('body')
+    <div class="container-fluid">
 
-<div class="container-fluid">
+        <div class="d-flex justify-content-between mb-3">
+            <h4>Manage Slider</h4>
 
-    <div class="d-flex justify-content-between mb-3">
-        <h4>Manage Slider</h4>
-
-        <a href="{{ route('sliders.create') }}" class="btn btn-primary">
-            Add Slider
-        </a>
-    </div>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+            <a href="{{ route('sliders.create') }}" class="btn btn-primary">
+                Add Slider
+            </a>
         </div>
-    @endif
 
-    <table class="table table-bordered">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-        <thead>
-            <tr>
-                <th>No:</th>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Serial</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+        <table class="table table-bordered">
 
-        <tbody>
+            <thead>
+                <tr>
+                    <th>No:</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Serial</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
 
-        @foreach($sliders as $slider)
+            <tbody>
 
-            <tr>
-                <td>{{ $loop->iteration }}</td>
+                @foreach ($sliders as $slider)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
 
-                <td>
-    <img src="{{ asset('uploads/sliders/' . $slider->image) }}"
-         width="120"
-         height="60"
-         style="object-fit: cover;"
-         class="img-thumbnail">
-</td>
+                        <td>
+                            <img src="{{ asset('uploads/sliders/' . $slider->image) }}" width="120" height="60"
+                                style="object-fit: cover;" class="img-thumbnail">
+                        </td>
 
-                <td>{{ $slider->title }}</td>
+                        <td>{{ $slider->title }}</td>
 
-                <td>{{ $slider->serial }}</td>
+                        <td>{{ $slider->serial }}</td>
 
-                <td>
-                    {{ $slider->status ? 'Active' : 'Inactive' }}
-                </td>
+                        <td>
+                            {{ $slider->status ? 'Active' : 'Inactive' }}
+                        </td>
 
-                <td>
-                    <a href="{{ route('sliders.edit',$slider->id) }}"
-                       class="btn btn-sm btn-warning">
-                        Edit
-                    </a>
+                        <td>
+                            <a href="{{ route('sliders.edit', $slider->id) }}" class="btn btn-sm btn-warning">
+                                Edit
+                            </a>
 
-                    <form action="{{ route('sliders.destroy',$slider->id) }}"
-                          method="POST"
-                          style="display:inline">
+                            <form action="{{ route('sliders.destroy', $slider->id) }}" method="POST" style="display:inline">
 
-                        @csrf
-                        @method('DELETE')
+                                @csrf
+                                @method('DELETE')
 
-                        <button class="btn btn-sm btn-danger"
-                                onclick="return confirm('Delete?')">
-                            Delete
-                        </button>
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">
+                                    Delete
+                                </button>
 
-                    </form>
-                </td>
+                            </form>
+                        </td>
 
-            </tr>
+                    </tr>
+                @endforeach
 
-        @endforeach
+            </tbody>
 
-        </tbody>
+        </table>
 
-    </table>
-
-</div>
-
+    </div>
 @endsection

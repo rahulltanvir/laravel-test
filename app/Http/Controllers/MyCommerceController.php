@@ -79,8 +79,8 @@ class MyCommerceController extends Controller
 public function shop()
 {
     $products = Product::where('status', 1)
-        ->latest()
-        ->get();
+            ->latest()
+            ->get();
 
     return view('website.shop.index', compact('products'));
 }
