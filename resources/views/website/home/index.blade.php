@@ -244,7 +244,9 @@
                     </div>
                 @endforeach
 
-
+                <div class="button" style="text-align: center;">
+                    <a class="btn btn-info" href="{{ route('shop') }}">View More</a>
+                </div>
             </div>
         </div>
     </section>
