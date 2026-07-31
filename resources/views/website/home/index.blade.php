@@ -11,14 +11,14 @@
                 <div class="col-lg-8 col-12 custom-padding-right">
                     <div class="slider-head">
 
-                        <div class="hero-slider">
+                        <div class="hero-slider" >
 
                             @foreach ($sliders as $slider)
                                 <div class="single-slider" style="background-image: url('{{ asset('uploads/sliders/' . $slider->image) }}');">
                                     <div class="content">
 
                                         @if ($slider->title)
-                                            <h2>{{ $slider->title }} </h2>
+                                            <h2 style="color:white">{{ $slider->title }} </h2>
                                         @endif
                                         @if ($slider->description)
                                             <p>

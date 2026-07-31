@@ -8,7 +8,7 @@
 
 <div class="container py-5">
 
-    <h3>All Products</h3>
+    <h4>All Products</h4>
 
     <div class="row">
                 @foreach ($products as $product)
