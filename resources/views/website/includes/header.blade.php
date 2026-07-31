@@ -17,7 +17,7 @@
 
 
   <header class="header navbar-area">
-      {{-- <div class="container">
+      <div class="container">
           <div class="row">
               <div class="col-12">
                   <select>
@@ -26,7 +26,7 @@
                   </select>
               </div>
           </div>
-      </div> --}}
+      </div>
       <div class="topbar">
           <div class="container">
               <div class="row align-items-center">

@@ -1,7 +1,7 @@
 @extends('website.master')
 
 @section('title')
-    online super shop
+    online Super Shop
 @endsection
 
 @section('body')
