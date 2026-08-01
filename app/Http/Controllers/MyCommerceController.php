@@ -76,11 +76,20 @@ class MyCommerceController extends Controller
 
         dd($cartItems);
     }
-public function shop()
+public function shop(Request $request)
 {
-    $products = Product::where('status', 1)
-            ->latest()
-            ->get();
+    $query = Product::where('status', 1);
+
+
+    if($request->search){
+
+        $query->where('name', 'LIKE', '%'.$request->search.'%');
+
+    }
+
+
+    $products = $query->latest()->get();
+
 
     return view('website.shop.index', compact('products'));
 }

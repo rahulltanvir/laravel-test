@@ -123,332 +123,296 @@
       </div>
 
 
-      <div class="header-middle">
-          <div class="container">
-              <div class="row align-items-center">
-                  <div class="col-lg-3 col-md-3 col-7">
+      <<!-- Header Middle -->
+          <div class="header-middle">
+              <div class="container">
+                  <div class="row align-items-center">
 
-                      <a class="navbar-brand" href="{{ route('home') }}">
-                          <img src="{{ asset('website/assets/images/logo/logo.svg') }}" alt="Logo">
-                      </a>
+                      <!-- Logo -->
+                      <div class="col-lg-2 col-md-3 col-6">
+                          <a class="navbar-brand" href="{{ route('home') }}">
+                              <img src="{{ asset('website/assets/images/logo/logo.svg') }}" alt="Logo">
+                          </a>
+                      </div>
 
-                  </div>
-                  <div class="col-lg-5 col-md-7 d-xs-none">
 
-                      <div class="main-menu-search">
+                      <!-- Search -->
+                      <div class="col-lg-6 col-md-5 d-none d-md-block">
 
-                          <div class="navbar-search search-style-5">
-                              <div class="search-select">
-                                  <div class="select-position">
-                                      <select id="select1">
-                                          <option selected>All</option>
-                                          <option value="1">option 01</option>
-                                          <option value="2">option 02</option>
-                                          <option value="3">option 03</option>
-                                          <option value="4">option 04</option>
-                                          <option value="5">option 05</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="search-input">
-                                  <input type="text" placeholder="Search">
-                              </div>
-                              <div class="search-btn">
-                                  <button><i class="lni lni-search-alt"></i></button>
-                              </div>
-                          </div>
+                   <form action="{{ route('shop') }}" method="GET">
+
+    <div class="search-box">
+
+        <input type="text"
+               name="search"
+               placeholder="Search Product">
+
+        <button type="submit">
+            <i class="lni lni-search-alt"></i>
+        </button>
+
+    </div>
+
+</form>
 
                       </div>
 
-                  </div>
-                  <div class="col-lg-4 col-md-2 col-5">
-                      <div class="middle-right-area">
-                          <div class="nav-hotline">
-                              <i class="lni lni-phone"></i>
-                              <h3>Hotline:
-                                  <span>(+100) 123 456 7890</span>
-                              </h3>
-                          </div>
-                          @php
-                              $cartItems = session('cart', []);
-                              $cartCount = count($cartItems);
-
-                              $total = 0;
-                              foreach ($cartItems as $item) {
-                                  $total += $item['price'] * $item['quantity'];
-                              }
-                          @endphp
-
-                          <div class="navbar-cart">
-
-                              <div class="wishlist">
-                                  <a href="javascript:void(0)">
-                                      <i class="lni lni-heart"></i>
-                                      <span class="total-items">0</span>
-                                  </a>
-                              </div>
-
-                              <div class="cart-items">
-                                  <a href="javascript:void(0)" class="main-btn">
-                                      <i class="lni lni-cart"></i>
-                                      <span class="total-items">{{ $cartCount }}</span>
-                                  </a>
-
-                                  <!-- DROPDOWN -->
-                                  @php
-                                      $cartItems = session('cart', []);
-
-                                      $cartCount = 0;
-                                      $total = 0;
-
-                                      foreach ($cartItems as $item) {
-                                          $cartCount += $item['quantity'];
-                                          $total += $item['price'] * $item['quantity'];
-                                      }
-                                  @endphp
 
 
-                                  <div class="shopping-item">
+                      <!-- Right Area -->
+                      <div class="col-lg-4 col-md-4 col-6">
 
-                                      <div class="dropdown-cart-header">
-                                          <span>{{ $cartCount }} Items</span>
-                                          <a href="{{ route('cart') }}">View Cart</a>
-                                      </div>
+                          <div class="header-action">
 
 
-                                      <ul class="shopping-list">
+                              <!-- Hotline -->
+                              <div class="hotline">
 
-                                          @forelse ($cartItems as $item)
-                                              <li>
+                                  <i class="lni lni-phone"></i>
 
-                                                  <a href="#" class="remove">
-                                                      <i class="lni lni-close"></i>
-                                                  </a>
-
-
-                                                  <div class="cart-img-head">
-
-                                                      <a class="cart-img"
-                                                          href="{{ route('product-detail', $item['id']) }}">
-
-                                                          <img src="{{ asset($item['image']) }}"
-                                                              alt="{{ $item['name'] }}">
-
-                                                      </a>
-
-                                                  </div>
-
-
-                                                  <div class="content">
-
-                                                      <a href="{{ route('product-detail', $item['id']) }}">
-                                                          <h5>
-                                                              {{ Str::limit($item['name'], 25) }}
-                                                          </h5>
-                                                      </a>
-
-
-                                                      <p class="quantity">
-
-                                                          {{ $item['quantity'] }} x
-
-                                                          <span class="amount">
-                                                              {{ number_format($item['price']) }}৳
-                                                          </span>
-
-                                                      </p>
-
-
-                                                  </div>
-
-
-                                              </li>
-
-
-                                          @empty
-
-                                              <li class="text-center">
-                                                  <p>Your cart is empty</p>
-                                              </li>
-                                          @endforelse
-
-
-                                      </ul>
-
-
-
-                                      @if (count($cartItems) > 0)
-                                          <div class="bottom">
-
-                                              <div class="total">
-
-                                                  <span>Total</span>
-
-                                                  <span class="total-amount">
-                                                      {{ number_format($total) }}৳
-                                                  </span>
-
-                                              </div>
-
-
-                                              <div class="button">
-
-                                                  <a href="{{ route('check-out') }}" class="btn animate">
-                                                      Checkout
-                                                  </a>
-
-                                              </div>
-
-
-                                          </div>
-                                      @endif
-
-
+                                  <div>
+                                      <small>Hotline</small>
+                                      <h6>09678-555555</h6>
                                   </div>
 
                               </div>
+
+
+
+                              <!-- Account -->
+
+                              @if (Auth::guard('customer')->check())
+                                  <div class="account">
+
+                                      <a href="{{ route('customer.dashboard') }}">
+                                          <i class="lni lni-user"></i>
+
+                                          <span>
+                                              {{ Auth::guard('customer')->user()->name }}
+                                          </span>
+
+                                      </a>
+
+                                  </div>
+                              @else
+                                  <div class="account">
+
+                                      <a href="{{ route('customer.login') }}">
+                                          <i class="lni lni-user"></i>
+
+                                          <span>
+                                              Login
+                                          </span>
+
+                                      </a>
+
+                                  </div>
+                              @endif
+
+
+
+
+                              <!-- Cart -->
+
+                              @php
+
+                                  $cart = session('cart', []);
+
+                                  $cartCount = 0;
+
+                                  foreach ($cart as $item) {
+                                      $cartCount += $item['quantity'];
+                                  }
+
+                              @endphp
+
+
+                              <a href="{{ route('cart') }}" class="cart-icon">
+
+                                  <i class="lni lni-cart"></i>
+
+                                  <span>
+                                      {{ $cartCount }}
+                                  </span>
+
+                              </a>
+
+
                           </div>
 
+
                       </div>
+
+
                   </div>
               </div>
           </div>
-      </div>
-      </div>
-      </div>
+          </div>
+          </div>
 
 
-      <div class="container">
-          <div class="row align-items-center">
-              <div class="col-lg-8 col-md-6 col-12">
-                  <div class="nav-inner">
+          <div class="container">
+              <div class="row align-items-center">
+                  <div class="col-lg-8 col-md-6 col-12">
+                      <div class="nav-inner">
 
-                      <div class="mega-category-menu">
-                          <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
-                          <ul class="sub-category">
-                              @foreach ($categories as $category)
-                                  <li>
-                                      <a href="{{ route('product-category', $category->id) }}">
-                                          {{ $category->name }}
-                                      </a>
+                          <div class="mega-category-menu">
 
-                                      <ul class="inner-sub-category">
 
-                                          @foreach ($category->subcategories as $subcategory)
-                                              <a href="{{ route('product-subcategory', $subcategory->id) }}">
-                                                  {{ $subcategory->name }}
+                              <span class="cat-button">
+
+                                  <i class="lni lni-menu"></i>
+
+                                  Categories
+
+                              </span>
+
+
+
+                              <ul class="sub-category">
+
+
+                                  @foreach ($categories as $category)
+                                      <li>
+
+
+                                          <a href="{{ route('product-category', $category->id) }}">
+
+                                              {{ $category->name }}
+
+                                          </a>
+
+
+
+                                          @if ($category->subcategories->count())
+                                              <ul class="inner-sub-category">
+
+
+                                                  @foreach ($category->subcategories as $subcategory)
+                                                      <li>
+
+                                                          <a
+                                                              href="{{ route('product-subcategory', $subcategory->id) }}">
+
+                                                              {{ $subcategory->name }}
+
+                                                          </a>
+
+                                                      </li>
+                                                  @endforeach
+
+
+                                              </ul>
+                                          @endif
+
+
+                                      </li>
+                                  @endforeach
+
+
+                              </ul>
+
+
+                          </div>
+
+
+                          <nav class="navbar navbar-expand-lg">
+                              <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                  aria-expanded="false" aria-label="Toggle navigation">
+                                  <span class="toggler-icon"></span>
+                                  <span class="toggler-icon"></span>
+                                  <span class="toggler-icon"></span>
+                              </button>
+                              <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                  <ul id="nav" class="navbar-nav ms-auto">
+
+                                      {{-- Home --}}
+                                      <li class="nav-item">
+                                          <a href="{{ route('home') }}" aria-label="Toggle navigation">
+                                              Home
+                                          </a>
+                                      </li>
+
+
+                                      {{-- Shop --}}
+                                      <li class="nav-item">
+                                          <a href="{{ route('shop') }}">Shop</a>
+                                      </li>
+
+
+                                      {{-- Pages --}}
+                                      <li class="nav-item">
+                                          <a class="dd-menu collapsed" href="javascript:void(0)"
+                                              data-bs-toggle="collapse" data-bs-target="#submenu-pages"
+                                              aria-controls="navbarSupportedContent" aria-expanded="false"
+                                              aria-label="Toggle navigation">
+                                              Pages
+                                          </a>
+
+                                          <ul class="sub-menu collapse" id="submenu-pages">
+
+                                              <li class="nav-item">
+                                                  <a href="#">
+                                                      About Us
+                                                  </a>
+                                              </li>
+
+                                              <li class="nav-item">
+                                                  <a href="#">
+                                                      FAQ
+                                                  </a>
+                                              </li>
+
+                                          </ul>
+                                      </li>
+
+
+                                      {{-- Contact --}}
+                                      <li class="nav-item">
+                                          <a href="#" aria-label="Toggle navigation">
+                                              Contact Us
+                                          </a>
+                                      </li>
+
+
+                                      {{-- Customer Account --}}
+                                      @if (Auth::guard('customer')->check())
+                                          <li class="nav-item">
+                                              <a href="{{ route('customer.dashboard') }}">
+                                                  My Account
                                               </a>
-                                          @endforeach
+                                          </li>
+                                      @endif
 
-                                      </ul>
-                                  </li>
-                              @endforeach
+                                  </ul>
+                              </div>
+                          </nav>
+
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-12">
+
+                      <div class="nav-social">
+                          <h5 class="title">Follow Us:</h5>
+                          <ul>
+                              <li>
+                                  <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
+                              </li>
+                              <li>
+                                  <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
+                              </li>
+                              <li>
+                                  <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
+                              </li>
+                              <li>
+                                  <a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
+                              </li>
                           </ul>
                       </div>
 
-
-                      <nav class="navbar navbar-expand-lg">
-                          <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                              aria-expanded="false" aria-label="Toggle navigation">
-                              <span class="toggler-icon"></span>
-                              <span class="toggler-icon"></span>
-                              <span class="toggler-icon"></span>
-                          </button>
-                          <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-    <ul id="nav" class="navbar-nav ms-auto">
-
-        {{-- Home --}}
-        <li class="nav-item">
-            <a href="{{ route('home') }}" aria-label="Toggle navigation">
-                Home
-            </a>
-        </li>
-
-
-        {{-- Shop --}}
-        <li class="nav-item">
-    <a href="{{ route('shop') }}">Shop</a>
-</li>
-
-
-        {{-- Pages --}}
-        <li class="nav-item">
-            <a class="dd-menu collapsed"
-                href="javascript:void(0)"
-                data-bs-toggle="collapse"
-                data-bs-target="#submenu-pages"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-                Pages
-            </a>
-
-            <ul class="sub-menu collapse" id="submenu-pages">
-
-                <li class="nav-item">
-                    <a href="#">
-                        About Us
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#">
-                        FAQ
-                    </a>
-                </li>
-
-            </ul>
-        </li>
-
-
-        {{-- Contact --}}
-        <li class="nav-item">
-            <a href="#" aria-label="Toggle navigation">
-                Contact Us
-            </a>
-        </li>
-
-
-        {{-- Customer Account --}}
-        @if(Auth::guard('customer')->check())
-
-            <li class="nav-item">
-                <a href="{{ route('customer.dashboard') }}">
-                    My Account
-                </a>
-            </li>
-
-        @endif
-
-    </ul>
-</div>
-                      </nav>
-
                   </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-12">
-
-                  <div class="nav-social">
-                      <h5 class="title">Follow Us:</h5>
-                      <ul>
-                          <li>
-                              <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
-                          </li>
-                          <li>
-                              <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
-                          </li>
-                          <li>
-                              <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
-                          </li>
-                          <li>
-                              <a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
-                          </li>
-                      </ul>
-                  </div>
-
               </div>
           </div>
-      </div>
 
   </header>
